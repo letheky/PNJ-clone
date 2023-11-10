@@ -50,22 +50,44 @@
           </div>
         </v-col>
         <v-col cols="12" md="2">
-          <NuxtLink to="/" style="color: black">
+          <div v-if="!responsiveStore.isLaptop">
             <p class="text-h6 mb-2"><span>Về PNJ</span></p>
-          </NuxtLink>
-          <ul class="text-subtitle-1">
-            <li v-for="(page, index) in aboutPNJ" :key="index">
-              <NuxtLink :to="page.path" style="color: black">{{
-                page.title
-              }}</NuxtLink>
-            </li>
-          </ul>
+            <ul class="text-subtitle-1">
+              <li v-for="(page, index) in aboutPNJ" :key="index">
+                <NuxtLink :to="page.path" style="color: black">{{
+                  page.title
+                }}</NuxtLink>
+              </li>
+            </ul>
+          </div>
+          <div v-else>
+            <v-divider class="mb-6"></v-divider>
+            <div
+              class="d-flex align-center justify-space-between  collapse-able"
+              @click="showAboutPNJ = !showAboutPNJ"
+            >
+              <p class="text-h6 mb-2"><span>Về PNJ</span></p>
+              <Icon
+                :name="
+                  showAboutPNJ
+                    ? 'bi:chevron-compact-down'
+                    : 'bi:chevron-compact-up'
+                "
+                size="24"
+              />
+            </div>
+            <ul class="text-subtitle-1" v-if="showAboutPNJ">
+              <li v-for="(page, index) in aboutPNJ" :key="index">
+                <NuxtLink :to="page.path" style="color: black">{{
+                  page.title
+                }}</NuxtLink>
+              </li>
+            </ul>
+          </div>
         </v-col>
         <v-col cols="12" md="3">
-          <div class="mb-3">
-            <NuxtLink to="/" style="color: black">
-              <p class="text-h6 mb-2"><span>Dịch vụ khách hàng</span></p>
-            </NuxtLink>
+          <div class="mb-3" v-if="!responsiveStore.isLaptop">
+            <p class="text-h6 mb-2"><span>Dịch vụ khách hàng</span></p>
             <ul class="text-subtitle-1">
               <li v-for="(page, index) in customerService" :key="index">
                 <NuxtLink :to="page.path" style="color: black">{{
@@ -73,6 +95,30 @@
                 }}</NuxtLink>
               </li>
             </ul>
+          </div>
+          <div v-else>
+            <div
+              class="d-flex align-center justify-space-between collapse-able"
+              @click="showCustomerService = !showCustomerService"
+            >
+              <p class="text-h6 mb-2"><span>Dịch vụ khách hàng</span></p>
+              <Icon
+                :name="
+                  showCustomerService
+                    ? 'bi:chevron-compact-down'
+                    : 'bi:chevron-compact-up'
+                "
+                size="24"
+              />
+            </div>
+            <ul class="text-subtitle-1" v-if="showCustomerService">
+              <li v-for="(page, index) in customerService" :key="index">
+                <NuxtLink :to="page.path" style="color: black">{{
+                  page.title
+                }}</NuxtLink>
+              </li>
+            </ul>
+            <v-divider class="mt-5"></v-divider>
           </div>
         </v-col>
         <v-col cols="12" md="3">
@@ -95,23 +141,25 @@
             </div>
           </div>
           <div>
-            <p class="text-h6 mt-5"><span>PHƯƠNG THỨC THANH TOÁN</span></p>
+            <p class="text-h6 mt-5"><span>QUAN TÂM ZALO OA PNJ</span></p>
             <p class="text-subtitle-1 my-1">
               Nhận các thông tin khuyến mại hấp dẫn
             </p>
-            <v-img
-              max-width="81"
-              height="24"
-              cover
-              alt="PNJ - Quan tâm Zalo"
-              lazy-src="/images/logos/zalo.png"
-              src="/images/logos/zalo.png"
-            ></v-img>
+            <a href="https://zalo.me/trangsucpnjofficial" target="_blank">
+              <v-img
+                max-width="81"
+                height="24"
+                cover
+                alt="PNJ - Quan tâm Zalo"
+                lazy-src="/images/logos/zalo.png"
+                src="/images/logos/zalo.png"
+              ></v-img>
+            </a>
           </div>
         </v-col>
       </v-row>
       <v-row class="content">
-        <v-col offset-md="6" cols="12" md="3">
+        <v-col offset-md="6" cols="9" md="3">
           <p class="text-h6 my-2"><span>PHƯƠNG THỨC THANH TOÁN</span></p>
           <div class="d-flex align-center justify-start">
             <v-img
@@ -127,20 +175,23 @@
             ></v-img>
           </div>
         </v-col>
-        <v-col cols="12" md="3">
+        <v-col cols="3" md="3">
           <p class="text-h6 my-2"><span>CHỨNG NHẬN</span></p>
-          <v-img
-            max-width="115"
-            cover
-            alt="PNJ - Chứng nhận Bộ công thương"
-            lazy-src="/images/logos/license.png"
-            src="/images/logos/license.png"
-          ></v-img>
+          <a href="http://online.gov.vn/Home/WebDetails/989" target="_blank">
+            <v-img
+              max-width="115"
+              cover
+              alt="PNJ - Chứng nhận Bộ công thương"
+              lazy-src="/images/logos/license.png"
+              src="/images/logos/license.png"
+            ></v-img>
+          </a>
         </v-col>
       </v-row>
     </v-container>
   </div>
 </template>
+
 <script setup>
 import { ref } from "vue";
 import { useWindowResolution } from "~/stores/responsive";
@@ -262,7 +313,32 @@ const socialMedia = ref([
   },
 ]);
 
+const showAboutPNJ = ref(false);
+const showCustomerService = ref(false);
+const responsiveStore = useWindowResolution();
 
+let windowWidth = ref(process.client ? window.innerWidth : "");
+
+onMounted(() => {
+  window.addEventListener("resize", function () {
+    windowWidth.value = window.innerWidth;
+  });
+});
+
+watch(
+  () => windowWidth.value,
+  () => {
+    if (windowWidth.value > 960 ) {
+      responsiveStore.isLaptop = false;
+      responsiveStore.isMobile = false;
+    } else if (windowWidth.value > 600) {
+      responsiveStore.isLaptop = true;
+      responsiveStore.isMobile = false;
+    } else {
+      responsiveStore.isMobile = true;
+    }
+  }
+);
 </script>
 
 <style lang="scss" scoped>
@@ -282,6 +358,11 @@ const socialMedia = ref([
     .text-subtitle-2,
     .text-subtitle-1 {
       font-weight: 300;
+    }
+    .collapse-able {
+      &:hover {
+        cursor: pointer;
+      }
     }
     ul {
       line-height: 1.7em;

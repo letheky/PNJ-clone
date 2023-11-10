@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     // Redirects legacy urls
     "/old-page": { redirect: "/new-page" },
   },
+  modules: ["@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-icon"],
   build: {
     transpile: ["vuetify"],
   },
