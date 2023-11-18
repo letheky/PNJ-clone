@@ -3,6 +3,7 @@
     <v-container>
       <v-divider class="pb-10"></v-divider>
       <v-img
+        v-if="!responsiveStore.isLaptop && !responsiveStore.isMobile"
         max-width="200"
         height="80"
         class="mb-2"
@@ -50,7 +51,7 @@
           </div>
         </v-col>
         <v-col cols="12" md="2">
-          <div v-if="!responsiveStore.isLaptop">
+          <div v-if="!responsiveStore.isLaptop && !responsiveStore.isMobile">
             <p class="text-h6 mb-2"><span>Về PNJ</span></p>
             <ul class="text-subtitle-1">
               <li v-for="(page, index) in aboutPNJ" :key="index">
@@ -63,7 +64,7 @@
           <div v-else>
             <v-divider class="mb-6"></v-divider>
             <div
-              class="d-flex align-center justify-space-between  collapse-able"
+              class="d-flex align-center justify-space-between collapse-able"
               @click="showAboutPNJ = !showAboutPNJ"
             >
               <p class="text-h6 mb-2"><span>Về PNJ</span></p>
@@ -86,7 +87,10 @@
           </div>
         </v-col>
         <v-col cols="12" md="3">
-          <div class="mb-3" v-if="!responsiveStore.isLaptop">
+          <div
+            class="mb-3"
+            v-if="!responsiveStore.isLaptop && !responsiveStore.isMobile"
+          >
             <p class="text-h6 mb-2"><span>Dịch vụ khách hàng</span></p>
             <ul class="text-subtitle-1">
               <li v-for="(page, index) in customerService" :key="index">
@@ -159,7 +163,7 @@
         </v-col>
       </v-row>
       <v-row class="content">
-        <v-col offset-md="6" cols="9" md="3">
+        <v-col offset-md="6" cols="12" md="3">
           <p class="text-h6 my-2"><span>PHƯƠNG THỨC THANH TOÁN</span></p>
           <div class="d-flex align-center justify-start">
             <v-img
@@ -175,7 +179,7 @@
             ></v-img>
           </div>
         </v-col>
-        <v-col cols="3" md="3">
+        <v-col cols="12" md="3">
           <p class="text-h6 my-2"><span>CHỨNG NHẬN</span></p>
           <a href="http://online.gov.vn/Home/WebDetails/989" target="_blank">
             <v-img
@@ -323,12 +327,13 @@ onMounted(() => {
   window.addEventListener("resize", function () {
     windowWidth.value = window.innerWidth;
   });
+  console.log(windowWidth.value);
 });
 
 watch(
   () => windowWidth.value,
   () => {
-    if (windowWidth.value > 960 ) {
+    if (windowWidth.value > 960) {
       responsiveStore.isLaptop = false;
       responsiveStore.isMobile = false;
     } else if (windowWidth.value > 600) {
