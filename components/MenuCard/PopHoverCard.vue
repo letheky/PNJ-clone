@@ -5,7 +5,6 @@
         <v-row>
           <v-col
             v-for="(item, index) in menuData"
-            :cols="item.size"
             :key="item + index"
           >
             <h6 class="text-h6">{{ item.title }}</h6>

@@ -11,6 +11,7 @@ export default defineAppConfig({
       user: "ooui:user-avatar-outline",
       handbag: "ph:handbag",
       search: "material-symbols:search-rounded",
+      phone:"ic:baseline-phone-in-talk",
     },
   },
 });

@@ -3,11 +3,7 @@
     <v-card width="70vw">
       <v-card-title class="d-flex justify-center py-5 mx-5">
         <v-row>
-          <v-col
-            v-for="(item, index) in menuData"
-            :cols="item.size"
-            :key="item + index"
-          >
+          <v-col v-for="(item, index) in menuData" :key="item + index">
             <h6 class="text-h6">{{ item.title }}</h6>
             <ul>
               <li
@@ -20,9 +16,11 @@
           </v-col>
         </v-row>
         <v-img
+          v-if="checkWindowResolution"
           width="400"
           max-width="400"
-          height="300"
+          min-width="200"
+          aspect-ratio="4/3"
           class="my-auto"
           cover
           alt="PNJ - Banner bộ sưu tập Trầu Cau"
@@ -35,7 +33,11 @@
 </template>
 
 <script setup>
+import { useWindowResolution } from "~/stores/responsive";
 const { menuData } = defineProps(["menuData"]);
+const responsiveStore = useWindowResolution();
+
+const checkWindowResolution = computed(() => !responsiveStore.isLaptop);
 </script>
 
 <style lang="scss" scoped>
