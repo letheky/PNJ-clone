@@ -1,6 +1,63 @@
 import { defineNuxtConfig } from "nuxt/config";
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      title: "PNJ - Công ty vàng bạc đá quý Phú Nhuận | Vàng, Bạc, Đá Quý",
+      link: [{ rel: "canonical", href: "https://haj-fe.vercel.app" }],
+
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content:
+            "Khám phá thế giới tinh tế của PNJ, Công ty vàng bạc đá quý Phú Nhuận, mang đến bộ sưu tập đồ trang sức vàng, bạc và đá quý tuyệt vời. Khám phá sự tinh tế và sang trọng tại đỉnh cao nghệ thuật.",
+        },
+        {
+          property: "og:title",
+          content:
+            "Khuyến Mãi, Ưu Đãi HOT Nhất Tại PNJ ☎️1800545457 (Miễn Phí)",
+        },
+        { property: "og:type", content: "article" },
+        { property: "og:url", content: "https://haj-fe.vercel.app/" },
+        {
+          property: "og:description",
+          content:
+            "Tổng Hợp Ưu Đãi, Khuyến Mãi Hot Nhất Tại PNJ ✔️Mua Online Nhanh Chóng, Tiện Lợi ✔️Miễn Phí Giao Hàng ❤️Gọi Ngay ☎️1800545457 (Miễn Phí)",
+        },
+        {
+          property: "og:image",
+          content: "https://www.pnj.com.vn/images/logo/logo_pnj.png",
+        },
+        {
+          property: "og:sitename",
+          content: "PNJ",
+        },
+        { name: "robots", content: "index, follow" },
+        // Add other meta tags as needed
+      ],
+      script: [
+        {
+          type: "application/ld+json",
+          innerHTML: `
+            {
+              "@context": "http://schema.org",
+              "@type": "Organization",
+              "name": "PNJ",
+              "url": "https://haj-fe.vercel.app",
+            }
+          `,
+        },
+      ],
+    },
+  },
+  robots: {
+    UserAgent: "*",
+    Disallow: "/private/",
+    Allow: "/",
+    Sitemap: "https://haj-fe.vercel.app/sitemap.xml",
+    // Add more directives as needed
+  },
   css: ["vuetify/lib/styles/main.sass"],
   routeRules: {
     // Homepage pre-rendered at build time
@@ -38,7 +95,12 @@ export default defineNuxtConfig({
     // ~/components/base/Btn.vue => <BaseBtn />
     "~/components",
   ],
-  modules: ["@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-icon"],
+  modules: [
+    "@pinia/nuxt",
+    "@pinia-plugin-persistedstate/nuxt",
+    "nuxt-icon",
+    "@nuxtjs/robots",
+  ],
   build: {
     transpile: ["vuetify"],
   },

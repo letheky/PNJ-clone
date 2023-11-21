@@ -333,7 +333,7 @@ onMounted(() => {
 watch(
   () => windowWidth.value,
   () => {
-    if (windowWidth.value > 960) {
+    if (windowWidth.value >= 960) {
       responsiveStore.isLaptop = false;
       responsiveStore.isMobile = false;
     } else if (windowWidth.value > 600) {

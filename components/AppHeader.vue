@@ -1,5 +1,5 @@
 <template>
-  <div class="app-header">
+  <div v-if="!checkWindowResolution" class="app-header">
     <v-container>
       <v-row align="center">
         <div class="d-flex contactive">
@@ -24,7 +24,6 @@
         </div>
         <v-img
           max-width="100"
-          height="42"
           cover
           alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
           lazy-src="/images/logos/logo.png"
@@ -53,7 +52,8 @@
         >
           <v-menu
             transition="scale-transition"
-            location="bottom end"
+            width="10%"
+            location="bottom start"
             open-on-hover
           >
             <template v-slot:activator="{ props }">
@@ -97,15 +97,58 @@
       </v-row>
     </v-container>
   </div>
+  <div v-else class="app-header">
+    <v-container>
+      <v-row align="center" class="d-flex justify-space-between py-2 px-5">
+        <v-img
+          max-width="100"
+          height="42"
+          cover
+          alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+          lazy-src="/images/logos/logo.png"
+          src="/images/logos/logo.png"
+        ></v-img>
+        <v-text-field
+          placeholder="Nhập tên sản phẩm"
+          style="max-width: 400px"
+          class="ml-10 mb-n7"
+          variant="outlined"
+          :rounded="true"
+        >
+          <template #append>
+            <Icon class="ml-n16" name="search"></Icon>
+          </template>
+        </v-text-field>
+        <Icon
+          name="phone"
+          class="mx-2"
+        />
+        <span>
+          <v-badge content="2" color="error" location="bottom right">
+            <Icon name="handbag" />
+          </v-badge>
+        </span>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import { useWindowResolution } from "~/stores/responsive";
+
+/**
+ * *Dynamic import pophover components
+ */
 import {
   PopHoverCard,
   PopHoverCardWithBanner,
   PopHoverCardWithBrand,
 } from "#components";
+
+/**
+ * *Import categories for menu
+ */
 import {
   NUXT_APP_ACCESSORIES_TYPES,
   NUXT_APP_ACCESSORIES_MATERIALS,
@@ -125,41 +168,16 @@ import {
   NUXT_APP_GIFT_FOR,
 } from "~/data/headermenu";
 
+/**
+ * *Logic and variables for dynamic menu start from here
+ */
 const activeItem = ref("");
 const menuData = ref([]);
+const activeItemComponent = ref("");
 
 const setActiveItem = (item) => {
   activeItem.value = item;
 };
-
-const activeItemComponent = ref("");
-
-watch(activeItem, (newValue) => {
-  switch (newValue) {
-    case "Trang sức":
-      activeItemComponent.value = "PopHoverCard";
-      menuData.value = accessMenuData;
-      break;
-    case "Trang sức cưới":
-      activeItemComponent.value = "PopHoverCardWithBanner";
-      menuData.value = weddAccessMenuData;
-      break;
-    case "Đồng hồ":
-      activeItemComponent.value = "PopHoverCard";
-      menuData.value = watchMenuData;
-      break;
-    case "Quà tặng":
-      activeItemComponent.value = "PopHoverCardWithBanner";
-      menuData.value = giftMenuData;
-      break;
-    case "Thương hiệu":
-      activeItemComponent.value = "PopHoverCardWithBrand";
-      break;
-    default:
-      activeItemComponent.value = "PopHoverCard";
-      menuData.value = accessMenuData;
-  }
-});
 
 const menuTitle = [
   "Trang sức",
@@ -168,7 +186,6 @@ const menuTitle = [
   "Quà tặng",
   "Thương hiệu",
 ];
-
 const accessMenuData = [
   {
     title: "Chủng loại",
@@ -258,6 +275,43 @@ const giftMenuData = [
     listItem: NUXT_APP_GIFT_FOR.split(","),
   },
 ];
+
+watch(activeItem, (newValue) => {
+  switch (newValue) {
+    case "Trang sức":
+      activeItemComponent.value = "PopHoverCard";
+      menuData.value = accessMenuData;
+      break;
+    case "Trang sức cưới":
+      activeItemComponent.value = "PopHoverCardWithBanner";
+      menuData.value = weddAccessMenuData;
+      break;
+    case "Đồng hồ":
+      activeItemComponent.value = "PopHoverCard";
+      menuData.value = watchMenuData;
+      break;
+    case "Quà tặng":
+      activeItemComponent.value = "PopHoverCardWithBanner";
+      menuData.value = giftMenuData;
+      break;
+    case "Thương hiệu":
+      activeItemComponent.value = "PopHoverCardWithBrand";
+      break;
+    default:
+      activeItemComponent.value = "PopHoverCard";
+      menuData.value = accessMenuData;
+  }
+});
+
+/**
+ * TODO: config responsive header commencing from now
+ */
+const responsiveStore = useWindowResolution();
+
+const checkWindowResolution = computed(
+  () => responsiveStore.isLaptop || responsiveStore.isMobile
+);
+
 </script>
 
 <style lang="scss" scoped>
