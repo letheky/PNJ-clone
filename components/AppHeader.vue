@@ -24,6 +24,7 @@
         </div>
         <v-img
           max-width="100"
+          height="42"
           cover
           alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
           lazy-src="/images/logos/logo.png"
@@ -52,7 +53,7 @@
         >
           <v-menu
             transition="scale-transition"
-            width="10%"
+            width="1000"
             location="bottom start"
             open-on-hover
           >

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card width="70vw">
+    <v-card width="80vw">
       <v-card-title class="d-flex justify-center align-center py-5 mx-5">
         <v-row>
           <v-col

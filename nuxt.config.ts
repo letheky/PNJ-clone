@@ -4,8 +4,10 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "PNJ - Công ty vàng bạc đá quý Phú Nhuận | Vàng, Bạc, Đá Quý",
-      link: [{ rel: "canonical", href: "https://haj-fe.vercel.app" }],
-
+      link: [
+        { rel: "canonical", href: "https://haj-fe.vercel.app" },
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      ],
       meta: [
         {
           hid: "description",
@@ -26,8 +28,9 @@ export default defineNuxtConfig({
             "Tổng Hợp Ưu Đãi, Khuyến Mãi Hot Nhất Tại PNJ ✔️Mua Online Nhanh Chóng, Tiện Lợi ✔️Miễn Phí Giao Hàng ❤️Gọi Ngay ☎️1800545457 (Miễn Phí)",
         },
         {
+          hid: "og:image",
           property: "og:image",
-          content: "https://www.pnj.com.vn/images/logo/logo_pnj.png",
+          content: "/logo.png",
         },
         {
           property: "og:sitename",
@@ -56,8 +59,8 @@ export default defineNuxtConfig({
     Disallow: "/private/",
     Allow: "/",
     Sitemap: "https://haj-fe.vercel.app/sitemap.xml",
-    // Add more directives as needed
   },
+
   css: ["vuetify/lib/styles/main.sass"],
   routeRules: {
     // Homepage pre-rendered at build time

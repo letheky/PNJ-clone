@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card width="70vw">
+    <v-card width="80vw">
       <v-card-title class="pt-5 mx-5">
         <h6 class="text-h6">Thương hiệu</h6>
       </v-card-title>
