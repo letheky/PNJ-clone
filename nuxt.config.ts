@@ -54,12 +54,14 @@ export default defineNuxtConfig({
       ],
     },
   },
-  robots: {
-    UserAgent: "*",
-    Disallow: "/private/",
-    Allow: "/",
-    Sitemap: "https://haj-fe.vercel.app/sitemap.xml",
-  },
+  //Config robots file
+  
+  // robots: {
+  //   UserAgent: "*",
+  //   Disallow: "/private/",
+  //   Allow: "/",
+  //   Sitemap: "https://haj-fe.vercel.app/sitemap.xml",
+  // },
 
   css: ["vuetify/lib/styles/main.sass"],
   routeRules: {

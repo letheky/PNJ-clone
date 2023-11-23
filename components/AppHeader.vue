@@ -160,12 +160,7 @@ import {
   NUXT_APP_WEDD_ACCESS_CATEGORIES,
   NUXT_APP_WEDD_ACCESS_MATERIALS,
   NUXT_APP_WEDD_ACCESS_COLLECTIONS,
-  NUXT_APP_WATCH_SWED_BRANDS,
-  NUXT_APP_WATCH_FASHION_BRANDS,
-  NUXT_APP_WATCH_FAVOR_BRANDS,
-  NUXT_APP_WATCH_ON_GENDERS,
-  NUXT_APP_WATCH_TYPES,
-  NUXT_APP_WATCH_MATERIALS,
+  NUXT_APP_GEMSTONE_TYPES,
   NUXT_APP_GIFT_FOR,
 } from "~/data/headermenu";
 
@@ -183,7 +178,7 @@ const setActiveItem = (item) => {
 const menuTitle = [
   "Trang sức",
   "Trang sức cưới",
-  "Đồng hồ",
+  "Đá quý",
   "Quà tặng",
   "Thương hiệu",
 ];
@@ -237,36 +232,11 @@ const weddAccessMenuData = [
   },
 ];
 
-const watchMenuData = [
-  {
-    title: "Thương hiệu Thụy sĩ",
-    size: 2,
-    listItem: NUXT_APP_WATCH_SWED_BRANDS.split(","),
-  },
-  {
-    title: "Thương hiệu thời trang",
-    size: 2,
-    listItem: NUXT_APP_WATCH_FASHION_BRANDS.split(","),
-  },
-  {
-    title: "Thương hiệu yêu thích",
-    size: 2,
-    listItem: NUXT_APP_WATCH_FAVOR_BRANDS.split(","),
-  },
-  {
-    title: "Giới tính",
-    size: 1,
-    listItem: NUXT_APP_WATCH_ON_GENDERS.split(","),
-  },
+const gemstoneMenuData = [
   {
     title: "Chủng loại",
     size: 2,
-    listItem: NUXT_APP_WATCH_TYPES.split(","),
-  },
-  {
-    title: "Chất liệu dây",
-    size: 3,
-    listItem: NUXT_APP_WATCH_MATERIALS.split(","),
+    listItem: NUXT_APP_GEMSTONE_TYPES.split(","),
   },
 ];
 const giftMenuData = [
@@ -287,9 +257,9 @@ watch(activeItem, (newValue) => {
       activeItemComponent.value = "PopHoverCardWithBanner";
       menuData.value = weddAccessMenuData;
       break;
-    case "Đồng hồ":
+    case "Đá quý":
       activeItemComponent.value = "PopHoverCard";
-      menuData.value = watchMenuData;
+      menuData.value = gemstoneMenuData;
       break;
     case "Quà tặng":
       activeItemComponent.value = "PopHoverCardWithBanner";

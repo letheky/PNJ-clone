@@ -4,6 +4,7 @@ export default defineAppConfig({
     size: "24px", // default <Icon> size applied
     class: "nuxt-icon", // default <Icon> class applied
     aliases: {
+      //menu header icon
       group: "ion:people-outline",
       locations: "solar:point-on-map-linear",
       contact:
@@ -12,6 +13,20 @@ export default defineAppConfig({
       handbag: "ph:handbag",
       search: "material-symbols:search-rounded",
       phone:"ic:baseline-phone-in-talk",
+
+      //overlay footer for mobile
+      home:"material-symbols:home",
+      coupon:"streamline:discount-percent-coupon",
+      profile:"material-symbols:account-box",
+      notification:"mdi:bell-outline",
+      phoneCall:"uil:calling",
+      menu:"material-symbols:lists-rounded",
+      chevronRight:"material-symbols:lists-rounded",
+      chevronDown:"tabler:chevron-down",
+      chevronUp:"tabler:chevron-up",
+      back:"ic:baseline-keyboard-backspace",
+      close:"material-symbols:close",
+      closeCircle:"material-symbols:cancel-outline",
     },
   },
 });

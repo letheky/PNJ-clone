@@ -13,12 +13,7 @@ export const NUXT_APP_WEDD_ACCESS_COLLECTIONS = 'Trầu cau PNJ, The heart of go
 
 //Đồng hồ
 
-export const NUXT_APP_WATCH_SWED_BRANDS = 'Jowissa , Silvana , Longines, Tissot, Jacques Du Manoir, Claude Bernard'
-export const NUXT_APP_WATCH_FASHION_BRANDS = 'Emily Carter , Olivia Burton, Just Cavalli, Kenneth Cole, Avi-8 , Michael Kors, Fossil, Daniel Wellington'
-export const NUXT_APP_WATCH_FAVOR_BRANDS = 'Citizen, Casio, Orient, Skagen, Lancaster , Hamilton, Calvin Klein'
-export const NUXT_APP_WATCH_ON_GENDERS = 'Nam, Nữ, Unisex'
-export const NUXT_APP_WATCH_TYPES = 'Đồng Hồ, Mắt Kính, Đồng Hồ Cặp, Phụ Kiện'
-export const NUXT_APP_WATCH_MATERIALS = 'Dây Da, Dây Thép Không Gỉ 316L, Dây Cao Su, Dây Satin, Các Loại Dây Khác'
+export const NUXT_APP_GEMSTONE_TYPES = 'Kim cương, Saphia, Ruby'
 
 //Quà tặng
 
