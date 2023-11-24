@@ -21,7 +21,7 @@ export default defineAppConfig({
       notification:"mdi:bell-outline",
       phoneCall:"uil:calling",
       menu:"material-symbols:lists-rounded",
-      chevronRight:"material-symbols:lists-rounded",
+      chevronRight:"tabler:chevron-right",
       chevronDown:"tabler:chevron-down",
       chevronUp:"tabler:chevron-up",
       back:"ic:baseline-keyboard-backspace",

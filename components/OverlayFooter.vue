@@ -73,84 +73,138 @@
           </v-menu>
         </v-col>
         <v-col>
-          <v-menu location="bottom center" open-on-click>
-            <template v-slot:activator="{ props }">
-              <div class="overlay-item" v-bind="props">
-                <v-list-item-title>
-                  <IconCSS :name="restArr[2].iconName" />
-                </v-list-item-title>
-                <v-list-item-subtitle v-text="restArr[2].iconTitle">
-                </v-list-item-subtitle>
-              </div>
-            </template>
-            <!-- <div v-for="(item, index) in accesTypes" :key="index">
+          <div class="overlay-item" @click.stop="menuDrawer = !menuDrawer">
+            <v-list-item-title>
+              <IconCSS :name="restArr[2].iconName" />
+            </v-list-item-title>
+            <v-list-item-subtitle v-text="restArr[2].iconTitle">
+            </v-list-item-subtitle>
+          </div>
+          <!-- <div v-for="(item, index) in accesTypes" :key="index">
                   <NuxtLink class="menu-link" to="/">{{ item }}</NuxtLink>
                 </div> -->
-            <v-card
-              class="d-flex justify-center align-center hotline-card"
-              style="gap: 10px; left: 50%"
-            >
-              <v-img
-                max-width="50"
-                width="50"
-                height="50"
-                cover
-                alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-                src="/images/logos/messenger.svg"
-              ></v-img>
-              <v-img
-                max-width="50"
-                width="50"
-                height="50"
-                cover
-                alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-                src="/images/logos/hotline.svg"
-              ></v-img>
-              <v-img
-                max-width="50"
-                width="50"
-                height="50"
-                cover
-                alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-                src="/images/logos/zalo.svg"
-              ></v-img>
-            </v-card>
-          </v-menu>
         </v-col>
       </v-row>
     </v-footer>
-    <v-dialog
-      v-model="menuDialog"
-      fullscreen
-      :scrim="false"
-      transition="dialog-bottom-transition"
+    <v-navigation-drawer
+      v-model="menuDrawer"
+      temporary
+      location="right"
+      order="2"
+      width="250"
     >
-      <v-card>
-        <v-toolbar dark>
-          <v-toolbar-title>Danh mục sản phẩm</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon dark @click="closeDialog('menu')">
-            <IconCSS name="closeCircle" />
-          </v-btn>
-        </v-toolbar>
-        <v-list lines="two" subheader>
-          <v-list-subheader>User Controls</v-list-subheader>
-          <v-list-item
-            title="Content filtering"
-            subtitle="Set the content filtering level to restrict apps that can be downloaded"
-          ></v-list-item>
-          <v-list-item
-            title="Password"
-            subtitle="Require password for purchase or use password to restrict purchase"
-          ></v-list-item>
-        </v-list>
-      </v-card>
-    </v-dialog>
+      <v-btn
+        icon
+        flat
+        elevation="0"
+        class="ml-auto d-flex align-center"
+        @click.stop="menuDrawer = !menuDrawer"
+        ><Icon name="closeCircle" size="20"
+      /></v-btn>
+      <v-divider></v-divider>
+      <v-container>
+        <v-row v-for="(item, index) in menuTitle" :key="index">
+          <div
+            class="menu-title py-1 px-2 d-flex align-center flex-grow-1"
+            @click.stop="openSubMenu(item)"
+          >
+            <h6>{{ item }}</h6>
+            <v-spacer></v-spacer>
+            <Icon name="chevronRight" />
+          </div>
+          <v-divider></v-divider>
+        </v-row>
+        <v-row v-for="(item, index) in menuSubTitle" :key="index">
+          <NuxtLink
+            class="py-2 px-2 d-flex align-center flex-grow-1"
+            :to="item.path"
+          >
+            <h6>{{ item.subTitleName }}</h6>
+          </NuxtLink>
+          <v-divider></v-divider>
+        </v-row>
+        <v-row>
+          <a class="text-subtitle-2 py-2 px-2" href="tel:1800545457"
+            >Hotline:
+            <span style="color: #003468; text-decoration: underline"
+              >1800545457</span
+            >
+            (Miễn phí)</a
+          >
+        </v-row>
+      </v-container>
+    </v-navigation-drawer>
+    <v-navigation-drawer
+      v-model="secondMenuDrawer"
+      temporary
+      location="right"
+      order="1"
+      width="250"
+    >
+      <div
+        class="menu-title d-flex align-center"
+        @click.stop="secondMenuDrawer = !secondMenuDrawer"
+      >
+        <v-btn icon flat elevation="0"><Icon name="back" size="20" /> </v-btn>
+        <h5 class="text-center">{{ subMenuTitle }}</h5>
+      </div>
+      <v-divider></v-divider>
+      <v-item-group>
+        <v-container>
+          <v-row
+            class="d-flex flex-column"
+            v-for="(item, index) in menuData"
+            :key="index"
+          >
+            <v-item v-slot="{ isSelected, toggle }">
+              <div
+                class="menu-title py-1 px-2 d-flex align-center flex-grow-1"
+                @click="toggle"
+              >
+                <h6>{{ item.title }}</h6>
+                <v-spacer></v-spacer>
+                <Icon :name="isSelected ? 'chevronUp' : 'chevronDown'" />
+              </div>
+              <div>
+                <TransitionToggleFade>
+                  <ul class="text-subtitle-2 px-5 pb-2" v-show="isSelected">
+                    <li
+                      v-for="(page, index) in item.listItem"
+                      :key="page + index"
+                    >
+                      <NuxtLink :to="page" style="color: black">{{
+                        page
+                      }}</NuxtLink>
+                    </li>
+                  </ul>
+                </TransitionToggleFade>
+              </div>
+            </v-item>
+            <v-divider></v-divider>
+          </v-row>
+        </v-container>
+      </v-item-group>
+    </v-navigation-drawer>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import { TransitionToggleFade } from "#components";
+import {
+  NUXT_APP_ACCESSORIES_TYPES,
+  NUXT_APP_ACCESSORIES_MATERIALS,
+  NUXT_APP_ACCESSORIES_LIST,
+  NUXT_APP_ACCESSORIES_COLLECTIONS,
+  NUXT_APP_WEDD_ACCESS_PURPOSES,
+  NUXT_APP_WEDD_ACCESS_TYPES,
+  NUXT_APP_WEDD_ACCESS_CATEGORIES,
+  NUXT_APP_WEDD_ACCESS_MATERIALS,
+  NUXT_APP_WEDD_ACCESS_COLLECTIONS,
+  NUXT_APP_GEMSTONE_TYPES,
+  NUXT_APP_GIFT_FOR,
+} from "~/data/headermenu";
+
 const route = useRoute();
 
 const iconList = [
@@ -187,6 +241,117 @@ const firstActiveRoute = () => {
   }
 };
 firstActiveRoute();
+
+/**
+ * * setup for menu onclick
+ */
+const menuDrawer = ref(false);
+const secondMenuDrawer = ref(false);
+const subMenuTitle = ref("");
+const menuData = ref([]);
+const openSubMenu = (item) => {
+  secondMenuDrawer.value = true;
+  subMenuTitle.value = item;
+};
+
+watch(subMenuTitle, (newValue) => {
+  switch (newValue) {
+    case "Trang sức":
+      menuData.value = accessMenuData;
+      break;
+    case "Trang sức cưới":
+      menuData.value = weddAccessMenuData;
+      break;
+    case "Đá quý":
+      menuData.value = gemstoneMenuData;
+      break;
+    case "Quà tặng":
+      menuData.value = giftMenuData;
+      break;
+    case "Thương hiệu":
+      break;
+  }
+});
+
+const menuTitle = [
+  "Trang sức",
+  "Trang sức cưới",
+  "Đá quý",
+  "Quà tặng",
+  "Thương hiệu",
+];
+const menuSubTitle = [
+  { subTitleName: "Blog", path: "/blog" },
+  { subTitleName: "Khuyến mãi", path: "/coupon" },
+  { subTitleName: "Dịch vụ", path: "/services" },
+  { subTitleName: "Hệ thống cửa hàng", path: "/stores" },
+  { subTitleName: "Về PNJ", path: "/about" },
+];
+
+const accessMenuData = [
+  {
+    title: "Chủng loại",
+    size: 3,
+    listItem: NUXT_APP_ACCESSORIES_TYPES.split(","),
+  },
+  {
+    title: "Chất liệu",
+    size: 2,
+    listItem: NUXT_APP_ACCESSORIES_MATERIALS.split(","),
+  },
+  {
+    title: "Dòng hàng",
+    size: 4,
+    listItem: NUXT_APP_ACCESSORIES_LIST.split(","),
+  },
+  {
+    title: "Bộ sưu tập",
+    size: 2,
+    listItem: NUXT_APP_ACCESSORIES_COLLECTIONS.split(","),
+  },
+];
+const weddAccessMenuData = [
+  {
+    title: "Theo mục đích",
+    size: 2,
+    listItem: NUXT_APP_WEDD_ACCESS_PURPOSES.split(","),
+  },
+  {
+    title: "Chủng loại",
+    size: 2,
+    listItem: NUXT_APP_WEDD_ACCESS_TYPES.split(","),
+  },
+  {
+    title: "Dòng trang sức",
+    size: 3,
+    listItem: NUXT_APP_WEDD_ACCESS_CATEGORIES.split(","),
+  },
+  {
+    title: "Chất liệu",
+    size: 2,
+    listItem: NUXT_APP_WEDD_ACCESS_MATERIALS.split(","),
+  },
+  {
+    title: "Bộ sưu tập",
+    size: 3,
+    listItem: NUXT_APP_WEDD_ACCESS_COLLECTIONS.split(","),
+  },
+];
+
+const gemstoneMenuData = [
+  {
+    title: "Chủng loại",
+    size: 2,
+    listItem: NUXT_APP_GEMSTONE_TYPES.split(","),
+  },
+];
+const giftMenuData = [
+  {
+    title: "Quà tặng",
+    size: 3,
+    listItem: NUXT_APP_GIFT_FOR.split(","),
+  },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -227,4 +392,11 @@ a {
   color: #003468;
   background-color: #003468;
 }
+
+.menu-title {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 </style>

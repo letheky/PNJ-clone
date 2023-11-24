@@ -100,30 +100,36 @@
   </div>
   <div class="app-header app-header-mobile-tablet">
     <v-container>
-      <v-row align="center" class="d-flex justify-space-between py-2 px-5">
+      <v-row align="center" class="d-flex justify-space-between pt-2 px-1">
         <v-img
-          max-width="100"
-          height="42"
+          max-width="65"
+          height="30"
           cover
           alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
           lazy-src="/images/logos/logo.png"
           src="/images/logos/logo.png"
         ></v-img>
         <v-text-field
-          placeholder="Nhập tên sản phẩm"
-          style="max-width: 400px"
-          class="ml-10 mb-n7"
+          label="Tìm kiếm nhanh"
+          style="max-width: 600px"
+          class="ml-2 mb-n5 mr-n2"
           variant="outlined"
-          :rounded="true"
+          rounded
+          density="compact"
         >
           <template #append>
-            <Icon class="ml-n16" name="search"></Icon>
+            <Icon class="ml-n13" name="search" size="20"></Icon>
           </template>
         </v-text-field>
-        <Icon name="phone" class="mx-2" />
+        <Icon name="phone" size="20" />
         <span>
-          <v-badge content="2" color="error" location="bottom right">
-            <Icon name="handbag" />
+          <v-badge
+            class="mx-1"
+            dot
+            color="error"
+            location="bottom right"
+          >
+            <Icon name="handbag" size="20" />
           </v-badge>
         </span>
       </v-row>
@@ -347,5 +353,30 @@ h6 {
   .app-header-mobile-tablet {
     display: none;
   }
+}
+</style>
+<style>
+.v-text-field .v-input__control .v-input__slot {
+  min-height: 0 !important;
+  padding: 0 8px !important;
+  margin-bottom: 2px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.v-text-field .v-input__control .v-input__slot .v-input__append-inner {
+  margin-top: 5px !important;
+}
+
+.v-text-field .v-input__control .v-input__slot label {
+  margin-top: -12px !important;
+}
+
+.v-text-field .v-input__control .v-input__slot label.v-label--active {
+  margin: 0 0 0 5px !important;
+}
+
+.v-text-field__details {
+  margin: 2px !important;
 }
 </style>
