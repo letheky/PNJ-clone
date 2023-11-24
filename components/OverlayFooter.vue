@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-footer :app="true" elevation="8" height="80" style="padding: 0">
+  <div class="overlay-footer-mobile-tablet">
+    <v-footer :app="true" elevation="8" height="60" style="padding: 0">
       <v-list
         class="d-flex flex-grow-1 justify-space-between"
         style="padding: 0; height: 100%"
@@ -16,12 +16,10 @@
                 <v-list-item-title>
                   <IconCSS
                     :name="item.iconName"
-                    size="30"
                     :style="{ color: isSelected ? '#003468' : '' }"
                   />
                 </v-list-item-title>
                 <v-list-item-subtitle
-                  class="text-h6"
                   v-text="item.iconTitle"
                   :style="{ color: isSelected ? '#003468' : '' }"
                 >
@@ -41,10 +39,9 @@
             <template v-slot:activator="{ props }">
               <div class="overlay-item" v-bind="props">
                 <v-list-item-title>
-                  <IconCSS :name="restArr[1].iconName" size="30" />
+                  <IconCSS :name="restArr[1].iconName" />
                 </v-list-item-title>
                 <v-list-item-subtitle
-                  class="text-h6"
                   v-text="restArr[1].iconTitle"
                 >
                 </v-list-item-subtitle>
@@ -90,10 +87,9 @@
             <template v-slot:activator="{ props }">
               <div class="overlay-item" v-bind="props">
                 <v-list-item-title>
-                  <IconCSS :name="restArr[2].iconName" size="30" />
+                  <IconCSS :name="restArr[2].iconName" />
                 </v-list-item-title>
                 <v-list-item-subtitle
-                  class="text-h6"
                   v-text="restArr[2].iconTitle"
                 >
                 </v-list-item-subtitle>
@@ -200,6 +196,20 @@ const closeDialog = (name) => {
 </script>
 
 <style lang="scss" scoped>
+@media only screen and (max-width: 767px) {
+  .overlay-footer-mobile-tablet {
+    // margin-top: 100px;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .overlay-footer-mobile-tablet {
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .overlay-footer-mobile-tablet {
+    display: none;
+  }
+}
 .overlay-item {
   &:hover {
     cursor: pointer;

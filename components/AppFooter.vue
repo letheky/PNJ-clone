@@ -318,24 +318,9 @@ const showCustomerService = ref(false);
 
 <style lang="scss" scoped>
 @import "~/assets/scss/variables";
+
 .app-footer {
   font-family: $third-font-family;
-  @media only screen and (max-width: 767px) {
-    .responsive-desktop-tablet-image,
-    .responsive-about-pnj-desktop {
-      display: none;
-    }
-  }
-  @media only screen and (min-width: 768px) and (max-width: 1023px) {
-    .responsive-about-pnj-desktop {
-      display: none;
-    }
-  }
-  @media only screen and (min-width: 1024px) {
-    .responsive-about-pnj-mobile-tablet {
-      display: none;
-    }
-  }
   .content {
     .text-subtitle-2 {
       .text-h6 {
@@ -358,6 +343,28 @@ const showCustomerService = ref(false);
     ul {
       line-height: 1.7em;
     }
+  }
+}
+@media only screen and (max-width: 767px) {
+  .app-footer {
+    padding-bottom: 50px;
+    .responsive-desktop-tablet-image,
+    .responsive-about-pnj-desktop {
+      display: none;
+    }
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .app-footer {
+    padding-bottom: 50px;
+    .responsive-about-pnj-desktop {
+      display: none;
+    }
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .responsive-about-pnj-mobile-tablet {
+    display: none;
   }
 }
 </style>

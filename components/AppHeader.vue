@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!checkWindowResolution" class="app-header">
+  <div class="app-header app-header-desktop">
     <v-container>
       <v-row align="center">
         <div class="d-flex contactive">
@@ -98,7 +98,7 @@
       </v-row>
     </v-container>
   </div>
-  <div v-else class="app-header">
+  <div class="app-header app-header-mobile-tablet">
     <v-container>
       <v-row align="center" class="d-flex justify-space-between py-2 px-5">
         <v-img
@@ -120,10 +120,7 @@
             <Icon class="ml-n16" name="search"></Icon>
           </template>
         </v-text-field>
-        <Icon
-          name="phone"
-          class="mx-2"
-        />
+        <Icon name="phone" class="mx-2" />
         <span>
           <v-badge content="2" color="error" location="bottom right">
             <Icon name="handbag" />
@@ -136,7 +133,6 @@
 
 <script setup>
 import { ref } from "vue";
-import { useWindowResolution } from "~/stores/responsive";
 
 /**
  * *Dynamic import pophover components
@@ -277,12 +273,6 @@ watch(activeItem, (newValue) => {
 /**
  * TODO: config responsive header commencing from now
  */
-const responsiveStore = useWindowResolution();
-
-const checkWindowResolution = computed(
-  () => responsiveStore.isLaptop || responsiveStore.isMobile
-);
-
 </script>
 
 <style lang="scss" scoped>
@@ -341,6 +331,21 @@ h6 {
         }
       }
     }
+  }
+}
+@media only screen and (max-width: 767px) {
+  .app-header-desktop {
+    display: none;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .app-header-desktop {
+    display: none;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .app-header-mobile-tablet {
+    display: none;
   }
 }
 </style>
