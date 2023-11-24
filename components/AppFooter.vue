@@ -321,7 +321,7 @@ const showAboutPNJ = ref(false);
 const showCustomerService = ref(false);
 const responsiveStore = useWindowResolution();
 
-let windowWidth = ref(process.client ? window.innerWidth : "");
+let windowWidth = ref(process.client ? window.innerWidth : "500");
 
 onMounted(() => {
   window.addEventListener("resize", function () {
