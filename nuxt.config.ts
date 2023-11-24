@@ -55,7 +55,7 @@ export default defineNuxtConfig({
     },
   },
   //Config robots file
-  
+
   // robots: {
   //   UserAgent: "*",
   //   Disallow: "/private/",
@@ -108,6 +108,7 @@ export default defineNuxtConfig({
     "@pinia-plugin-persistedstate/nuxt",
     "nuxt-icon",
     "@nuxtjs/robots",
+    "@formkit/auto-animate/nuxt",
   ],
   build: {
     transpile: ["vuetify"],

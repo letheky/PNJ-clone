@@ -8,7 +8,7 @@
             <p class="text-subtitle-2 ml-1">Quan hệ cổ đông (IR)</p>
           </NuxtLink>
           <NuxtLink
-            to="/"
+            to="/about"
             class="d-flex align-center ml-3"
             style="color: black"
           >

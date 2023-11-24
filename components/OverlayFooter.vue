@@ -1,34 +1,26 @@
 <template>
   <div class="overlay-footer-mobile-tablet">
     <v-footer :app="true" elevation="8" height="60" style="padding: 0">
-      <v-list
-        class="d-flex flex-grow-1 justify-space-between"
-        style="padding: 0; height: 100%"
-      >
-        <v-item-group
-          v-model="selectedItem"
-          class="d-flex flex-grow-1 justify-space-between"
-          selected-class="bg-primary"
-        >
-          <v-col v-for="(item, i) in firstThree" :key="i">
-            <v-item v-slot="{ isSelected, toggle }" :value="item">
-              <div class="overlay-item text-center" @click="toggle">
-                <v-list-item-title>
-                  <IconCSS
-                    :name="item.iconName"
-                    :style="{ color: isSelected ? '#003468' : '' }"
-                  />
-                </v-list-item-title>
-                <v-list-item-subtitle
-                  v-text="item.iconTitle"
-                  :style="{ color: isSelected ? '#003468' : '' }"
-                >
-                </v-list-item-subtitle>
-              </div>
-            </v-item>
-          </v-col>
-        </v-item-group>
-        <v-col class="text-center">
+      <v-row class="text-center">
+        <v-col v-for="(item, i) in firstThree" :key="i">
+          <NuxtLink :to="item.path">
+            <div class="overlay-item" @click="setActive(item.iconName)">
+              <IconCSS
+                :name="item.iconName"
+                :style="{
+                  color: selectedItem === item.iconName ? '#003468' : '',
+                }"
+              />
+              <p
+                v-text="item.iconTitle"
+                :style="{
+                  color: selectedItem === item.iconName ? '#003468' : '',
+                }"
+              ></p>
+            </div>
+          </NuxtLink>
+        </v-col>
+        <v-col>
           <v-menu
             transition="scale-transition"
             location="bottom center"
@@ -41,9 +33,7 @@
                 <v-list-item-title>
                   <IconCSS :name="restArr[1].iconName" />
                 </v-list-item-title>
-                <v-list-item-subtitle
-                  v-text="restArr[1].iconTitle"
-                >
+                <v-list-item-subtitle v-text="restArr[1].iconTitle">
                 </v-list-item-subtitle>
               </div>
             </template>
@@ -82,16 +72,14 @@
             </v-card>
           </v-menu>
         </v-col>
-        <v-col class="text-center">
+        <v-col>
           <v-menu location="bottom center" open-on-click>
             <template v-slot:activator="{ props }">
               <div class="overlay-item" v-bind="props">
                 <v-list-item-title>
                   <IconCSS :name="restArr[2].iconName" />
                 </v-list-item-title>
-                <v-list-item-subtitle
-                  v-text="restArr[2].iconTitle"
-                >
+                <v-list-item-subtitle v-text="restArr[2].iconTitle">
                 </v-list-item-subtitle>
               </div>
             </template>
@@ -129,7 +117,7 @@
             </v-card>
           </v-menu>
         </v-col>
-      </v-list>
+      </v-row>
     </v-footer>
     <v-dialog
       v-model="menuDialog"
@@ -164,6 +152,7 @@
 <script setup>
 import { ref } from "vue";
 const route = useRoute();
+
 const iconList = [
   { iconName: "home", iconTitle: "Trang chủ", path: "/" },
   { iconName: "coupon", iconTitle: "Khuyến mãi", path: "/coupon" },
@@ -176,39 +165,50 @@ const iconList = [
 const firstThree = computed(() => iconList.slice(0, 3));
 const restArr = computed(() => iconList.slice(-3));
 
-const selectedItem = ref({});
-const selectedItems = ref([]);
-const menuDialog = ref(false);
-const notiDialog = ref(false);
-const hotlineDialog = ref(false);
-
-watch(selectedItems, (newVal) => {
-  menuDialog.value = newVal.includes("menu") ? true : false;
-  notiDialog.value = newVal.includes("notification") ? true : false;
-  hotlineDialog.value = newVal.includes("phoneCall") ? true : false;
-});
-
-const closeDialog = (name) => {
-  // console.log(selectedItems.filter((el) => el !== name))
-  selectedItems.value = selectedItems.value.filter((el) => el !== name);
-  // dialog.value = false;
+//Set active item in overlayfooter
+let selectedItem = ref();
+const setActive = (item) => {
+  selectedItem = item;
 };
+const firstActiveRoute = () => {
+  switch (route.path) {
+    case "/coupon":
+      setActive("coupon");
+      break;
+    case "/profile":
+      setActive("profile");
+      break;
+    case "/":
+      setActive("home");
+      break;
+    default:
+      setActive("");
+      break;
+  }
+};
+firstActiveRoute();
 </script>
 
 <style lang="scss" scoped>
 @media only screen and (max-width: 767px) {
-  .overlay-footer-mobile-tablet {
-    // margin-top: 100px;
-  }
 }
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-  .overlay-footer-mobile-tablet {
-  }
 }
 @media only screen and (min-width: 1024px) {
   .overlay-footer-mobile-tablet {
     display: none;
   }
+}
+
+.v-list-item-subtitle {
+  font-size: 0.7rem !important;
+}
+.v-col {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .overlay-item {
   &:hover {
@@ -218,5 +218,13 @@ const closeDialog = (name) => {
   p {
     font-size: 12px;
   }
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.active-item {
+  color: #003468;
+  background-color: #003468;
 }
 </style>

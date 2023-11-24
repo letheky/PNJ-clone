@@ -76,13 +76,15 @@
                 size="24"
               />
             </div>
-            <ul class="text-subtitle-1" v-if="showAboutPNJ">
-              <li v-for="(page, index) in aboutPNJ" :key="index">
-                <NuxtLink :to="page.path" style="color: black">{{
-                  page.title
-                }}</NuxtLink>
-              </li>
-            </ul>
+            <TransitionToggleFade>
+              <ul class="text-subtitle-1" v-show="showAboutPNJ">
+                <li v-for="(page, index) in aboutPNJ" :key="page.title + index">
+                  <NuxtLink :to="page.path" style="color: black">{{
+                    page.title
+                  }}</NuxtLink>
+                </li>
+              </ul>
+            </TransitionToggleFade>
           </div>
         </v-col>
         <v-col cols="12" md="3">
@@ -111,13 +113,18 @@
                 size="24"
               />
             </div>
-            <ul class="text-subtitle-1" v-if="showCustomerService">
-              <li v-for="(page, index) in customerService" :key="index">
-                <NuxtLink :to="page.path" style="color: black">{{
-                  page.title
-                }}</NuxtLink>
-              </li>
-            </ul>
+            <TransitionToggleFade>
+              <ul class="text-subtitle-1" v-show="showCustomerService">
+                <li
+                  v-for="(page, index) in customerService"
+                  :key="page.title + index"
+                >
+                  <NuxtLink :to="page.path" style="color: black">{{
+                    page.title
+                  }}</NuxtLink>
+                </li>
+              </ul>
+            </TransitionToggleFade>
             <v-divider class="mt-5"></v-divider>
           </div>
         </v-col>
@@ -194,7 +201,10 @@
 
 <script setup>
 import { ref } from "vue";
-
+import { TransitionToggleFade } from "#components";
+/**
+ * *subchild of footer category
+ */
 const aboutPNJ = ref([
   {
     title: "Câu chuyện PNJ",
@@ -312,6 +322,9 @@ const socialMedia = ref([
   },
 ]);
 
+/**
+ * * define showAboutPNJ and showCustomerService to toggle it
+ */
 const showAboutPNJ = ref(false);
 const showCustomerService = ref(false);
 </script>
@@ -367,4 +380,10 @@ const showCustomerService = ref(false);
     display: none;
   }
 }
+
+/**
+* *Enter and leave animations can use different
+* *durations and timing functions
+.
+*/
 </style>
