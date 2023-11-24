@@ -2,22 +2,17 @@
   <div>
     <AppHeader />
     <slot />
-    <OverlayFooter v-if="checkWindowResolution" />
+    <OverlayFooter class="overlay-footer-mobile-tablet" />
     <AppFooter />
   </div>
 </template>
 
-<script setup>
-import { useWindowResolution } from "~/stores/responsive";
+<script setup></script>
 
-/**
- * * Set computed value to display OverlayFooter for tablet and mobile
- */
-const responsiveStore = useWindowResolution();
-const checkWindowResolution = computed(
-  () => responsiveStore.isLaptop || responsiveStore.isMobile
-);
-
-</script>
-
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@media only screen and (min-width: 1024px) {
+  .overlay-footer-mobile-tablet {
+    display: none;
+  }
+}
+</style>

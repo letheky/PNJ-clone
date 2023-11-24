@@ -3,10 +3,9 @@
     <v-container>
       <v-divider class="pb-10"></v-divider>
       <v-img
-        v-if="deviceType === 1"
         max-width="200"
         height="80"
-        class="mb-2"
+        class="responsive-desktop-tablet-image mb-2"
         cover
         alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
         lazy-src="/images/logos/logo.png"
@@ -51,7 +50,7 @@
           </div>
         </v-col>
         <v-col cols="12" md="2">
-          <div v-if="deviceType === 1">
+          <div class="responsive-about-pnj-desktop">
             <p class="text-h6 mb-2"><span>Về PNJ</span></p>
             <ul class="text-subtitle-1">
               <li v-for="(page, index) in aboutPNJ" :key="index">
@@ -61,7 +60,7 @@
               </li>
             </ul>
           </div>
-          <div v-else>
+          <div class="responsive-about-pnj-mobile-tablet">
             <v-divider class="mb-6"></v-divider>
             <div
               class="d-flex align-center justify-space-between collapse-able"
@@ -71,8 +70,8 @@
               <Icon
                 :name="
                   showAboutPNJ
-                    ? 'bi:chevron-compact-down'
-                    : 'bi:chevron-compact-up'
+                    ? 'bi:chevron-compact-up'
+                    : 'bi:chevron-compact-down'
                 "
                 size="24"
               />
@@ -87,10 +86,7 @@
           </div>
         </v-col>
         <v-col cols="12" md="3">
-          <div
-            class="mb-3"
-            v-if="deviceType === 1"
-          >
+          <div class="responsive-about-pnj-desktop mb-3">
             <p class="text-h6 mb-2"><span>Dịch vụ khách hàng</span></p>
             <ul class="text-subtitle-1">
               <li v-for="(page, index) in customerService" :key="index">
@@ -100,7 +96,7 @@
               </li>
             </ul>
           </div>
-          <div v-else>
+          <div class="responsive-about-pnj-mobile-tablet">
             <div
               class="d-flex align-center justify-space-between collapse-able"
               @click="showCustomerService = !showCustomerService"
@@ -109,8 +105,8 @@
               <Icon
                 :name="
                   showCustomerService
-                    ? 'bi:chevron-compact-down'
-                    : 'bi:chevron-compact-up'
+                    ? 'bi:chevron-compact-up'
+                    : 'bi:chevron-compact-down'
                 "
                 size="24"
               />
@@ -198,22 +194,6 @@
 
 <script setup>
 import { ref } from "vue";
-import { useWindowResolution } from "~/stores/responsive";
-const checkDeviceType = () => {
-  const headers = useRequestHeaders();
-  if (
-    /(Android|webOS|iPhone|iPad|iPod|tablet|BlackBerry|Mobile|Windows Phone)/i.test(
-      headers["user-agent"]
-    )
-  ) {
-    return ref(2);
-  } else {
-    return ref(1);
-  }
-};
-
-const deviceType = useState(checkDeviceType);
-console.log("test mobile detect", deviceType.value === 2 ? 'yes' : 'no');
 
 const aboutPNJ = ref([
   {
@@ -334,37 +314,28 @@ const socialMedia = ref([
 
 const showAboutPNJ = ref(false);
 const showCustomerService = ref(false);
-const responsiveStore = useWindowResolution();
-
-let windowWidth = ref(process.client ? window.innerWidth : "500");
-
-onMounted(() => {
-  window.addEventListener("resize", function () {
-    windowWidth.value = window.innerWidth;
-  });
-  console.log(windowWidth.value);
-});
-
-watch(
-  () => windowWidth.value,
-  () => {
-    if (windowWidth.value >= 960) {
-      responsiveStore.isLaptop = false;
-      responsiveStore.isMobile = false;
-    } else if (windowWidth.value > 600) {
-      responsiveStore.isLaptop = true;
-      responsiveStore.isMobile = false;
-    } else {
-      responsiveStore.isMobile = true;
-    }
-  }
-);
 </script>
 
 <style lang="scss" scoped>
 @import "~/assets/scss/variables";
 .app-footer {
   font-family: $third-font-family;
+  @media only screen and (max-width: 767px) {
+    .responsive-desktop-tablet-image,
+    .responsive-about-pnj-desktop {
+      display: none;
+    }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .responsive-about-pnj-desktop {
+      display: none;
+    }
+  }
+  @media only screen and (min-width: 1024px) {
+    .responsive-about-pnj-mobile-tablet {
+      display: none;
+    }
+  }
   .content {
     .text-subtitle-2 {
       .text-h6 {
