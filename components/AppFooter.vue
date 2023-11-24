@@ -3,7 +3,7 @@
     <v-container>
       <v-divider class="pb-10"></v-divider>
       <v-img
-        v-if="!responsiveStore.isLaptop && !responsiveStore.isMobile"
+        v-if="deviceType === 1"
         max-width="200"
         height="80"
         class="mb-2"
@@ -51,7 +51,7 @@
           </div>
         </v-col>
         <v-col cols="12" md="2">
-          <div v-if="!responsiveStore.isLaptop && !responsiveStore.isMobile">
+          <div v-if="deviceType === 1">
             <p class="text-h6 mb-2"><span>Về PNJ</span></p>
             <ul class="text-subtitle-1">
               <li v-for="(page, index) in aboutPNJ" :key="index">
@@ -89,7 +89,7 @@
         <v-col cols="12" md="3">
           <div
             class="mb-3"
-            v-if="!responsiveStore.isLaptop && !responsiveStore.isMobile"
+            v-if="deviceType === 1"
           >
             <p class="text-h6 mb-2"><span>Dịch vụ khách hàng</span></p>
             <ul class="text-subtitle-1">
@@ -199,6 +199,21 @@
 <script setup>
 import { ref } from "vue";
 import { useWindowResolution } from "~/stores/responsive";
+const checkDeviceType = () => {
+  const headers = useRequestHeaders();
+  if (
+    /(Android|webOS|iPhone|iPad|iPod|tablet|BlackBerry|Mobile|Windows Phone)/i.test(
+      headers["user-agent"]
+    )
+  ) {
+    return ref(2);
+  } else {
+    return ref(1);
+  }
+};
+
+const deviceType = useState(checkDeviceType);
+console.log("test mobile detect", deviceType.value);
 
 const aboutPNJ = ref([
   {
