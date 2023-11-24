@@ -100,6 +100,9 @@ export default defineNuxtConfig({
     // ~/components/base/Btn.vue => <BaseBtn />
     "~/components",
   ],
+  plugins: [
+    // { src: '~/plugins/device.server.js', ssr: true },
+  ],
   modules: [
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",

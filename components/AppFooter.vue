@@ -213,7 +213,7 @@ const checkDeviceType = () => {
 };
 
 const deviceType = useState(checkDeviceType);
-console.log("test mobile detect", deviceType.value);
+console.log("test mobile detect", deviceType.value === 2 ? 'yes' : 'no');
 
 const aboutPNJ = ref([
   {
