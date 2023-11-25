@@ -45,11 +45,7 @@ const page = ref(0);
 // const route = useRoute();
 // const name = route.fullPath.substring(route.fullPath.lastIndexOf("/") + 1);
 
-const {
-  pending,
-  data: products,
-  refresh,
-} = await useFetch(API_POST_PRODUCTS, {
+const { pending, data: products } = await useFetch(API_POST_PRODUCTS, {
   baseURL: runTimeConfig.public.apiBase,
   method: "POST",
   body: {
