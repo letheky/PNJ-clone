@@ -22,15 +22,17 @@
             </p>
           </NuxtLink>
         </div>
-        <v-img
-          max-width="100"
-          height="42"
-          cover
-          alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-          lazy-src="/images/logos/logo.png"
-          src="/images/logos/logo.png"
-          class="mx-auto"
-        ></v-img>
+        <NuxtLink class="mx-auto" to="/">
+          <v-img
+            max-width="100"
+            width="100"
+            height="42"
+            cover
+            alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+            lazy-src="/images/logos/logo.png"
+            src="/images/logos/logo.png"
+          ></v-img>
+        </NuxtLink>
         <div class="d-flex user-info align-self-center">
           <span class="d-flex align-center ml-3 light-blue-block">
             <Icon name="user" size="20" />
@@ -123,12 +125,7 @@
         </v-text-field>
         <Icon name="phone" size="20" />
         <span>
-          <v-badge
-            class="mx-1"
-            dot
-            color="error"
-            location="bottom right"
-          >
+          <v-badge class="mx-1" dot color="error" location="bottom right">
             <Icon name="handbag" size="20" />
           </v-badge>
         </span>

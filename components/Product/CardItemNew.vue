@@ -1,6 +1,6 @@
 <template>
   <v-card
-    :loading="loading"
+   
     class="mx-auto my-12"
     max-width="290"
     style="background: linear-gradient(to bottom, #fff 0%, #f7f7f7 100%)"

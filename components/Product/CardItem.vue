@@ -1,6 +1,5 @@
 <template>
   <v-card
-    :loading="loading"
     class="mx-auto my-12"
     max-width="290"
     style="background: linear-gradient(to bottom, #fff 0%, #f7f7f7 100%)"
@@ -79,6 +78,7 @@
 
 <script setup>
 const { product } = defineProps(["product"]);
+
 const traGopImg = "/images/others/icon-tragop.svg";
 const giaoHangNhanhImg = "/images/others/icon-giaohang.svg";
 </script>

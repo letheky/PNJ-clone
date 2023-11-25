@@ -3,17 +3,16 @@
     <v-card width="80vw">
       <v-card-title class="d-flex justify-center align-center py-5 mx-5">
         <v-row>
-          <v-col
-            v-for="(item, index) in menuData"
-            :key="item + index"
-          >
+          <v-col v-for="(item, index) in menuData" :key="item + index">
             <h6 class="text-h6">{{ item.title }}</h6>
             <ul>
               <li
                 v-for="(childItem, index) in item.listItem"
                 :key="childItem + index"
               >
-                <NuxtLink to="/">{{ childItem }}</NuxtLink>
+                <NuxtLink :to="normalizeVietnamese(childItem)">{{
+                  childItem
+                }}</NuxtLink>
               </li>
             </ul>
           </v-col>
@@ -25,6 +24,12 @@
 
 <script setup>
 const { menuData } = defineProps(["menuData"]);
+const normalizeVietnamese = (str) => {
+  return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase(0);
+};
 </script>
 
 <style lang="scss" scoped>

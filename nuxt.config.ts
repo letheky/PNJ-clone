@@ -53,6 +53,7 @@ export default defineNuxtConfig({
         },
       ],
     },
+    pageTransition: { name: 'page', mode: 'out-in' }
   },
   //Config robots file
 
@@ -81,6 +82,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       accesTypes: process.env.NUXT_APP_ACCESSORIES_TYPES,
+      apiBase: process.env.NUXT_PUBLIC_API_BASE,
     },
   },
   components: [
@@ -109,9 +111,31 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@nuxtjs/robots",
     "@formkit/auto-animate/nuxt",
+    "@nuxt/image",
   ],
   build: {
     transpile: ["vuetify"],
+  },
+  image: {
+    domains: ['cdn.pnj.io'],
+    presets: {
+      product: {
+        modifiers: {
+          format: "png",
+          fit: "cover",
+          quality: "80",
+        },
+      },
+    },
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+      "2xl": 1536,
+    },
   },
   vite: {
     define: {

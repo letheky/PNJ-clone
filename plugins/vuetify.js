@@ -13,6 +13,16 @@ export default defineNuxtPlugin(nuxtApp => {
         icons: {
             defaultSet: 'mdi', // This is already the default value - only for display purposes
         },
+        display: {
+            mobileBreakpoint: 'sm',
+            thresholds: {
+                xs: 320,
+                sm: 640,
+                md: 768,
+                lg: 1024,
+                xl: 1280,
+            },
+        },
         srr: true,
     })
     nuxtApp.vueApp.use(vuetify)

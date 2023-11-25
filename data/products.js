@@ -21,7 +21,7 @@ export const HOT_SALE = [{
         isFastDeli: true
     },
     {
-        src:  '/images/products/nhan-vang.png',
+        src: '/images/products/nhan-vang.png',
         name: 'Mặt dây chuyền Kim cương Vàng',
         code: 'PNJ XMXMW000070',
         price: 12445000,
@@ -43,7 +43,7 @@ export const HOT_SALE = [{
         isFastDeli: true
     },
     {
-        src:  '/images/products/nhan-vang-trang.png',
+        src: '/images/products/nhan-vang-trang.png',
         name: 'Mặt dây chuyền Kim cương Vàng',
         code: 'PNJ XMXMW000070',
         price: 10945000,
@@ -65,7 +65,7 @@ export const HOT_SALE = [{
         isFastDeli: true
     },
     {
-        src:  '/images/products/nhan-vang.png',
+        src: '/images/products/nhan-vang.png',
         name: 'Mặt dây chuyền Kim cương Vàng',
         code: 'PNJ XMXMW000070',
         price: 1265000,
@@ -76,7 +76,7 @@ export const HOT_SALE = [{
         isFastDeli: true
     },
     {
-        src:  '/images/products/nhan-vang-trang.png',
+        src: '/images/products/nhan-vang-trang.png',
         name: 'Mặt dây chuyền Kim cương Vàng',
         code: 'PNJ XMXMW000070',
         price: 1265000,
@@ -121,7 +121,7 @@ export const NEW_SALE = [{
         isFastDeli: true
     },
     {
-        src:  '/images/products/nhan-vang.png',
+        src: '/images/products/nhan-vang.png',
         name: 'Mặt dây chuyền Kim cương Vàng',
         code: 'PNJ XMXMW000070',
         price: 12445000,
@@ -143,7 +143,7 @@ export const NEW_SALE = [{
         isFastDeli: true
     },
     {
-        src:  '/images/products/nhan-vang-trang.png',
+        src: '/images/products/nhan-vang-trang.png',
         name: 'Mặt dây chuyền Kim cương Vàng',
         code: 'PNJ XMXMW000070',
         price: 10945000,
@@ -165,7 +165,7 @@ export const NEW_SALE = [{
         isFastDeli: true
     },
     {
-        src:  '/images/products/nhan-vang.png',
+        src: '/images/products/nhan-vang.png',
         name: 'Mặt dây chuyền Kim cương Vàng',
         code: 'PNJ XMXMW000070',
         price: 1265000,
@@ -176,7 +176,7 @@ export const NEW_SALE = [{
         isFastDeli: true
     },
     {
-        src:  '/images/products/nhan-vang-trang.png',
+        src: '/images/products/nhan-vang-trang.png',
         name: 'Mặt dây chuyền Kim cương Vàng',
         code: 'PNJ XMXMW000070',
         price: 1265000,
