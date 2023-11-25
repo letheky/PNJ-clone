@@ -27,8 +27,16 @@
       </v-row>
     </v-container>
     <v-pagination
-      class="mt-5"
+      class="mt-5 pagnition-mobile-tablet"
       v-model="page"
+      size="x-small"
+      :length="Math.ceil(products.result.total / 10)"
+      :total-visible="5"
+    ></v-pagination>
+    <v-pagination
+      class="mt-5 pagnition-desktop"
+      v-model="page"
+      size="small"
       :length="Math.ceil(products.result.total / 10)"
       :total-visible="10"
     ></v-pagination>
@@ -58,4 +66,20 @@ const { pending, data: products } = await useFetch(API_POST_PRODUCTS, {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@media only screen and (max-width: 767px) {
+  .pagnition-desktop {
+    display: none;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .pagnition-desktop {
+    display: none;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .pagnition-mobile-tablet {
+    display: none;
+  }
+}
+</style>
