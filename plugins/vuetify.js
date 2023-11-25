@@ -1,3 +1,4 @@
+import '@mdi/font/css/materialdesignicons.css'
 import {
     createVuetify
 } from 'vuetify'
@@ -9,6 +10,9 @@ export default defineNuxtPlugin(nuxtApp => {
     const vuetify = createVuetify({
         components,
         directives,
+        icons: {
+            defaultSet: 'mdi', // This is already the default value - only for display purposes
+        },
         srr: true,
     })
     nuxtApp.vueApp.use(vuetify)
