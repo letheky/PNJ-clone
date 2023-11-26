@@ -88,13 +88,13 @@
         </div>
         <v-text-field
           placeholder="Nhập thông tin bạn muốn tìm kiếm"
-          style="max-width: 400px"
+          style="max-width: 400px; min-width: 300px"
           class="ml-10 mb-n6"
           variant="outlined"
           :rounded="true"
         >
           <template #append>
-            <Icon class="ml-n16" name="search"></Icon>
+            <Icon class="ml-n12" name="search"></Icon>
           </template>
         </v-text-field>
       </v-row>
@@ -103,14 +103,17 @@
   <div class="app-header app-header-mobile-tablet">
     <v-container>
       <v-row align="center" class="d-flex justify-space-between pt-2 px-1">
-        <v-img
-          max-width="65"
-          height="30"
-          cover
-          alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-          lazy-src="/images/logos/logo.png"
-          src="/images/logos/logo.png"
-        ></v-img>
+        <NuxtLink class="mx-auto" to="/">
+          <v-img
+            max-width="65"
+            width="65"
+            height="30"
+            cover
+            alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+            lazy-src="/images/logos/logo.png"
+            src="/images/logos/logo.png"
+          ></v-img>
+        </NuxtLink>
         <v-text-field
           label="Tìm kiếm nhanh"
           style="max-width: 600px"

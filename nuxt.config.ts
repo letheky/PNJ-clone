@@ -1,4 +1,5 @@
 import { defineNuxtConfig } from "nuxt/config";
+import vuetify from "vite-plugin-vuetify";
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   app: {
@@ -53,7 +54,7 @@ export default defineNuxtConfig({
         },
       ],
     },
-    pageTransition: { name: 'page', mode: 'out-in' }
+    pageTransition: { name: "page", mode: "out-in" },
   },
   //Config robots file
 
@@ -91,6 +92,7 @@ export default defineNuxtConfig({
 
     // ~/components/MenuCard/UserDeleteDialog.vue => <UserDeleteDialog />
     { path: "~/components/MenuCard", pathPrefix: false },
+    { path: "~/components/HomePage", pathPrefix: false },
 
     // ~/components/special-components/Btn.vue => <SpecialBtn />
     // { path: "~/components/special-components", prefix: "Special" },
@@ -106,6 +108,11 @@ export default defineNuxtConfig({
     // { src: '~/plugins/device.server.js', ssr: true },
   ],
   modules: [
+    async (options, nuxt) => {
+      nuxt.hooks.hook("vite:extendConfig", (config) =>
+        config.plugins.push(vuetify())
+      );
+    },
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "nuxt-icon",
@@ -117,12 +124,17 @@ export default defineNuxtConfig({
     transpile: ["vuetify"],
   },
   image: {
-    domains: ['cdn.pnj.io'],
     presets: {
       product: {
         modifiers: {
           format: "png",
           fit: "cover",
+          quality: "auto:best",
+        },
+      },
+      banner: {
+        modifiers: {
+          format: ["jpg"],
           quality: "80",
         },
       },
@@ -134,7 +146,6 @@ export default defineNuxtConfig({
       lg: 1024,
       xl: 1280,
       xxl: 1536,
-      "2xl": 1536,
     },
   },
   vite: {

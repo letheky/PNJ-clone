@@ -10,7 +10,7 @@
                 v-for="(childItem, index) in item.listItem"
                 :key="childItem + index"
               >
-                <NuxtLink :to="normalizeVietnamese(childItem)">{{
+                <NuxtLink :to="childItem">{{
                   childItem
                 }}</NuxtLink>
               </li>

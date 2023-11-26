@@ -35,17 +35,6 @@ const { singleProduct } = defineProps(["singleProduct"]);
 </script>
 
 <style lang="scss" scoped>
-.two-line-ellipsis {
-    overflow: hidden;
-    max-height: 2.5em; /* Adjust the height based on your font size and line height */
-    line-height: 1.25em;
-}
-@media only screen and (max-width: 767px) {
-  .text-responsive {
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
-  .text-responsive {
-  }
-}
+
+
 </style>
