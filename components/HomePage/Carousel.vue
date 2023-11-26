@@ -2,6 +2,7 @@
   <div>
     <v-carousel
       hide-delimiter-background
+      :hide-delimiters="smAndDown ? true :false"
       :show-arrows="mdAndUp ? true : false"
       color="#fff"
       interval="5000"
