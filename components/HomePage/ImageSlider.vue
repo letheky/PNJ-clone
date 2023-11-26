@@ -1,16 +1,18 @@
 <template>
-  <div>
+  <div class="mt-2">
     <v-container fluid>
-      <v-row>
-        <div class="scroll-container ga-2">
+      <v-row >
+        <div class="scroll-container ga-2 mx-auto">
           <v-img
-            class="responsive-home-page-images"
-            v-for="index in 3"
+            v-for="(item, index) in imageSliderItems"
             :key="index"
-            src="/images/banners/subbanner.jpg"
-            alt="Cinque Terre"
-            width="400"
-            height="300"
+            :src="item.src"
+            :lazy-src="item.src"
+            :alt="item.title"
+            :title="item.title"
+            :height="responsiveHeight"
+            :width="responsiveWidth"
+            cover
           />
         </div>
       </v-row>
@@ -18,7 +20,27 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useDisplay } from "vuetify";
+
+const { smAndDown, lgAndUp, xlAndUp, xxlAndUp } = useDisplay();
+
+const responsiveHeight = xlAndUp
+  ? 247
+  : lgAndUp.value
+  ? 200
+  : smAndDown.value
+  ? 127
+  : 167;
+const responsiveWidth = responsiveHeight * 2;
+
+const { imageSliderItems } = defineProps({
+  imageSliderItems: {
+    type: Array,
+    default: [],
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 .scroll-container {
@@ -28,6 +50,7 @@
   scrollbar-color: darkgray lightgray;
   white-space: nowrap;
   width: 100%; /* Adjust width to fill the available space */
+  max-width: 1500px;
 }
 .fixed-width-col {
   flex: 0 0 300px; /* Set a fixed width for each column */
