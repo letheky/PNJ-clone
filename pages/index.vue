@@ -9,6 +9,23 @@
       class="mobile-border-bottom"
       :activeBrandItems="activeBrandItems"
     />
+    <ProductsList
+      class="mobile-border-bottom"
+      :productList="firstProductList"
+      listTitle="Sản phẩm bán chạy"
+    />
+    <ProductsList
+      class="mobile-border-bottom"
+      :productList="secondProductList"
+      listTitle="Sản phẩm mới"
+    />
+    <ProductListWithCollection
+      :productList="thirdProductList"
+      listTitle="Bộ sưu tập mới"
+    />
+    <ProductListCard :productList="productListCardItems" />
+    <StoreDetail />
+    <WhyUs />
   </div>
 </template>
 
@@ -30,50 +47,36 @@ import {
   ProductSimpleCardItem,
 } from "#components";
 
-import { API_POST_PRODUCTS } from "~/server/api/products";
-import {
-  NUXT_APP_ACCESSORIES_TYPES,
-  NUXT_APP_ACCESSORIES_LIST,
-} from "~/data/headermenu";
-import { HOT_SALE, NEW_SALE } from "~/data/products";
+import { NUXT_APP_ACCESSORIES_LIST } from "~/data/headermenu";
+
+import { API_POST_PRODUCTS } from "~/server/api/constant";
 
 const runTimeConfig = useRuntimeConfig();
 const { lgAndDown } = useDisplay();
 
+/**
+ * Fetching data
+ */
+const { postBody } = useProducts();
 
-const hotSearch = NUXT_APP_ACCESSORIES_TYPES.split(",");
-const hotSearchEdit = [];
-
-for (let i = 0; i < hotSearch.length; i += 2) {
-  const pair = [hotSearch[i], hotSearch[i + 1]];
-  hotSearchEdit.push(pair);
-}
-const topSale = HOT_SALE;
-const newSale = NEW_SALE;
-const renderList = NUXT_APP_ACCESSORIES_LIST.split(",");
-
-const { data: products } = await useFetch(() => API_POST_PRODUCTS, {
-  baseURL: runTimeConfig.public.apiBase,
-  method: "POST",
-  body: {
-    pageNum: 1,
-    pageSize: 10,
-    productGroupId: 1,
-    subGroupId: 1,
-    productTypeId: 1,
-  },
+const { data: firstProductList } = await useFetch(() => API_POST_PRODUCTS, {
+  ...postBody(1),
+  transform: (data) => data.result.results,
 });
-const { data: products2 } = await useFetch(() => API_POST_PRODUCTS, {
-  baseURL: runTimeConfig.public.apiBase,
-  method: "POST",
-  body: {
-    pageNum: 2,
-    pageSize: 10,
-    productGroupId: 1,
-    subGroupId: 1,
-    productTypeId: 1,
-  },
+
+const { data: secondProductList } = await useFetch(() => API_POST_PRODUCTS, {
+  ...postBody(2),
+  transform: (data) => data.result.results,
 });
+
+const { data: thirdProductList } = await useFetch(() => API_POST_PRODUCTS, {
+  ...postBody(2),
+  transform: (data) => data.result.results,
+});
+
+/**
+ * * Hard code items for home page
+ */
 const carouselItems = [
   {
     src: "https://cdn.pnj.io/images/promo/193/16-blackfridayonline.jpg",
@@ -111,6 +114,7 @@ const imageSliderItems = [
     title: "BST Hello Kitty Vol 3",
   },
 ];
+
 const activeBrandItems = [
   {
     src: "https://cdn.pnj.io/images/promo/166/style-t5-1200x1200.png",
@@ -129,15 +133,31 @@ const activeBrandItems = [
     title: "Watch",
   },
 ];
+
+const accessoryTypes = NUXT_APP_ACCESSORIES_LIST.split(",");
+const accessoryImages = [
+  "https://cdn.pnj.io/images/promo/191/kimcuong-t11-1200x450CTA.jpg",
+  "https://cdn.pnj.io/images/promo/191/ecz-t11-1200x450-cta.jpg",
+  "https://cdn.pnj.io/images/promo/191/day-chuyen-t11-1200x450-CTA.jpg",
+  "https://cdn.pnj.io/images/promo/191/ngoc-trai-t11-1200x450-2.jpg",
+  "https://cdn.pnj.io/images/promo/189/Banner_Trang-suc-Cuoi__1200x450_.png",
+  "https://cdn.pnj.io/images/promo/187/phong-thuy-t10-1200x450-CTA.jpg",
+];
+const productListCardItems = accessoryTypes.map((element, index) => {
+  return {
+    title: element,
+    src: accessoryImages[index],
+    productList: index % 2 === 0 ? firstProductList : thirdProductList,
+  };
+});
 </script>
 
 <style lang="scss" scoped>
-
-@media only screen and (max-width:1023px) {
+@media only screen and (max-width: 1023px) {
   .mobile-border-bottom {
-  border-bottom: 5px solid #f1f1f1;
-  padding-bottom: 10px;
-  box-sizing: border-box;
-}
+    border-bottom: 5px solid #f1f1f1;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+  }
 }
 </style>

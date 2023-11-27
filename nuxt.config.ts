@@ -127,14 +127,15 @@ export default defineNuxtConfig({
     presets: {
       product: {
         modifiers: {
-          format: "png",
+          format: "webp",
           fit: "cover",
           quality: "auto:best",
         },
       },
       banner: {
         modifiers: {
-          format: ["jpg"],
+          format: "webp",
+          fit: "cover",
           quality: "80",
         },
       },

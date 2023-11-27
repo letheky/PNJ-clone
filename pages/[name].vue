@@ -46,7 +46,7 @@
 <script setup>
 import { ProductSimpleCardItem } from "#components";
 import { ref } from "vue";
-import { API_POST_PRODUCTS } from "~/server/api/products";
+import { API_POST_PRODUCTS } from "~/server/api/constant";
 
 const runTimeConfig = useRuntimeConfig();
 const page = ref(1);

@@ -14,13 +14,15 @@
           sizes="xs:175px sm:225px xl:300px"
         />
       </div>
-      <div class="px-3 px-sm-2 text-center">
-        <div class="text-responsive text-subtitle-1 two-line-ellipsis">
+      <div class="px-2 px-sm-3 text-center">
+        <div
+          class="text-md-subtitle-1 text-subtitle-2 two-line-ellipsis text-wrap"
+        >
           {{ singleProduct.name }}
         </div>
         <div>
           <span
-            class="text-responsive text-subtitle-1 mb-1"
+            class="text-md-subtitle-1 text-subtitle-2 mb-1"
             style="color: #c48c46; font-weight: 900"
             >{{ singleProduct.price.toLocaleString() + " đ" }}</span
           >
@@ -34,7 +36,4 @@
 const { singleProduct } = defineProps(["singleProduct"]);
 </script>
 
-<style lang="scss" scoped>
-
-
-</style>
+<style lang="scss" scoped></style>
