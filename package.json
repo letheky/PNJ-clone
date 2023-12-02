@@ -25,6 +25,7 @@
     "@pinia/nuxt": "^0.5.1",
     "pinia": "^2.1.7",
     "sass": "^1.69.5",
+    "slugify": "^1.6.6",
     "vite-plugin-vuetify": "^1.0.2",
     "vuetify": "^3.4.0-beta.1"
   }

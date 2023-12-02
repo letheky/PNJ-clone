@@ -30,7 +30,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import { useDisplay } from "vuetify";
 
 import {
@@ -70,7 +69,7 @@ const { data: secondProductList } = await useFetch(() => API_POST_PRODUCTS, {
 });
 
 const { data: thirdProductList } = await useFetch(() => API_POST_PRODUCTS, {
-  ...postBody(2),
+  ...postBody(3),
   transform: (data) => data.result.results,
 });
 
@@ -147,7 +146,12 @@ const productListCardItems = accessoryTypes.map((element, index) => {
   return {
     title: element,
     src: accessoryImages[index],
-    productList: index % 2 === 0 ? firstProductList : thirdProductList,
+    productList:
+      index % 2 === 0
+        ? firstProductList
+        : index % 3 === 0
+        ? secondProductList
+        : thirdProductList,
   };
 });
 </script>

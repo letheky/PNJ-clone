@@ -171,8 +171,9 @@
                     <li
                       v-for="(page, index) in item.listItem"
                       :key="page + index"
+                      class="py-1"
                     >
-                      <NuxtLink :to="page" style="color: black">{{
+                      <NuxtLink prefetch :to="vnUrl(page)" style="color: black">{{
                         page
                       }}</NuxtLink>
                     </li>
@@ -205,6 +206,7 @@ import {
   NUXT_APP_GIFT_FOR,
 } from "~/data/headermenu";
 
+const { vnUrl } = slugifyUrl();
 const route = useRoute();
 
 const iconList = [

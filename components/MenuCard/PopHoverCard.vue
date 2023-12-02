@@ -10,9 +10,7 @@
                 v-for="(childItem, index) in item.listItem"
                 :key="childItem + index"
               >
-                <NuxtLink :to="childItem">{{
-                  childItem
-                }}</NuxtLink>
+                <NuxtLink prefetch :to="vnUrl(childItem)">{{ childItem }}</NuxtLink>
               </li>
             </ul>
           </v-col>
@@ -24,12 +22,7 @@
 
 <script setup>
 const { menuData } = defineProps(["menuData"]);
-const normalizeVietnamese = (str) => {
-  return str
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase(0);
-};
+const { vnUrl } = slugifyUrl();
 </script>
 
 <style lang="scss" scoped>

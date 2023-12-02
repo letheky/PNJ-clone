@@ -10,7 +10,7 @@
                 v-for="(childItem, index) in item.listItem"
                 :key="childItem + index"
               >
-                <NuxtLink to="/">{{ childItem }}</NuxtLink>
+                <NuxtLink prefetch :to="vnUrl(childItem)">{{ childItem }}</NuxtLink>
               </li>
             </ul>
           </v-col>
@@ -33,7 +33,7 @@
 
 <script setup>
 const { menuData } = defineProps(["menuData"]);
-
+const { vnUrl } = slugifyUrl();
 </script>
 
 <style lang="scss" scoped>

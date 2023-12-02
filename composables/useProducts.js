@@ -6,7 +6,7 @@ export const useProducts = () => {
             baseURL: baseURL,
             method: "POST",
             body: {
-                pageNum: 1,
+                pageNum: page,
                 pageSize: 10,
                 productGroupId: 1,
                 subGroupId: 1,
@@ -14,7 +14,18 @@ export const useProducts = () => {
             }
         }
     }
+    const getByID = (id) => {
+        return {
+            baseURL: baseURL,
+            method: "GET",
+            params: {
+                id: id
+            }
+        }
+    }
     return {
-        baseURL, postBody
+        baseURL,
+        postBody,
+        getByID
     }
 }

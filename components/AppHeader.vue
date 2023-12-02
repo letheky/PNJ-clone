@@ -94,7 +94,7 @@
           :rounded="true"
         >
           <template #append>
-            <Icon class="ml-n12" name="search"></Icon>
+            <Icon class="ml-n1" name="search"></Icon>
           </template>
         </v-text-field>
       </v-row>
@@ -138,7 +138,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 
 /**
  * *Dynamic import pophover components

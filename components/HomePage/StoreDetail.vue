@@ -5,7 +5,7 @@
         class="d-flex flex-column fill-height justify-center align-center text-white"
         to="/stores"
       >
-        <h1 class="text-h4 font-weight-thin mb-4">PNJ {{ responsiveWidth }}</h1>
+        <h1 class="text-h4 font-weight-thin mb-4">PNJ</h1>
         <h4 class="subheading">Xem cửa hàng của chúng tôi tại đây!</h4>
       </NuxtLink>
     </v-parallax>

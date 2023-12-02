@@ -7,6 +7,7 @@ export default defineNuxtConfig({
       title: "PNJ - Công ty vàng bạc đá quý Phú Nhuận | Vàng, Bạc, Đá Quý",
       link: [
         { rel: "canonical", href: "https://haj-fe.vercel.app" },
+        { rel: "shortcut icon", type: "image/x-icon", href: "/favicon.ico" },
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       ],
       meta: [
@@ -58,12 +59,11 @@ export default defineNuxtConfig({
   },
   //Config robots file
 
-  // robots: {
-  //   UserAgent: "*",
-  //   Disallow: "/private/",
-  //   Allow: "/",
-  //   Sitemap: "https://haj-fe.vercel.app/sitemap.xml",
-  // },
+  robots: {
+    UserAgent: "*",
+    Disallow: "/server/",
+    Allow: "/public",
+  },
 
   css: ["vuetify/lib/styles/main.sass"],
   routeRules: {
