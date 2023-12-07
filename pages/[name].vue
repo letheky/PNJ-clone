@@ -43,6 +43,7 @@ import { ProductSimpleCardItem } from "#components";
 import { API_POST_PRODUCTS } from "~/server/api/constant";
 import { useDisplay } from "vuetify";
 
+const route = useRoute()
 const productInPage = ref(null);
 const page = ref(1);
 const { postBody } = useProducts();
@@ -68,6 +69,10 @@ watch(page, async () => {
     transform: (data) => data.result,
   });
 });
+
+useSeoMeta({
+  title: route.path.slice(1)
+})
 </script>
 
 <style lang="scss" scoped></style>

@@ -173,9 +173,12 @@
                       :key="page + index"
                       class="py-1"
                     >
-                      <NuxtLink prefetch :to="vnUrl(page)" style="color: black">{{
-                        page
-                      }}</NuxtLink>
+                      <NuxtLink
+                        prefetch
+                        :to="vnUrl(page)"
+                        style="color: black"
+                        >{{ page }}</NuxtLink
+                      >
                     </li>
                   </ul>
                 </TransitionToggleFade>
@@ -400,5 +403,4 @@ a {
     cursor: pointer;
   }
 }
-
 </style>

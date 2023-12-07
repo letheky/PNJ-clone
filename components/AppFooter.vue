@@ -381,9 +381,5 @@ const showCustomerService = ref(false);
   }
 }
 
-/**
-* *Enter and leave animations can use different
-* *durations and timing functions
-.
-*/
+
 </style>

@@ -23,9 +23,16 @@ export const useProducts = () => {
             }
         }
     }
+    const getProductCategories = () => {
+        return {
+            baseURL: baseURL,
+            method: "GET",
+        }
+    }
     return {
         baseURL,
         postBody,
-        getByID
+        getByID,
+        getProductCategories
     }
 }
