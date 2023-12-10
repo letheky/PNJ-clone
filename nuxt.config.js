@@ -105,7 +105,7 @@ export default defineNuxtConfig({
     "~/components",
   ],
   plugins: [
-    // { src: '~/plugins/vue3-apexchart.js', ssr: false },
+    // { src: '~/plugins/apexcharts.client.js', mode: 'client' },
     // { src: '~/plugins/device.server.js', ssr: true },
   ],
   modules: [

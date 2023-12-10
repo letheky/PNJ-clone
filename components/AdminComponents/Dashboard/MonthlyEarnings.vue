@@ -1,46 +1,43 @@
 <script setup>
-import { computed } from "vue";
 import { useTheme } from "vuetify";
 const theme = useTheme();
 const secondary = theme.current.value.colors.secondary;
 
 /* Chart */
-const areachartOptions = computed(() => {
-  return {
-    labels: ["1", "2", "3", "4", "5", "6", "7"],
-    chart: {
-      type: "area",
-      height: 60,
-      fontFamily: `inherit`,
-      foreColor: "#a1aab2",
-      toolbar: {
-        show: false,
-      },
-      sparkline: {
-        enabled: true,
-      },
-      group: "sparklines",
+const areachartOptions = {
+  labels: ["1", "2", "3", "4", "5", "6", "7"],
+  chart: {
+    type: "area",
+    height: 60,
+    fontFamily: `inherit`,
+    foreColor: "#a1aab2",
+    toolbar: {
+      show: false,
     },
-    colors: [secondary],
-    stroke: {
-      curve: "smooth",
-      width: 2,
+    sparkline: {
+      enabled: true,
     },
-    fill: {
-      type: "solid",
-      opacity: 0.05,
+    group: "sparklines",
+  },
+  colors: [secondary],
+  stroke: {
+    curve: "smooth",
+    width: 2,
+  },
+  fill: {
+    type: "solid",
+    opacity: 0.05,
+  },
+  markers: {
+    size: 0,
+  },
+  tooltip: {
+    theme: "light",
+    x: {
+      show: true,
     },
-    markers: {
-      size: 0,
-    },
-    tooltip: {
-      theme: "light",
-      x: {
-        show: true,
-      },
-    },
-  };
-});
+  },
+};
 
 const areaChart = {
   series: [
@@ -79,13 +76,13 @@ const areaChart = {
     </v-card-item>
     <div class="mt-3">
       <ClientOnly>
-        <apexchart
-          type="area"
-          height="60"
-          :options="areachartOptions"
-          :series="areaChart.series"
-        >
-        </apexchart>
+        <!-- <apexchart
+            type="area"
+            height="60"
+            :options="areachartOptions"
+            :series="areaChart.series"
+          >
+          </apexchart> -->
       </ClientOnly>
     </div>
   </v-card>
