@@ -1,33 +1,47 @@
-import { defineNuxtConfig } from "nuxt/config";
+import {
+  defineNuxtConfig
+} from "nuxt/config";
 import vuetify from "vite-plugin-vuetify";
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   app: {
     head: {
       title: "PNJ - Công ty vàng bạc đá quý Phú Nhuận | Vàng, Bạc, Đá Quý",
-      link: [
-        { rel: "canonical", href: "https://haj-fe.vercel.app" },
-        { rel: "shortcut icon", type: "image/x-icon", href: "/favicon.ico" },
-        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-      ],
-      meta: [
+      link: [{
+          rel: "canonical",
+          href: "https://haj-fe.vercel.app"
+        },
         {
+          rel: "shortcut icon",
+          type: "image/x-icon",
+          href: "/favicon.ico"
+        },
+        {
+          rel: "icon",
+          type: "image/x-icon",
+          href: "/favicon.ico"
+        },
+      ],
+      meta: [{
           hid: "description",
           name: "description",
-          content:
-            "Khám phá thế giới tinh tế của PNJ, Công ty vàng bạc đá quý Phú Nhuận, mang đến bộ sưu tập đồ trang sức vàng, bạc và đá quý tuyệt vời. Khám phá sự tinh tế và sang trọng tại đỉnh cao nghệ thuật.",
+          content: "Khám phá thế giới tinh tế của PNJ, Công ty vàng bạc đá quý Phú Nhuận, mang đến bộ sưu tập đồ trang sức vàng, bạc và đá quý tuyệt vời. Khám phá sự tinh tế và sang trọng tại đỉnh cao nghệ thuật.",
         },
         {
           property: "og:title",
-          content:
-            "Khuyến Mãi, Ưu Đãi HOT Nhất Tại PNJ ☎️1800545457 (Miễn Phí)",
+          content: "Khuyến Mãi, Ưu Đãi HOT Nhất Tại PNJ ☎️1800545457 (Miễn Phí)",
         },
-        { property: "og:type", content: "article" },
-        { property: "og:url", content: "https://haj-fe.vercel.app/" },
+        {
+          property: "og:type",
+          content: "article"
+        },
+        {
+          property: "og:url",
+          content: "https://haj-fe.vercel.app/"
+        },
         {
           property: "og:description",
-          content:
-            "Tổng Hợp Ưu Đãi, Khuyến Mãi Hot Nhất Tại PNJ ✔️Mua Online Nhanh Chóng, Tiện Lợi ✔️Miễn Phí Giao Hàng ❤️Gọi Ngay ☎️1800545457 (Miễn Phí)",
+          content: "Tổng Hợp Ưu Đãi, Khuyến Mãi Hot Nhất Tại PNJ ✔️Mua Online Nhanh Chóng, Tiện Lợi ✔️Miễn Phí Giao Hàng ❤️Gọi Ngay ☎️1800545457 (Miễn Phí)",
         },
         {
           hid: "og:image",
@@ -38,13 +52,15 @@ export default defineNuxtConfig({
           property: "og:sitename",
           content: "PNJ",
         },
-        { name: "robots", content: "index, follow" },
+        {
+          name: "robots",
+          content: "index, follow"
+        },
         // Add other meta tags as needed
       ],
-      script: [
-        {
-          type: "application/ld+json",
-          innerHTML: `
+      script: [{
+        type: "application/ld+json",
+        innerHTML: `
             {
               "@context": "http://schema.org",
               "@type": "Organization",
@@ -52,10 +68,12 @@ export default defineNuxtConfig({
               "url": "https://haj-fe.vercel.app",
             }
           `,
-        },
-      ],
+      }, ],
     },
-    pageTransition: { name: "page", mode: "out-in" },
+    pageTransition: {
+      name: "page",
+      mode: "out-in"
+    },
   },
   //Config robots file
 
@@ -68,17 +86,29 @@ export default defineNuxtConfig({
   css: ["vuetify/lib/styles/main.sass"],
   routeRules: {
     // Homepage pre-rendered at build time
-    "/": { prerender: true },
+    "/": {
+      prerender: true
+    },
     // Product page generated on-demand, revalidates in background
-    "/products/**": { swr: 3600 },
+    "/products/**": {
+      swr: 3600
+    },
     // Blog post generated on-demand once until next deploy
-    "/blog/**": { isr: true },
+    "/blog/**": {
+      isr: true
+    },
     // Admin dashboard renders only on client-side
-    "/admin/**": { ssr: false },
+    "/admin/**": {
+      ssr: false
+    },
     // Add cors headers on API routes
-    "/api/**": { cors: true },
+    "/api/**": {
+      cors: true
+    },
     // Redirects legacy urls
-    "/old-page": { redirect: "/new-page" },
+    "/old-page": {
+      redirect: "/new-page"
+    },
   },
   runtimeConfig: {
     public: {
@@ -88,11 +118,19 @@ export default defineNuxtConfig({
   },
   components: [
     // ~/calendar-module/components/event/Update.vue => <EventUpdate />
-    { path: "~/calendar-module/components" },
+    {
+      path: "~/calendar-module/components"
+    },
 
     // ~/components/MenuCard/UserDeleteDialog.vue => <UserDeleteDialog />
-    { path: "~/components/MenuCard", pathPrefix: false },
-    { path: "~/components/HomePage", pathPrefix: false },
+    {
+      path: "~/components/MenuCard",
+      pathPrefix: false
+    },
+    {
+      path: "~/components/HomePage",
+      pathPrefix: false
+    },
 
     // ~/components/special-components/Btn.vue => <SpecialBtn />
     // { path: "~/components/special-components", prefix: "Special" },
@@ -104,21 +142,24 @@ export default defineNuxtConfig({
     // ~/components/base/Btn.vue => <BaseBtn />
     "~/components",
   ],
-  plugins: [
+  plugins: [{
+      src: '~/plugins/apexcharts.client.js',
+      mode: 'client'
+    },
     // { src: '~/plugins/device.server.js', ssr: true },
   ],
   modules: [
     async (options, nuxt) => {
-      nuxt.hooks.hook("vite:extendConfig", (config) =>
-        config.plugins.push(vuetify())
-      );
-    },
-    "@pinia/nuxt",
-    "@pinia-plugin-persistedstate/nuxt",
-    "nuxt-icon",
-    "@nuxtjs/robots",
-    "@formkit/auto-animate/nuxt",
-    "@nuxt/image",
+        nuxt.hooks.hook("vite:extendConfig", (config) =>
+          config.plugins.push(vuetify())
+        );
+      },
+      "@pinia/nuxt",
+      "@pinia-plugin-persistedstate/nuxt",
+      "nuxt-icon",
+      "@nuxtjs/robots",
+      "@formkit/auto-animate/nuxt",
+      "@nuxt/image",
   ],
   build: {
     transpile: ["vuetify"],
