@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="mt-6">
-        <!-- <ClientOnly>
+        <ClientOnly>
           <apexchart
             type="bar"
             height="370px"
@@ -22,7 +22,7 @@
             :series="chartOptions.series"
           >
           </apexchart>
-        </ClientOnly> -->
+        </ClientOnly>
       </div>
     </v-card-item>
   </v-card>
