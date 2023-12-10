@@ -31,6 +31,21 @@ export default defineAppConfig({
       //product detail
       multiImg: "fa6-regular:images",
       checked: "lets-icons:done-ring-round-fill",
+
+      //admin page
+      dashboard: "ic:outline-dashboard",
+      typography: "tabler:typography",
+      shadow: "fluent:square-shadow-20-regular",
+      register: "lucide:user-plus",
+      login: "octicon:sign-in",
+      sample: "ph:aperture",
+      avatar: "carbon:user-avatar-filled",
+      task: "fluent:task-list-20-filled",
+      mail: "ic:baseline-mail-outline",
+      circle: "mdi:circle-outline",
+      currency: "mdi:currency-usd",
+      increase: "solar:arrow-left-up-outline",
+      decrease: "solar:arrow-right-down-outline",
     },
   },
 });

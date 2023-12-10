@@ -262,7 +262,7 @@
                 lines="2"
               >
                 <template v-slot:prepend>
-                  <IconCss name="checked" style="color: #003468" />
+                  <IconCSS name="checked" style="color: #003468" />
                 </template>
                 <v-list-item-title
                   class="text-subtitle-1"
@@ -302,8 +302,7 @@
 </template>
 
 <script setup>
-import { API_GET_PRODUCT_DETAIL } from "~/server/api/constant";
-import { API_POST_PRODUCTS } from "~/server/api/constant";
+import { API_GET_PRODUCT_DETAIL, API_POST_PRODUCTS } from "~/server/api/constant";
 import { useDisplay } from "vuetify";
 const { getByID, postBody } = useProducts();
 const { vnUrl } = slugifyUrl();
