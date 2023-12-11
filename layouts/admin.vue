@@ -17,9 +17,7 @@ useHead({
       <v-main>
         <v-container fluid class="page-wrapper">
           <div class="maxWidth">
-            
-              <slot></slot>
-            
+            <slot></slot>
           </div>
         </v-container>
       </v-main>
