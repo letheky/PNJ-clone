@@ -14,7 +14,7 @@ const PurpleTheme: ThemeTypes = {
         success: '#13DEB9',
         accent: '#FFAB91',
         warning: '#FFAE1F',
-        error: '#FA896B',
+        error: '#FF1744',
         muted:'#5a6a85',
         lightprimary: '#ECF2FF',
         lightsecondary: '#E8F7FF',
