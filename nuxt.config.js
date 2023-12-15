@@ -160,6 +160,7 @@ export default defineNuxtConfig({
       "@nuxtjs/robots",
       "@formkit/auto-animate/nuxt",
       "@nuxt/image",
+      "nuxt-lodash"
   ],
   build: {
     transpile: ["vuetify"],

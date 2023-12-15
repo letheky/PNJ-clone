@@ -10,7 +10,18 @@ export const useProducts = () => {
                 pageSize: 10,
                 productGroupId: 1,
                 subGroupId: 1,
-                productTypeId: 1,
+                productTypeId: 1
+            }
+        }
+    }
+    const searchBody = (page, str) => {
+        return {
+            baseURL: baseURL,
+            method: "POST",
+            body: {
+                pageNum: page,
+                pageSize: 10,
+                textSearch: str
             }
         }
     }
@@ -30,9 +41,9 @@ export const useProducts = () => {
         }
     }
     return {
-        baseURL,
         postBody,
         getByID,
-        getProductCategories
+        getProductCategories,
+        searchBody
     }
 }

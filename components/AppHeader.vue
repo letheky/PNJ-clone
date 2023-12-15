@@ -86,17 +86,87 @@
             />
           </v-menu>
         </div>
-        <v-text-field
+        <!-- <v-autocomplete
+          model-value="searchText"
+          :items="searchItems"
+          append-inner-icon="mdi-magnify"
+          class="flex-full-width ml-10 mb-n6"
+          density="comfortable"
+          menu-icon=""
           placeholder="Nhập thông tin bạn muốn tìm kiếm"
-          style="max-width: 400px; min-width: 300px"
-          class="ml-10 mb-n6"
-          variant="outlined"
-          :rounded="true"
+          rounded
+          theme="light"
+          variant="solo"
+        ></v-autocomplete> -->
+        <v-menu
+          transition="scale-transition"
+          width="500"
+          location="bottom start"
+          open-on-hover
         >
-          <template #append>
-            <Icon class="ml-n1" name="search"></Icon>
+          <template v-slot:activator="{ props }">
+            <div v-bind="props">
+              <v-text-field
+                v-model="searchText"
+                placeholder="Nhập thông tin bạn muốn tìm kiếm"
+                style="max-width: 400px; min-width: 300px"
+                append-inner-icon="mdi-magnify"
+                class="ml-10 mb-n6"
+                :loading="searchItems.pending ? true : false"
+                variant="outlined"
+                :rounded="true"
+              >
+              </v-text-field>
+            </div>
           </template>
-        </v-text-field>
+          <!-- <div v-for="(item, index) in accesTypes" :key="index">
+              <NuxtLink class="menu-link" to="/">{{ item }}</NuxtLink>
+            </div> -->
+          <v-sheet v-if="searchItems.pending || !searchItems.data">
+            <div class="d-flex justify-center align-center">
+              <div class="char">L</div>
+              <div class="char">o</div>
+              <div class="char">a</div>
+              <div class="char">d</div>
+              <div class="char">i</div>
+              <div class="char">n</div>
+              <div class="char">g</div>
+              <div class="char">.</div>
+              <div class="char">.</div>
+              <div class="char">.</div>
+            </div>
+          </v-sheet>
+          <v-sheet v-else :height="searchItems.data.total > 0 ? 300 : 70">
+            <h4 class="pa-4 text-h3">
+              <p v-if="searchItems.data.total > 0">
+                Danh sách 10 trên tổng {{ searchItems.data.total }} kết quả
+              </p>
+              <p v-else class="text-error">Không tìm thấy sản phẩm</p>
+            </h4>
+            <div v-for="item in searchItems.data.results" class="px-5">
+              <NuxtLink
+                :to="`/san-pham/${item.id}`"
+                class="d-flex align-center justify-between cursor-pointer"
+              >
+                <div class="d-flex align-center">
+                  <v-img
+                    class="rounded-md"
+                    width="80"
+                    :alt="item.name"
+                    :src="item.thumbnail"
+                  />
+                </div>
+                <div class="d-flex flex-column">
+                  <div class="">{{ item.name }}</div>
+                  <div class="">{{ item.price.toLocaleString() }}đ</div>
+                </div>
+              </NuxtLink>
+            </div>
+          </v-sheet>
+          <!-- <v-sheet class="mt-2" v-else height="50">
+            <h3 class="text-center text-error text-h5 mt-3">Không tìm thấy sản phẩm</h3>
+          </v-sheet> -->
+        </v-menu>
       </v-row>
     </v-container>
   </div>
@@ -114,18 +184,7 @@
             src="/images/logos/logo.png"
           ></v-img>
         </NuxtLink>
-        <v-text-field
-          label="Tìm kiếm nhanh"
-          style="max-width: 600px"
-          class="ml-2 mb-n5 mr-n2"
-          variant="outlined"
-          rounded
-          density="compact"
-        >
-          <template #append>
-            <Icon class="ml-n13" name="search" size="20"></Icon>
-          </template>
-        </v-text-field>
+
         <Icon name="phone" size="20" />
         <span>
           <v-badge class="mx-1" dot color="error" location="bottom right">
@@ -138,7 +197,6 @@
 </template>
 
 <script setup>
-
 /**
  * *Dynamic import pophover components
  */
@@ -164,6 +222,8 @@ import {
   NUXT_APP_GEMSTONE_TYPES,
   NUXT_APP_GIFT_FOR,
 } from "~/data/headermenu";
+
+import { API_POST_PRODUCTS } from "~/server/api/constant";
 
 /**
  * *Logic and variables for dynamic menu start from here
@@ -276,8 +336,35 @@ watch(activeItem, (newValue) => {
 });
 
 /**
- * TODO: config responsive header commencing from now
+ * *Fetching data
  */
+const { searchBody } = useProducts();
+const isSearching = ref(false);
+const searchText = ref("");
+const searchItems = ref([]);
+
+const searchByName = useDebounce(async () => {
+  isSearching.value = true;
+  searchItems.value = await useFetch(() => API_POST_PRODUCTS, {
+    ...searchBody(1, searchText.value),
+    transform: (data) => data.result,
+  });
+  isSearching.value = false;
+}, 1000);
+console.log("test");
+watch(
+  () => searchText.value,
+  async () => {
+    if (!searchText.value) {
+      setTimeout(() => {
+        searchItems.value = "";
+        isSearching.value = false;
+        return;
+      }, 500);
+    }
+    searchByName();
+  }
+);
 </script>
 
 <style lang="scss" scoped>
@@ -336,6 +423,54 @@ h6 {
         }
       }
     }
+  }
+}
+.char {
+  font-size: 30px;
+  color: #5d87ff;
+  display: inline-block;
+  transition: all 0.9s;
+  animation: animate 1.5s infinite;
+  &:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  &:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+  &:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  &:nth-child(4) {
+    animation-delay: 0.5s;
+  }
+  &:nth-child(5) {
+    animation-delay: 0.6s;
+  }
+  &:nth-child(6) {
+    animation-delay: 0.8s;
+  }
+  &:nth-child(7) {
+    animation-delay: 0.9s;
+  }
+  &:nth-child(8) {
+    animation-delay: 1s;
+  }
+  &:nth-child(9) {
+    animation-delay: 1.2s;
+  }
+  &:nth-child(10) {
+    animation-delay: 1.4s;
+  }
+}
+@keyframes animate {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 @media only screen and (max-width: 767px) {
