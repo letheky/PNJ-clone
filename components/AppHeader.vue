@@ -50,9 +50,7 @@
     <v-divider class="top-divider"></v-divider>
     <v-container>
       <v-row>
-        <div
-          class="header-menus d-flex align-center justify-space-between flex-grow-1"
-        >
+        <div class="header-menus d-flex align-center justify-space-between">
           <v-menu
             transition="scale-transition"
             width="1000"
@@ -86,21 +84,10 @@
             />
           </v-menu>
         </div>
-        <!-- <v-autocomplete
-          model-value="searchText"
-          :items="searchItems"
-          append-inner-icon="mdi-magnify"
-          class="flex-full-width ml-10 mb-n6"
-          density="comfortable"
-          menu-icon=""
-          placeholder="Nhập thông tin bạn muốn tìm kiếm"
-          rounded
-          theme="light"
-          variant="solo"
-        ></v-autocomplete> -->
         <v-menu
           transition="scale-transition"
           width="500"
+          offset="10 10"
           location="bottom start"
           open-on-hover
         >
@@ -112,7 +99,6 @@
                 style="max-width: 400px; min-width: 300px"
                 append-inner-icon="mdi-magnify"
                 class="ml-10 mb-n6"
-                :loading="searchItems.pending ? true : false"
                 variant="outlined"
                 :rounded="true"
               >
@@ -157,8 +143,8 @@
                   />
                 </div>
                 <div class="d-flex flex-column">
-                  <div class="">{{ item.name }}</div>
-                  <div class="">{{ item.price.toLocaleString() }}đ</div>
+                  <div>{{ item.name }}</div>
+                  <div>{{ item.price.toLocaleString() }}đ</div>
                 </div>
               </NuxtLink>
             </div>
@@ -173,7 +159,7 @@
   <div class="app-header app-header-mobile-tablet">
     <v-container>
       <v-row align="center" class="d-flex justify-space-between pt-2 px-1">
-        <NuxtLink class="mx-auto" to="/">
+        <NuxtLink to="/">
           <v-img
             max-width="65"
             width="65"
@@ -185,6 +171,15 @@
           ></v-img>
         </NuxtLink>
 
+        <v-text-field
+          placeholder="Tìm kiếm nhanh"
+          append-inner-icon="mdi-magnify"
+          class="mb-n6 mx-3 flex-grow-1"
+          variant="outlined"
+          density="compact"
+          :rounded="true"
+          @update:focused="searchDialog = true"
+        ></v-text-field>
         <Icon name="phone" size="20" />
         <span>
           <v-badge class="mx-1" dot color="error" location="bottom right">
@@ -193,6 +188,69 @@
         </span>
       </v-row>
     </v-container>
+    <v-dialog v-model="searchDialog">
+      <v-card class="mx-auto overflow-hidden" max-width="400">
+          <v-text-field
+            v-model="searchText"
+            placeholder="Nhập thông tin tìm kiếm"
+            style="max-width: 400px; min-width: 300px"
+            append-inner-icon="mdi-close"
+            prepend-inner-icon="mdi-magnify"
+            density="compact"
+            single-line
+            hide-details
+            variant="plain"
+            @click:append-inner="searchDialog = false"
+          ></v-text-field>
+      </v-card>
+      <div style="min-height: 10px; background-color: transparent"></div>
+      <v-card>
+        <div
+          v-if="searchItems.pending || !searchItems.data"
+          class="d-flex justify-center align-center"
+        >
+          <div class="char">L</div>
+          <div class="char">o</div>
+          <div class="char">a</div>
+          <div class="char">d</div>
+          <div class="char">i</div>
+          <div class="char">n</div>
+          <div class="char">g</div>
+          <div class="char">.</div>
+          <div class="char">.</div>
+          <div class="char">.</div>
+        </div>
+        <div v-else-if="searchText">
+          <h4 class="pa-4 text-body-1 font-weight-bold">
+            <p v-if="searchItems.data.total > 0">
+              Danh sách 10 trên tổng {{ searchItems.data.total }} kết quả
+            </p>
+            <p v-else class="text-error">Không tìm thấy sản phẩm</p>
+          </h4>
+          <div v-for="item in searchItems.data.results" class="px-5">
+            <NuxtLink
+              :to="`/san-pham/${item.id}`"
+              class="d-flex align-center justify-between cursor-pointer"
+            >
+              <div class="d-flex align-center">
+                <v-img
+                  class="rounded-md"
+                  width="80"
+                  :alt="item.name"
+                  :src="item.thumbnail"
+                />
+              </div>
+              <div class="d-flex flex-column">
+                <div class="text-caption font-weight-bold">{{ item.name }}</div>
+                <div class="text-secondary">
+                  {{ item.price.toLocaleString() }}đ
+                </div>
+              </div>
+            </NuxtLink>
+          </div>
+        </div>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -339,26 +397,23 @@ watch(activeItem, (newValue) => {
  * *Fetching data
  */
 const { searchBody } = useProducts();
-const isSearching = ref(false);
 const searchText = ref("");
 const searchItems = ref([]);
+const searchDialog = ref(false);
 
 const searchByName = useDebounce(async () => {
-  isSearching.value = true;
   searchItems.value = await useFetch(() => API_POST_PRODUCTS, {
     ...searchBody(1, searchText.value),
     transform: (data) => data.result,
   });
-  isSearching.value = false;
 }, 1000);
-console.log("test");
+
 watch(
   () => searchText.value,
   async () => {
     if (!searchText.value) {
       setTimeout(() => {
         searchItems.value = "";
-        isSearching.value = false;
         return;
       }, 500);
     }
@@ -467,7 +522,7 @@ h6 {
     transform: translateY(0);
   }
   40% {
-    transform: translateY(-20px);
+    transform: translateY(-8px);
   }
   100% {
     transform: translateY(0);
@@ -490,27 +545,5 @@ h6 {
 }
 </style>
 <style>
-.v-text-field .v-input__control .v-input__slot {
-  min-height: 0 !important;
-  padding: 0 8px !important;
-  margin-bottom: 2px !important;
-  display: flex !important;
-  align-items: center !important;
-}
 
-.v-text-field .v-input__control .v-input__slot .v-input__append-inner {
-  margin-top: 5px !important;
-}
-
-.v-text-field .v-input__control .v-input__slot label {
-  margin-top: -12px !important;
-}
-
-.v-text-field .v-input__control .v-input__slot label.v-label--active {
-  margin: 0 0 0 5px !important;
-}
-
-.v-text-field__details {
-  margin: 2px !important;
-}
 </style>

@@ -11,15 +11,18 @@
     />
     <ProductsList
       class="mobile-border-bottom"
+      v-if="firstProductList"
       :productList="firstProductList"
       listTitle="Sản phẩm bán chạy"
     />
     <ProductsList
       class="mobile-border-bottom"
+      v-if="secondProductList"
       :productList="secondProductList"
       listTitle="Sản phẩm mới"
     />
     <ProductListWithCollection
+    v-if="thirdProductList"
       :productList="thirdProductList"
       listTitle="Bộ sưu tập mới"
     />
