@@ -46,6 +46,11 @@ export default defineAppConfig({
       currency: "mdi:currency-usd",
       increase: "solar:arrow-left-up-outline",
       decrease: "solar:arrow-right-down-outline",
+
+      //admin product
+      products: 'eos-icons:products-outlined',
+      edit: 'material-symbols:edit-square-outline',
+      delete: 'ic:baseline-delete-outline'
     },
   },
 });

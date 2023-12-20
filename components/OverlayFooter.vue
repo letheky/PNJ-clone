@@ -1,6 +1,6 @@
 <template>
   <div class="overlay-footer-mobile-tablet">
-    <v-footer :app="true" elevation="8" height="60" style="padding: 0">
+    <v-footer app elevation="8" height="60" style="padding: 0">
       <v-row class="text-center">
         <v-col v-for="(item, i) in firstThree" :key="i">
           <NuxtLink :to="item.path">

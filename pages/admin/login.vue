@@ -37,8 +37,17 @@
   </div>
 </template>
 <script setup>
+import {
+    useUserToken
+} from '~/stores/userToken'
 /*-For Set Blank Layout-*/
 definePageMeta({
   layout: "blank",
 });
+const useUserTokenStore = useUserToken()
+onMounted(()=>{
+  localStorage.setItem('userToken',{})
+  useUserTokenStore.token = ''
+  useUserTokenStore.refreshToken = ''
+})
 </script>

@@ -51,6 +51,8 @@
 </template>
 <script setup>
 import { API_USER_LOGIN } from "~/server/api/constant";
+import { useUserToken } from "~/stores/userToken";
+const useUserTokenStore = useUserToken();
 const { postLogin } = useUser();
 const checkbox = ref(true);
 const visible = ref(false);
@@ -71,7 +73,9 @@ const login = () => {
             refreshToken: response._data.refreshToken,
           };
           localStorage.setItem("userToken", JSON.stringify(token));
-          navigateTo('/admin')
+          useUserTokenStore.token = token.token;
+          useUserTokenStore.refreshToken = token.refreshToken;
+          navigateTo("/admin/danh-sach-san-pham");
         }
       } else error.value = true;
     },

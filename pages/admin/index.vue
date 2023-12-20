@@ -32,6 +32,7 @@
 </template>
 <script setup>
 definePageMeta({
-  layout: 'admin'
+  layout: 'admin',
+  middleware: 'authorization'
 })
 </script>

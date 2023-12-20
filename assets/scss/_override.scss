@@ -1,10 +1,12 @@
 html {
-    a{
+    a {
         text-decoration: none;
     }
-    ul{
+
+    ul {
         list-style: none;
     }
+
     .bg-success {
         color: white !important;
     }
@@ -21,7 +23,13 @@ html {
         color: $white !important;
     }
 }
+
 .border,
 .v-divider {
     border-color: rgba(var(--v-border-color), 1) !important;
+}
+
+.v-footer {
+    position: fixed !important;
+    bottom: 0;
 }

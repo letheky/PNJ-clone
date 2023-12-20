@@ -12,19 +12,19 @@
         </template>
         <v-sheet rounded="md" width="200" elevation="10" class="mt-2">
             <v-list class="py-0" lines="one" density="compact">
-                <v-list-item value="item1" active-color="primary" >
+                <v-list-item value="item1" color="primary" >
                     <template v-slot:prepend>
                         <Icon name="user"/>
                     </template>
                     <v-list-item-title class="pl-4 text-body-1">My Profile</v-list-item-title>
                 </v-list-item>
-                <v-list-item value="item2" active-color="primary">
+                <v-list-item value="item2" color="primary">
                     <template v-slot:prepend>
                         <Icon name="mail"/>
                     </template>
                     <v-list-item-title  class="pl-4 text-body-1">My Account</v-list-item-title>
                 </v-list-item>
-                <v-list-item value="item3" active-color="primary"> 
+                <v-list-item value="item3" color="primary"> 
                     <template v-slot:prepend>
                         <Icon name="task"/>
                     </template>

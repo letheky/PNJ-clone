@@ -10,7 +10,7 @@
     <!---Logo part -->
     <div class="pa-5">
       <div class="logo">
-        <NuxtLink to="/admin">
+        <NuxtLink to="/">
           <v-img
             alt="HAJ - Admin"
             max-width="100"
