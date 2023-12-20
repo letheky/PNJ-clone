@@ -251,12 +251,27 @@
         </v-footer>
       </v-container>
     </v-form>
+    <v-alert
+      v-model="hasError"
+      position="fixed"
+      transition="scale-transition"
+      type="error"
+      density="compact"
+      style="
+        font-size: 14px;
+        bottom: 7%;
+        transform: translateX(-50%);
+        left: 55%;
+      "
+    >
+      Đã có lỗi xảy ra!
+    </v-alert>
   </div>
 </template>
 
 <script setup>
 definePageMeta({
-  layout: "admin"
+  layout: "admin",
 });
 
 //input rules
@@ -283,6 +298,7 @@ const { postImage } = useUploadImage();
 
 //product detail
 const form = ref(false);
+const hasError = ref(false);
 const name = ref("");
 const price = ref(1);
 const thumbnail = ref(null);
@@ -386,24 +402,30 @@ const uploadImageList = async (file, property, index) => {
 };
 
 const confirmEditProduct = async () => {
-  const body = [
-    {
-      productGroupId: selectedProductGroup.value,
-      subGroupId: selectedProductSubGroup.value,
-      productTypeId: selectedProductType.value,
-      name: name.value,
-      price: Number(price.value),
-      thumbnail: image.value,
-      productSizes: listSize.value.map((item) => ({
-        size: Number(item.size),
-        price: Number(item.price),
-      })),
-      productImages: productImages.value,
-    },
-  ];
-  await editProduct(body).then((res) => {
-    window.history.back();
-  });
+  const body = {
+    id: productID,
+    productGroupId: selectedProductGroup.value,
+    subGroupId: selectedProductSubGroup.value,
+    productTypeId: selectedProductType.value,
+    name: name.value,
+    price: Number(price.value),
+    thumbnail: image.value,
+    productSizes: listSize.value.map((item) => ({
+      size: Number(item.size),
+      price: Number(item.price),
+    })),
+    productImages: productImages.value,
+  };
+  await editProduct(body)
+    .then((res) => {
+      window.history.back();
+    })
+    .catch(() => {
+      hasError.value = true;
+      setTimeout(() => {
+        hasError.value = false;
+      }, 1000);
+    });
 };
 </script>
 
