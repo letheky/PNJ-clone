@@ -119,6 +119,7 @@
             label="Số sản phẩm"
             :items="[25, 50, 100, 200]"
             style="max-width: 200px"
+            variant="outlined"
             density="compact"
           ></v-select>
           <v-pagination
