@@ -68,7 +68,7 @@
           ></v-text-field>
         </v-row>
         <v-row>
-          <!-- <v-radio-group
+          <v-radio-group
             v-model="selectedImageType"
             density="compact"
             class="pa-1"
@@ -85,7 +85,7 @@
               value="external"
               density="compact"
             ></v-radio>
-          </v-radio-group> -->
+          </v-radio-group>
           <v-file-input
             v-model="thumbnail"
             :loading="isUploading"
@@ -308,6 +308,7 @@ const listImg = ref([]);
 
 //init state to store in API payload
 const image = ref(null);
+const imageID = ref(null);
 const productImages = ref([]);
 
 const addNewSize = () => {
@@ -330,17 +331,16 @@ const uploadSingleImage = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
   await postImage(formData).then((res) => {
-    image.value = baseURL + res.result;
+    image.value = baseURL + res.result.apiPath;
+    imageID.value = res.result.id;
     isUploading.value = false;
   });
 };
 const uploadImageList = async (file, property, index) => {
-  isUploading.value = true;
   const formData = new FormData();
   formData.append("file", file);
   await postImage(formData).then((res) => {
     productImages.value[index][property] = baseURL + res.result;
-    isUploading.value = false;
   });
 };
 

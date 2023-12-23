@@ -22,7 +22,7 @@
             class="my-auto ml-2"
             style="width: 100%;"
             cover
-            alt="PNJ - Banner bộ sưu tập Trầu Cau"
+            alt="HAJ - Banner bộ sưu tập Trầu Cau"
             src="/images/products/Banner_BST_Trau_Cau_400x270.png"
           ></v-img>
         </v-row>

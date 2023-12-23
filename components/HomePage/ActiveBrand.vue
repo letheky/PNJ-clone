@@ -26,7 +26,7 @@
               width="180"
               cover
               class="responsive-desktop-tablet-image mt-n5 rounded mb-3 elevation-2"
-              alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+              alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
               lazy-src="/images/brands/pnj disney-01.png"
               src="/images/brands/pnj disney-01.png"
             ></v-img>
@@ -63,7 +63,7 @@
             width="180"
             cover
             class="responsive-desktop-tablet-image mt-n5 rounded mb-3 elevation-2"
-            alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+            alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
             lazy-src="/images/brands/pnj disney-01.png"
             src="/images/brands/pnj disney-01.png"
           ></v-img>

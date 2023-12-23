@@ -5,7 +5,7 @@
         <v-breadcrumbs :items="breadCrumbItems"></v-breadcrumbs>
       </v-row>
       <v-row>
-        <v-col cols="3" md="2">
+        <v-col cols="3" sm="3" md="3" lg="2">
           <v-sheet class="mx-auto d-none d-sm-flex" max-width="100%">
             <v-slide-group
               v-model="selectedImage"
@@ -30,7 +30,7 @@
                   >
                     <NuxtImg
                       fit="cover"
-                      :src="image.subImage"
+                      :src="image.subImageFullPath"
                       :alt="productDetail.name"
                       :title="productDetail.name"
                       loading="lazy"
@@ -43,15 +43,17 @@
             </v-slide-group>
           </v-sheet>
         </v-col>
-        <v-col cols="9" md="5" v-if="!smAndDown">
+        <v-col cols="12" sm="9" md="9" lg="5">
           <v-card
-            class="d-flex fill-height align-center justify-center"
+            class="fill-height align-center justify-center d-none d-sm-flex"
             width="500"
             max-height="500"
           >
             <NuxtImg
               fit="cover"
-              :src="productDetail.productImages[selectedImage].mainImage"
+              :src="
+                productDetail.productImages[selectedImage].mainImageFullPath
+              "
               :alt="productDetail.name"
               :title="productDetail.name"
               loading="lazy"
@@ -60,8 +62,6 @@
               height="485"
             />
           </v-card>
-        </v-col>
-        <v-col cols="12" v-else>
           <v-carousel
             class="d-sm-none"
             hide-delimiter-background
@@ -80,7 +80,7 @@
               <v-sheet class="d-flex flex-column align-center justify-center">
                 <NuxtImg
                   fit="cover"
-                  :src="image.mainImage"
+                  :src="image.mainImageFullPath"
                   :alt="productDetail.name"
                   :title="productDetail.name"
                   loading="lazy"
@@ -91,7 +91,7 @@
             </v-carousel-item>
           </v-carousel>
         </v-col>
-        <v-col cols="12" md="5">
+        <v-col cols="12" sm="12" md="12" lg="5">
           <div class="product-info d-flex flex-column pl-md-10 ga-1">
             <h3 class="text-h5 font-weight-medium">{{ productDetail.name }}</h3>
             <h4 class="text-subtitle-1">Code: {{ productDetail.code }}</h4>
@@ -246,7 +246,7 @@
                 >Ưu đãi độc quyền</span
               >
             </span>
-            <v-btn color="error" height="50">
+            <v-btn color="error" height="50" @click="openBuyDialog()">
               <div class="d-flex flex-column justify-center align-center">
                 <p>Mua hàng</p>
                 <p class="font-italic text-body-2">
@@ -298,11 +298,60 @@
         </div>
       </v-row>
     </v-container>
+    <v-dialog v-model="buyDialog" :max-width="515" :width="500">
+      <v-card class="pa-5">
+        <v-icon
+          size="large"
+          color="error"
+          class="ml-auto mb-4"
+          @click="buyDialog = false"
+          >mdi-close-circle</v-icon
+        >
+        <div>
+          <v-img
+            class="mx-auto"
+            v-if="productDetail.thumbnailFullPath"
+            width="80"
+            height="80"
+            :src="productDetail.thumbnailFullPath"
+          >
+          </v-img>
+          <h3 class="text-h4 text-center">{{ productDetail.name }}</h3>
+        </div>
+        <div class="d-flex flex-column">
+          <v-card-title
+            style="display: flex; flex-direction: column"
+            class="pt-5 mb-5"
+          >
+            <h2 class="text-h6 text-center text-warning">Mua hàng</h2>
+            <p class="text-body-1 text-center text-warning">
+              Chọn địa chỉ bạn muốn liên hệ
+            </p>
+          </v-card-title>
+        </div>
+        <v-card-actions class="pa-0">
+          <NuxtLink target="_blank" :to="contactInfo.result[0].url">
+            <v-btn color="primary" variant="outlined" class="py-1 px-5">
+              <p>Liên hệ Facebook</p>
+            </v-btn>
+          </NuxtLink>
+          <v-spacer></v-spacer>
+          <NuxtLink target="_blank" :to="contactInfo.result[1].url">
+            <v-btn color="primary" variant="outlined" class="py-1 px-5">
+              <p>Liên hệ Zalo</p>
+            </v-btn>
+          </NuxtLink>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script setup>
-import { API_GET_PRODUCT_DETAIL, API_POST_PRODUCTS } from "~/server/api/constant";
+import {
+  API_GET_PRODUCT_DETAIL,
+  API_POST_PRODUCTS,
+} from "~/server/api/constant";
 import { useDisplay } from "vuetify";
 const { getByID, postBody } = useProducts();
 const { vnUrl } = slugifyUrl();
@@ -323,15 +372,20 @@ const selectedSize = ref(0);
 const increasedPriceBySize = computed(() => {
   return selectedSize.value / productDetail.value.productSizes[0].size;
 });
-
-const { data: firstProductList } = await useFetch(() => API_POST_PRODUCTS, {
-  ...postBody(1),
-  transform: (data) => data.result.results,
-});
-
 const { data: productDetail } = await useFetch(() => API_GET_PRODUCT_DETAIL, {
   ...getByID(index),
   transform: (data) => data.result,
+});
+const { data: firstProductList } = await useFetch(() => API_POST_PRODUCTS, {
+  ...postBody(
+    1,
+    10,
+    productDetail.value.productGroup.id,
+    productDetail.value.subGroup.id,
+    productDetail.value.productType.id
+  ),
+
+  transform: (data) => data.result.results,
 });
 const prosAtPNJ = [
   "Giá sản phẩm thay đổi tuỳ trọng lượng vàng và đá",
@@ -367,9 +421,17 @@ const caculateRingSize = [
   { label: 6.3, value: 19 },
 ];
 
+//Mua hàng - Buy button
+const buyDialog = ref(false);
+const openBuyDialog = () => {
+  buyDialog.value = true;
+};
+const { getContactInfo } = useContact();
+const { data: contactInfo } = await getContactInfo();
+
 useSeoMeta({
-  title: productDetail.value.name
-})
+  title: productDetail.value.name,
+});
 </script>
 
 <style lang="scss" scoped>

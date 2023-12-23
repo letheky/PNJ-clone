@@ -2,19 +2,20 @@
   <div class="overlay-footer-mobile-tablet">
     <v-footer app elevation="8" height="60" style="padding: 0">
       <v-row class="text-center">
-        <v-col v-for="(item, i) in firstThree" :key="i">
-          <NuxtLink :to="item.path">
-            <div class="overlay-item" @click="setActive(item.iconName)">
+        <v-col col="6">
+          <!-- {{ firtItem }} -->
+          <NuxtLink :to="firtItem.path">
+            <div class="overlay-item" @click="setActive(firtItem.iconName)">
               <IconCSS
-                :name="item.iconName"
+                :name="firtItem.iconName"
                 :style="{
-                  color: selectedItem === item.iconName ? '#003468' : '',
+                  color: selectedItem === firtItem.iconName ? '#003468' : '',
                 }"
               />
               <p
-                v-text="item.iconTitle"
+                v-text="firtItem.iconTitle"
                 :style="{
-                  color: selectedItem === item.iconName ? '#003468' : '',
+                  color: selectedItem === firtItem.iconName ? '#003468' : '',
                 }"
               ></p>
             </div>
@@ -31,9 +32,9 @@
             <template v-slot:activator="{ props }">
               <div class="overlay-item" v-bind="props">
                 <v-list-item-title>
-                  <IconCSS :name="restArr[1].iconName" />
+                  <IconCSS :name="restArr[0].iconName" />
                 </v-list-item-title>
-                <v-list-item-subtitle v-text="restArr[1].iconTitle">
+                <v-list-item-subtitle v-text="restArr[0].iconTitle">
                 </v-list-item-subtitle>
               </div>
             </template>
@@ -45,39 +46,37 @@
               class="d-flex justify-center align-center flex-column rounded-pill"
               style="gap: 10px; padding-top: 10px"
             >
-              <v-img
-                max-width="50"
-                width="50"
-                height="50"
-                cover
-                alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-                src="/images/logos/messenger.svg"
-              ></v-img>
-              <v-img
-                max-width="50"
-                width="50"
-                height="50"
-                cover
-                alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-                src="/images/logos/hotline.svg"
-              ></v-img>
-              <v-img
-                max-width="50"
-                width="50"
-                height="50"
-                cover
-                alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-                src="/images/logos/zalo.svg"
-              ></v-img>
+              <NuxtLink target="_blank" :to="contactInfo.result[0].url">
+                <v-img
+                  max-width="50"
+                  width="50"
+                  height="50"
+                  cover
+                  alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+                  src="/images/logos/messenger.svg"
+                ></v-img>
+              </NuxtLink>
+              <NuxtLink target="_blank" :to="contactInfo.result[1].url">
+                <v-img
+                  max-width="50"
+                  width="50"
+                  height="50"
+                  cover
+                  alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+                  src="/images/logos/zalo.svg"
+                ></v-img>
+              </NuxtLink>
             </v-card>
           </v-menu>
         </v-col>
         <v-col>
           <div class="overlay-item" @click.stop="menuDrawer = !menuDrawer">
             <v-list-item-title>
-              <IconCSS :name="restArr[2].iconName" />
+              <IconCSS :name="restArr[restArr.length - 1].iconName" />
             </v-list-item-title>
-            <v-list-item-subtitle v-text="restArr[2].iconTitle">
+            <v-list-item-subtitle
+              v-text="restArr[restArr.length - 1].iconTitle"
+            >
             </v-list-item-subtitle>
           </div>
           <!-- <div v-for="(item, index) in accesTypes" :key="index">
@@ -108,7 +107,7 @@
             class="menu-title py-1 px-2 d-flex align-center flex-grow-1"
             @click.stop="openSubMenu(item)"
           >
-            <h6>{{ item }}</h6>
+            <h6>{{ item.name }}</h6>
             <v-spacer></v-spacer>
             <Icon name="chevronRight" />
           </div>
@@ -146,7 +145,7 @@
         @click.stop="secondMenuDrawer = !secondMenuDrawer"
       >
         <v-btn icon flat elevation="0"><Icon name="back" size="20" /> </v-btn>
-        <h5 class="text-center">{{ subMenuTitle }}</h5>
+        <h5 class="text-center">{{ subMenuTitle.name }}</h5>
       </div>
       <v-divider></v-divider>
       <v-item-group>
@@ -161,7 +160,7 @@
                 class="menu-title py-1 px-2 d-flex align-center flex-grow-1"
                 @click="toggle"
               >
-                <h6>{{ item.title }}</h6>
+                <h6>{{ item.name }}</h6>
                 <v-spacer></v-spacer>
                 <Icon :name="isSelected ? 'chevronUp' : 'chevronDown'" />
               </div>
@@ -175,9 +174,10 @@
                     >
                       <NuxtLink
                         prefetch
-                        :to="vnUrl(page)"
+                        :to="vnUrl(page.name)"
+                        @click="setProductCats(item, page)"
                         style="color: black"
-                        >{{ page }}</NuxtLink
+                        >{{ page.name }}</NuxtLink
                       >
                     </li>
                   </ul>
@@ -193,36 +193,46 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { TransitionToggleFade } from "#components";
 import {
-  NUXT_APP_ACCESSORIES_TYPES,
-  NUXT_APP_ACCESSORIES_MATERIALS,
-  NUXT_APP_ACCESSORIES_LIST,
-  NUXT_APP_ACCESSORIES_COLLECTIONS,
-  NUXT_APP_WEDD_ACCESS_PURPOSES,
-  NUXT_APP_WEDD_ACCESS_TYPES,
-  NUXT_APP_WEDD_ACCESS_CATEGORIES,
-  NUXT_APP_WEDD_ACCESS_MATERIALS,
-  NUXT_APP_WEDD_ACCESS_COLLECTIONS,
-  NUXT_APP_GEMSTONE_TYPES,
-  NUXT_APP_GIFT_FOR,
+  NUXT_APP_PRODUCT_GROUP,
+  NUXT_APP_PRODUCT_SUBGROUP_ONE,
+  NUXT_APP_PRODUCT_SUBGROUP_TWO,
+  NUXT_APP_PRODUCT_SUBGROUP_THREE,
+  NUXT_APP_PRODUCT_SUBGROUP_FOUR,
+  NUXT_APP_PRODUCT_TYPE_ONE_ONE,
+  NUXT_APP_PRODUCT_TYPE_ONE_TWO,
+  NUXT_APP_PRODUCT_TYPE_ONE_THREE,
+  NUXT_APP_PRODUCT_TYPE_ONE_FOUR,
+  NUXT_APP_PRODUCT_TYPE_TWO_ONE,
+  NUXT_APP_PRODUCT_TYPE_TWO_TWO,
+  NUXT_APP_PRODUCT_TYPE_TWO_THREE,
+  NUXT_APP_PRODUCT_TYPE_TWO_FOUR,
+  NUXT_APP_PRODUCT_TYPE_TWO_FIVE,
+  NUXT_APP_PRODUCT_TYPE_THREE_ONE,
+  NUXT_APP_PRODUCT_TYPE_THREE_TWO,
+  NUXT_APP_PRODUCT_TYPE_THREE_THREE,
+  NUXT_APP_PRODUCT_TYPE_FOUR_ONE,
+  NUXT_APP_PRODUCT_TYPE_FOUR_TWO,
+  NUXT_APP_PRODUCT_TYPE_FOUR_THREE,
+  NUXT_APP_PRODUCT_TYPE_FOUR_FOUR,
+  NUXT_APP_PRODUCT_TYPE_FOUR_FIVE,
 } from "~/data/headermenu";
+
+//import product categories store
+import { useProductCat } from "~/stores/productCat";
+const productCats = useProductCat();
 
 const { vnUrl } = slugifyUrl();
 const route = useRoute();
 
 const iconList = [
   { iconName: "home", iconTitle: "Trang chủ", path: "/" },
-  { iconName: "coupon", iconTitle: "Khuyến mãi", path: "/coupon" },
-  { iconName: "profile", iconTitle: "Cá nhân", path: "/profile" },
-  { iconName: "notification", iconTitle: "Thông báo" },
   { iconName: "phoneCall", iconTitle: "Liên hệ" },
   { iconName: "menu", iconTitle: "Danh mục" },
 ];
 
-const firstThree = computed(() => iconList.slice(0, 3));
-const restArr = computed(() => iconList.slice(-3));
+const firtItem = computed(() => iconList[0]);
+const restArr = computed(() => iconList.slice(-2));
 
 //Set active item in overlayfooter
 let selectedItem = ref();
@@ -231,12 +241,6 @@ const setActive = (item) => {
 };
 const firstActiveRoute = () => {
   switch (route.path) {
-    case "/coupon":
-      setActive("coupon");
-      break;
-    case "/profile":
-      setActive("profile");
-      break;
     case "/":
       setActive("home");
       break;
@@ -247,6 +251,8 @@ const firstActiveRoute = () => {
 };
 firstActiveRoute();
 
+const { getContactInfo } = useContact();
+const { data: contactInfo } = await getContactInfo();
 /**
  * * setup for menu onclick
  */
@@ -256,7 +262,12 @@ const subMenuTitle = ref("");
 const menuData = ref([]);
 const openSubMenu = (item) => {
   secondMenuDrawer.value = true;
-  subMenuTitle.value = item;
+  subMenuTitle.value = item.name;
+  productCats.productGroup = item;
+};
+const setProductCats = (item1, item2) => {
+  productCats.productSubGroup = item1;
+  productCats.productType = item2;
 };
 
 watch(subMenuTitle, (newValue) => {
@@ -267,96 +278,94 @@ watch(subMenuTitle, (newValue) => {
     case "Trang sức cưới":
       menuData.value = weddAccessMenuData;
       break;
-    case "Đá quý":
+    case "Đá quý tự nhiên":
       menuData.value = gemstoneMenuData;
       break;
     case "Quà tặng":
       menuData.value = giftMenuData;
       break;
-    case "Thương hiệu":
+    default:
+      menuData.value = accessMenuData;
       break;
   }
 });
 
-const menuTitle = [
-  "Trang sức",
-  "Trang sức cưới",
-  "Đá quý",
-  "Quà tặng",
-  "Thương hiệu",
-];
+const menuTitle = NUXT_APP_PRODUCT_GROUP;
 const menuSubTitle = [
-  { subTitleName: "Blog", path: "/blog" },
-  { subTitleName: "Khuyến mãi", path: "/coupon" },
-  { subTitleName: "Dịch vụ", path: "/services" },
-  { subTitleName: "Hệ thống cửa hàng", path: "/stores" },
+  // { subTitleName: "Blog", path: "/blog" },
+  // { subTitleName: "Khuyến mãi", path: "/coupon" },
+  // { subTitleName: "Dịch vụ", path: "/services" },
+  // { subTitleName: "Hệ thống cửa hàng", path: "/stores" },
   { subTitleName: "Về PNJ", path: "/about" },
 ];
 
-const accessMenuData = [
-  {
-    title: "Chủng loại",
-    size: 3,
-    listItem: NUXT_APP_ACCESSORIES_TYPES.split(","),
-  },
-  {
-    title: "Chất liệu",
-    size: 2,
-    listItem: NUXT_APP_ACCESSORIES_MATERIALS.split(","),
-  },
-  {
-    title: "Dòng hàng",
-    size: 4,
-    listItem: NUXT_APP_ACCESSORIES_LIST.split(","),
-  },
-  {
-    title: "Bộ sưu tập",
-    size: 2,
-    listItem: NUXT_APP_ACCESSORIES_COLLECTIONS.split(","),
-  },
-];
-const weddAccessMenuData = [
-  {
-    title: "Theo mục đích",
-    size: 2,
-    listItem: NUXT_APP_WEDD_ACCESS_PURPOSES.split(","),
-  },
-  {
-    title: "Chủng loại",
-    size: 2,
-    listItem: NUXT_APP_WEDD_ACCESS_TYPES.split(","),
-  },
-  {
-    title: "Dòng trang sức",
-    size: 3,
-    listItem: NUXT_APP_WEDD_ACCESS_CATEGORIES.split(","),
-  },
-  {
-    title: "Chất liệu",
-    size: 2,
-    listItem: NUXT_APP_WEDD_ACCESS_MATERIALS.split(","),
-  },
-  {
-    title: "Bộ sưu tập",
-    size: 3,
-    listItem: NUXT_APP_WEDD_ACCESS_COLLECTIONS.split(","),
-  },
+/**
+ * *group: 1
+ */
+const productTypeOne = [
+  NUXT_APP_PRODUCT_TYPE_ONE_ONE,
+  NUXT_APP_PRODUCT_TYPE_ONE_TWO,
+  NUXT_APP_PRODUCT_TYPE_ONE_THREE,
+  NUXT_APP_PRODUCT_TYPE_ONE_FOUR,
 ];
 
-const gemstoneMenuData = [
-  {
-    title: "Chủng loại",
-    size: 2,
-    listItem: NUXT_APP_GEMSTONE_TYPES.split(","),
-  },
+const accessMenuData = NUXT_APP_PRODUCT_SUBGROUP_ONE.map((el, index) => {
+  return {
+    ...el,
+    listItem: productTypeOne[index],
+  };
+});
+/**
+ * *group: 2
+ */
+const productTypeTwo = [
+  NUXT_APP_PRODUCT_TYPE_TWO_ONE,
+  NUXT_APP_PRODUCT_TYPE_TWO_TWO,
+  NUXT_APP_PRODUCT_TYPE_TWO_THREE,
+  NUXT_APP_PRODUCT_TYPE_TWO_FOUR,
+  NUXT_APP_PRODUCT_TYPE_TWO_FIVE,
 ];
-const giftMenuData = [
-  {
-    title: "Quà tặng",
-    size: 3,
-    listItem: NUXT_APP_GIFT_FOR.split(","),
-  },
+
+const weddAccessMenuData = NUXT_APP_PRODUCT_SUBGROUP_TWO.map((el, index) => {
+  return {
+    ...el,
+    listItem: productTypeTwo[index],
+  };
+});
+
+/**
+ * *group: 3
+ */
+const productTypeThree = [
+  NUXT_APP_PRODUCT_TYPE_THREE_ONE,
+  NUXT_APP_PRODUCT_TYPE_THREE_TWO,
+  NUXT_APP_PRODUCT_TYPE_THREE_THREE,
 ];
+
+const gemstoneMenuData = NUXT_APP_PRODUCT_SUBGROUP_THREE.map((el, index) => {
+  return {
+    ...el,
+    listItem: productTypeThree[index],
+  };
+});
+
+/**
+ * *group: 4
+ */
+const productTypeFour = [
+  NUXT_APP_PRODUCT_TYPE_FOUR_ONE,
+  NUXT_APP_PRODUCT_TYPE_FOUR_TWO,
+  NUXT_APP_PRODUCT_TYPE_FOUR_THREE,
+  NUXT_APP_PRODUCT_TYPE_FOUR_FOUR,
+  NUXT_APP_PRODUCT_TYPE_FOUR_FIVE,
+];
+
+const giftMenuData = NUXT_APP_PRODUCT_SUBGROUP_FOUR.map((el, index) => {
+  return {
+    ...el,
+    listItem: productTypeFour[index],
+  };
+});
 </script>
 
 <style lang="scss" scoped>

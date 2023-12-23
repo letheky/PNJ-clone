@@ -1,35 +1,37 @@
 <template>
   <div>
-    <v-carousel
-      cycle
-      hide-delimiter-background
-      :hide-delimiters="smAndDown ? true : false"
-      :show-arrows="mdAndUp ? true : false"
-      color="#fff"
-      interval="5000"
-      :height="responsiveHeight"
-      touch
-    >
-      <v-carousel-item
-        v-for="(item, i) in carouselItems"
+    <ClientOnly>
+      <v-carousel
+        cycle
+        hide-delimiter-background
+        :hide-delimiters="smAndDown ? true : false"
+        :show-arrows="mdAndUp ? true : false"
+        color="#fff"
+        interval="5000"
         :height="responsiveHeight"
-        :key="i"
-        :src="item.src"
-        :lazy-src="item.src"
-        :alt="item.title"
-        cover
-        eager
+        touch
       >
-        <template v-slot:placeholder>
-          <v-row class="fill-height ma-0" align="center" justify="center">
-            <v-progress-circular
-              indeterminate
-              color="grey-lighten-5"
-            ></v-progress-circular>
-          </v-row>
-        </template>
-      </v-carousel-item>
-    </v-carousel>
+        <v-carousel-item
+          v-for="(item, i) in carouselItems"
+          :height="responsiveHeight"
+          :key="i"
+          :src="item.src"
+          :lazy-src="item.src"
+          :alt="item.title"
+          cover
+          eager
+        >
+          <template v-slot:placeholder>
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <v-progress-circular
+                indeterminate
+                color="grey-lighten-5"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-carousel-item>
+      </v-carousel>
+    </ClientOnly>
   </div>
 </template>
 

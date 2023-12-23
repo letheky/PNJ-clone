@@ -14,7 +14,8 @@
           <v-img
             alt="HAJ - Admin"
             max-width="100"
-            src="/images/logos/logo.png"
+            lazy-src="/images/logos/newLogo.png"
+            src="/images/logos/newLogo.png"
           ></v-img>
         </NuxtLink>
       </div>

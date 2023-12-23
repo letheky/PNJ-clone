@@ -37,22 +37,21 @@ export const useProducts = () => {
             params: {
                 productGroupId: groupID,
                 subGroupId: subGroupID
-
             }
         })
     }
 
     //server-side
-    const postBody = (page) => {
+    const postBody = (page, size, id1, id2, id3) => {
         return {
             baseURL: baseURL,
             method: "POST",
             body: {
                 pageNum: page,
-                pageSize: 10,
-                productGroupId: 1,
-                subGroupId: 1,
-                productTypeId: 1
+                pageSize: size,
+                productGroupId: id1,
+                subGroupId: id2,
+                productTypeId: id3
             }
         }
     }

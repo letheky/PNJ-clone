@@ -2,161 +2,120 @@
   <div class="app-header app-header-desktop">
     <v-container>
       <v-row align="center">
-        <div class="d-flex contactive">
-          <NuxtLink class="d-flex align-center" to="/" style="color: black">
-            <Icon name="group" />
-            <p class="text-subtitle-2 ml-1">Quan hệ cổ đông (IR)</p>
-          </NuxtLink>
-          <NuxtLink
-            to="/about"
-            class="d-flex align-center ml-3"
-            style="color: black"
-          >
-            <Icon name="locations" />
-            <p class="text-subtitle-2 ml-1">Cửa hàng</p>
-          </NuxtLink>
-          <NuxtLink to="/" class="d-flex align-center ml-3">
-            <IconCSS name="contact" style="color: #003468" />
-            <p class="text-subtitle-2 ml-1" style="color: #003468">
-              1800 54 54 57
-            </p>
-          </NuxtLink>
-        </div>
         <NuxtLink class="mx-auto" to="/">
           <v-img
             max-width="100"
-            width="100"
-            height="42"
+            width="150"
+            height="60"
             cover
-            alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-            lazy-src="/images/logos/logo.png"
-            src="/images/logos/logo.png"
+            alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+            lazy-src="/images/logos/newLogo.png"
+            src="/images/logos/newLogo.png"
           ></v-img>
         </NuxtLink>
-        <div class="d-flex user-info align-self-center">
-          <span class="d-flex align-center ml-3 light-blue-block">
-            <Icon name="user" size="20" />
-            <p class="text-subtitle-2 ml-1">Tài khoản của tôi</p>
-          </span>
-          <span class="d-flex align-center ml-3">
-            <v-badge content="2" color="error" location="bottom right">
-              <Icon name="handbag" />
-            </v-badge>
-            <p class="text-subtitle-2 ml-1">Giỏ hàng</p>
-          </span>
-        </div>
       </v-row>
     </v-container>
     <v-divider class="top-divider"></v-divider>
     <v-container>
       <v-row>
-          <v-col cols="8">
-            <div class="header-menus d-flex align-center justify-space-between">
-              <v-menu
-                transition="scale-transition"
-                width="1000"
-                location="bottom start"
-                open-on-hover
-              >
-                <template v-slot:activator="{ props }">
-                  <div
-                    class="d-flex justify-space-between hoverable flex-grow-1"
-                    v-bind="props"
-                  >
-                    <span v-for="(item, index) in menuTitle" :key="index">
-                      <h5 class="text-h6 mr-5" @mouseover="setActiveItem(item)">
-                        {{ item }}
-                      </h5>
-                    </span>
-                  </div>
-                </template>
-                <!-- <div v-for="(item, index) in accesTypes" :key="index">
-                  <NuxtLink class="menu-link" to="/">{{ item }}</NuxtLink>
-                </div> -->
-                <component
-                  :is="
-                    activeItemComponent === 'PopHoverCard'
-                      ? PopHoverCard
-                      : activeItemComponent === 'PopHoverCardWithBanner'
-                      ? PopHoverCardWithBanner
-                      : PopHoverCardWithBrand
-                  "
-                  :menuData="menuData"
-                />
-              </v-menu>
-            </div>
-          </v-col>
-          <v-col cols="4">
+        <v-col cols="8">
+          <div class="header-menus d-flex align-center justify-space-between">
             <v-menu
               transition="scale-transition"
-              width="500"
-              offset="10 10"
+              width="1000"
               location="bottom start"
               open-on-hover
             >
               <template v-slot:activator="{ props }">
-                <div v-bind="props">
-                  <v-text-field
-                    v-model="searchText"
-                    placeholder="Nhập thông tin bạn muốn tìm kiếm"
-                    
-                    append-inner-icon="mdi-magnify"
-                    class=" mb-n6"
-                    variant="outlined"
-                    :rounded="true"
-                  >
-                  </v-text-field>
+                <div
+                  class="d-flex justify-space-between hoverable flex-grow-1"
+                  v-bind="props"
+                >
+                  <span v-for="(item, index) in menuTitle" :key="index">
+                    <h5 class="text-h6 mr-5" @mouseover="setActiveItem(item)">
+                      {{ item.name }}
+                    </h5>
+                  </span>
                 </div>
               </template>
               <!-- <div v-for="(item, index) in accesTypes" :key="index">
                   <NuxtLink class="menu-link" to="/">{{ item }}</NuxtLink>
                 </div> -->
-              <v-sheet v-if="searchItems.pending || !searchItems.data">
-                <div class="d-flex justify-center align-center">
-                  <div class="char">L</div>
-                  <div class="char">o</div>
-                  <div class="char">a</div>
-                  <div class="char">d</div>
-                  <div class="char">i</div>
-                  <div class="char">n</div>
-                  <div class="char">g</div>
-                  <div class="char">.</div>
-                  <div class="char">.</div>
-                  <div class="char">.</div>
-                </div>
-              </v-sheet>
-              <v-sheet v-else :height="searchItems.data.total > 0 ? 300 : 70">
-                <h4 class="pa-4 text-h3">
-                  <p v-if="searchItems.data.total > 0">
-                    Danh sách 10 trên tổng {{ searchItems.data.total }} kết quả
-                  </p>
-                  <p v-else class="text-error">Không tìm thấy sản phẩm</p>
-                </h4>
-                <div v-for="item in searchItems.data.results" class="px-5">
-                  <NuxtLink
-                    :to="`/san-pham/${item.id}`"
-                    class="d-flex align-center justify-between cursor-pointer"
-                  >
-                    <div class="d-flex align-center">
-                      <v-img
-                        class="rounded-md"
-                        width="80"
-                        :alt="item.name"
-                        :src="item.thumbnail"
-                      />
-                    </div>
-                    <div class="d-flex flex-column">
-                      <div>{{ item.name }}</div>
-                      <div>{{ item.price.toLocaleString() }}đ</div>
-                    </div>
-                  </NuxtLink>
-                </div>
-              </v-sheet>
-              <!-- <v-sheet class="mt-2" v-else height="50">
+              <PopHoverCard :menuData="menuData" />
+            </v-menu>
+          </div>
+        </v-col>
+        <v-col cols="4">
+          <v-menu
+            transition="scale-transition"
+            width="500"
+            offset="10 10"
+            location="bottom start"
+            open-on-hover
+          >
+            <template v-slot:activator="{ props }">
+              <div v-bind="props">
+                <v-text-field
+                  v-model="searchText"
+                  placeholder="Nhập thông tin bạn muốn tìm kiếm"
+                  append-inner-icon="mdi-magnify"
+                  class="mb-n6"
+                  variant="outlined"
+                  :rounded="true"
+                >
+                </v-text-field>
+              </div>
+            </template>
+            <!-- <div v-for="(item, index) in accesTypes" :key="index">
+                  <NuxtLink class="menu-link" to="/">{{ item }}</NuxtLink>
+                </div> -->
+            <v-sheet v-if="searchItems.pending || !searchItems.data">
+              <div class="d-flex justify-center align-center">
+                <div class="char">L</div>
+                <div class="char">o</div>
+                <div class="char">a</div>
+                <div class="char">d</div>
+                <div class="char">i</div>
+                <div class="char">n</div>
+                <div class="char">g</div>
+                <div class="char">.</div>
+                <div class="char">.</div>
+                <div class="char">.</div>
+              </div>
+            </v-sheet>
+            <v-sheet v-else :height="searchItems.data.total > 0 ? 300 : 70">
+              <h4 class="pa-4 text-h3">
+                <p v-if="searchItems.data.total > 0">
+                  Danh sách 10 trên tổng {{ searchItems.data.total }} kết quả
+                </p>
+                <p v-else class="text-error">Không tìm thấy sản phẩm</p>
+              </h4>
+              <div v-for="item in searchItems.data.results" class="px-5">
+                <NuxtLink
+                  :to="`/san-pham/${item.id}`"
+                  class="d-flex align-center justify-between cursor-pointer"
+                >
+                  <div class="d-flex align-center">
+                    <v-img
+                      v-if="item.thumbnailFullPath"
+                      class="rounded-md"
+                      width="80"
+                      :alt="item.name"
+                      :src="item.thumbnailFullPath"
+                    />
+                  </div>
+                  <div class="d-flex flex-column">
+                    <div>{{ item.name }}</div>
+                    <div>{{ item.price.toLocaleString() }}đ</div>
+                  </div>
+                </NuxtLink>
+              </div>
+            </v-sheet>
+            <!-- <v-sheet class="mt-2" v-else height="50">
                 <h3 class="text-center text-error text-h5 mt-3">Không tìm thấy sản phẩm</h3>
               </v-sheet> -->
-            </v-menu>
-          </v-col>
+          </v-menu>
+        </v-col>
       </v-row>
     </v-container>
   </div>
@@ -169,9 +128,9 @@
             width="65"
             height="30"
             cover
-            alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-            lazy-src="/images/logos/logo.png"
-            src="/images/logos/logo.png"
+            alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+            lazy-src="/images/logos/newLogo.png"
+            src="/images/logos/newLogo.png"
           ></v-img>
         </NuxtLink>
 
@@ -238,10 +197,11 @@
             >
               <div class="d-flex align-center">
                 <v-img
+                  v-if="item.thumbnailFullPath"
                   class="rounded-md"
                   width="80"
                   :alt="item.name"
-                  :src="item.thumbnail"
+                  :src="item.thumbnailFullPath"
                 />
               </div>
               <div class="d-flex flex-column">
@@ -260,140 +220,138 @@
 
 <script setup>
 /**
- * *Dynamic import pophover components
- */
-import {
-  PopHoverCard,
-  PopHoverCardWithBanner,
-  PopHoverCardWithBrand,
-} from "#components";
-
-/**
  * *Import categories for menu
  */
 import {
-  NUXT_APP_ACCESSORIES_TYPES,
-  NUXT_APP_ACCESSORIES_MATERIALS,
-  NUXT_APP_ACCESSORIES_LIST,
-  NUXT_APP_ACCESSORIES_COLLECTIONS,
-  NUXT_APP_WEDD_ACCESS_PURPOSES,
-  NUXT_APP_WEDD_ACCESS_TYPES,
-  NUXT_APP_WEDD_ACCESS_CATEGORIES,
-  NUXT_APP_WEDD_ACCESS_MATERIALS,
-  NUXT_APP_WEDD_ACCESS_COLLECTIONS,
-  NUXT_APP_GEMSTONE_TYPES,
-  NUXT_APP_GIFT_FOR,
+  NUXT_APP_PRODUCT_GROUP,
+  NUXT_APP_PRODUCT_SUBGROUP_ONE,
+  NUXT_APP_PRODUCT_SUBGROUP_TWO,
+  NUXT_APP_PRODUCT_SUBGROUP_THREE,
+  NUXT_APP_PRODUCT_SUBGROUP_FOUR,
+  NUXT_APP_PRODUCT_TYPE_ONE_ONE,
+  NUXT_APP_PRODUCT_TYPE_ONE_TWO,
+  NUXT_APP_PRODUCT_TYPE_ONE_THREE,
+  NUXT_APP_PRODUCT_TYPE_ONE_FOUR,
+  NUXT_APP_PRODUCT_TYPE_TWO_ONE,
+  NUXT_APP_PRODUCT_TYPE_TWO_TWO,
+  NUXT_APP_PRODUCT_TYPE_TWO_THREE,
+  NUXT_APP_PRODUCT_TYPE_TWO_FOUR,
+  NUXT_APP_PRODUCT_TYPE_TWO_FIVE,
+  NUXT_APP_PRODUCT_TYPE_THREE_ONE,
+  NUXT_APP_PRODUCT_TYPE_THREE_TWO,
+  NUXT_APP_PRODUCT_TYPE_THREE_THREE,
+  NUXT_APP_PRODUCT_TYPE_FOUR_ONE,
+  NUXT_APP_PRODUCT_TYPE_FOUR_TWO,
+  NUXT_APP_PRODUCT_TYPE_FOUR_THREE,
+  NUXT_APP_PRODUCT_TYPE_FOUR_FOUR,
+  NUXT_APP_PRODUCT_TYPE_FOUR_FIVE,
 } from "~/data/headermenu";
 
 import { API_POST_PRODUCTS } from "~/server/api/constant";
+
+//import product categories store
+import { useProductCat } from "~/stores/productCat";
+const productCats = useProductCat();
+const { getProductCategories } = useProducts();
 
 /**
  * *Logic and variables for dynamic menu start from here
  */
 const activeItem = ref("");
 const menuData = ref([]);
-const activeItemComponent = ref("");
 
 const setActiveItem = (item) => {
-  activeItem.value = item;
+  activeItem.value = item.name;
+  productCats.productGroup = item;
 };
 
-const menuTitle = [
-  "Trang sức",
-  "Trang sức cưới",
-  "Đá quý",
-  "Quà tặng",
-  "Thương hiệu",
-];
-const accessMenuData = [
-  {
-    title: "Chủng loại",
-    size: 3,
-    listItem: NUXT_APP_ACCESSORIES_TYPES.split(","),
-  },
-  {
-    title: "Chất liệu",
-    size: 2,
-    listItem: NUXT_APP_ACCESSORIES_MATERIALS.split(","),
-  },
-  {
-    title: "Dòng hàng",
-    size: 4,
-    listItem: NUXT_APP_ACCESSORIES_LIST.split(","),
-  },
-  {
-    title: "Bộ sưu tập",
-    size: 2,
-    listItem: NUXT_APP_ACCESSORIES_COLLECTIONS.split(","),
-  },
-];
-const weddAccessMenuData = [
-  {
-    title: "Theo mục đích",
-    size: 2,
-    listItem: NUXT_APP_WEDD_ACCESS_PURPOSES.split(","),
-  },
-  {
-    title: "Chủng loại",
-    size: 2,
-    listItem: NUXT_APP_WEDD_ACCESS_TYPES.split(","),
-  },
-  {
-    title: "Dòng trang sức",
-    size: 3,
-    listItem: NUXT_APP_WEDD_ACCESS_CATEGORIES.split(","),
-  },
-  {
-    title: "Chất liệu",
-    size: 2,
-    listItem: NUXT_APP_WEDD_ACCESS_MATERIALS.split(","),
-  },
-  {
-    title: "Bộ sưu tập",
-    size: 3,
-    listItem: NUXT_APP_WEDD_ACCESS_COLLECTIONS.split(","),
-  },
+const menuTitle = NUXT_APP_PRODUCT_GROUP;
+
+/**
+ * *group: 1
+ */
+const productTypeOne = [
+  NUXT_APP_PRODUCT_TYPE_ONE_ONE,
+  NUXT_APP_PRODUCT_TYPE_ONE_TWO,
+  NUXT_APP_PRODUCT_TYPE_ONE_THREE,
+  NUXT_APP_PRODUCT_TYPE_ONE_FOUR,
 ];
 
-const gemstoneMenuData = [
-  {
-    title: "Chủng loại",
-    size: 2,
-    listItem: NUXT_APP_GEMSTONE_TYPES.split(","),
-  },
+const accessMenuData = NUXT_APP_PRODUCT_SUBGROUP_ONE.map((el, index) => {
+  return {
+    ...el,
+    listItem: productTypeOne[index],
+  };
+});
+/**
+ * *group: 2
+ */
+const productTypeTwo = [
+  NUXT_APP_PRODUCT_TYPE_TWO_ONE,
+  NUXT_APP_PRODUCT_TYPE_TWO_TWO,
+  NUXT_APP_PRODUCT_TYPE_TWO_THREE,
+  NUXT_APP_PRODUCT_TYPE_TWO_FOUR,
+  NUXT_APP_PRODUCT_TYPE_TWO_FIVE,
 ];
-const giftMenuData = [
-  {
-    title: "Quà tặng",
-    size: 3,
-    listItem: NUXT_APP_GIFT_FOR.split(","),
-  },
+
+const weddAccessMenuData = NUXT_APP_PRODUCT_SUBGROUP_TWO.map((el, index) => {
+  return {
+    ...el,
+    listItem: productTypeTwo[index],
+  };
+});
+
+/**
+ * *group: 3
+ */
+const productTypeThree = [
+  NUXT_APP_PRODUCT_TYPE_THREE_ONE,
+  NUXT_APP_PRODUCT_TYPE_THREE_TWO,
+  NUXT_APP_PRODUCT_TYPE_THREE_THREE,
 ];
+
+const gemstoneMenuData = NUXT_APP_PRODUCT_SUBGROUP_THREE.map((el, index) => {
+  return {
+    ...el,
+    listItem: productTypeThree[index],
+  };
+});
+
+/**
+ * *group: 4
+ */
+const productTypeFour = [
+  NUXT_APP_PRODUCT_TYPE_FOUR_ONE,
+  NUXT_APP_PRODUCT_TYPE_FOUR_TWO,
+  NUXT_APP_PRODUCT_TYPE_FOUR_THREE,
+  NUXT_APP_PRODUCT_TYPE_FOUR_FOUR,
+  NUXT_APP_PRODUCT_TYPE_FOUR_FIVE,
+];
+
+const giftMenuData = NUXT_APP_PRODUCT_SUBGROUP_FOUR.map((el, index) => {
+  return {
+    ...el,
+    listItem: productTypeFour[index],
+  };
+});
 
 watch(activeItem, (newValue) => {
   switch (newValue) {
     case "Trang sức":
-      activeItemComponent.value = "PopHoverCard";
       menuData.value = accessMenuData;
       break;
     case "Trang sức cưới":
-      activeItemComponent.value = "PopHoverCardWithBanner";
       menuData.value = weddAccessMenuData;
       break;
-    case "Đá quý":
-      activeItemComponent.value = "PopHoverCard";
+    case "Đá quý tự nhiên":
       menuData.value = gemstoneMenuData;
       break;
     case "Quà tặng":
-      activeItemComponent.value = "PopHoverCardWithBanner";
       menuData.value = giftMenuData;
       break;
-    case "Thương hiệu":
-      activeItemComponent.value = "PopHoverCardWithBrand";
-      break;
     default:
-      activeItemComponent.value = "PopHoverCard";
       menuData.value = accessMenuData;
+      break;
   }
 });
 

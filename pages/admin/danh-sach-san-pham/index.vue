@@ -71,11 +71,11 @@
             <template v-slot:item="{ item }">
               <tr align="center">
                 <td>{{ item.id }}</td>
-                <td v-if="item.thumbnail">
+                <td v-if="item.thumbnailFullPath">
                   <v-img
                     max-width="60"
                     aspect-ratio="1/1"
-                    :src="item.thumbnail"
+                    :src="item.thumbnailFullPath"
                   ></v-img>
                 </td>
                 <td v-else>-</td>
@@ -188,7 +188,7 @@ const headers = [
     sortable: false,
     width: "50",
   },
-  { title: "Thumnail", key: "thumbnail", sortable: false, width: "50" },
+  { title: "Thumnail", key: "thumbnailFullPath", sortable: false, width: "50" },
   {
     title: "Name",
     key: "name",

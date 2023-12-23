@@ -5,7 +5,7 @@
         class="d-flex flex-column fill-height justify-center align-center text-white"
         to="/stores"
       >
-        <h1 class="text-h4 font-weight-thin mb-4">PNJ</h1>
+        <h1 class="text-h4 font-weight-thin mb-4">HAJ</h1>
         <h4 class="subheading">Xem cửa hàng của chúng tôi tại đây!</h4>
       </NuxtLink>
     </v-parallax>
@@ -17,7 +17,7 @@
         width="90%"
         cover
         class="mb-3"
-        alt="PNJ 35 năm"
+        alt="HAJ 35 năm"
         lazy-src="/images/background/Artboard1.jpg"
         src="/images/background/Artboard1.jpg"
       ></v-img>
@@ -25,8 +25,8 @@
         sizes="200px xs:300px sm:500px md:700px lg:900px xl:1200px xxl:1500px"
         preset="banner"
         class="mb-2"
-        alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-        title="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+        alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+        title="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
         preload
         src="/images/background/Artboard1.jpg"
       ></NuxtImg> -->

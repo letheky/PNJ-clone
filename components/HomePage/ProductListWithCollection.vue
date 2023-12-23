@@ -12,7 +12,7 @@
               border-radius: 10px;
               background-color: rgba(0, 0, 0, 0.35);
             "
-            alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+            alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
             :lazy-src="dynamicSrc"
             :src="dynamicSrc"
           ></v-img>

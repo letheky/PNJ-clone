@@ -14,7 +14,8 @@
                 <v-img
                   class="mx-auto"
                   max-width="150"
-                  src="/images/logos/logo.png"
+                  lazy-src="/images/logos/newLogo.png"
+                  src="/images/logos/newLogo.png"
                 ></v-img>
               </div>
               <AdminComponentsAuthLoginForm />
@@ -37,17 +38,15 @@
   </div>
 </template>
 <script setup>
-import {
-    useUserToken
-} from '~/stores/userToken'
+import { useUserToken } from "~/stores/userToken";
 /*-For Set Blank Layout-*/
 definePageMeta({
   layout: "blank",
 });
-const useUserTokenStore = useUserToken()
-onMounted(()=>{
-  localStorage.setItem('userToken',{})
-  useUserTokenStore.token = ''
-  useUserTokenStore.refreshToken = ''
-})
+const useUserTokenStore = useUserToken();
+onMounted(() => {
+  localStorage.setItem("userToken", {});
+  useUserTokenStore.token = "";
+  useUserTokenStore.refreshToken = "";
+});
 </script>

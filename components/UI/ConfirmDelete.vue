@@ -1,16 +1,18 @@
 <template>
   <v-dialog v-model="confirmDialog" :max-width="maxWidth || 515" :width="width">
-    
     <v-card class="pa-5">
-      <v-icon
-          size="large"
-          color="error"
-          class="ml-auto mb-4"
-          @click="cancel"
-          >mdi-close-circle</v-icon
-        >
+      <v-icon size="large" color="error" class="ml-auto mb-4" @click="cancel"
+        >mdi-close-circle</v-icon
+      >
       <div>
-        <v-img class="mx-auto" v-if="productData.thumbnail" width="80" height="80" :src="productData.thumbnail"> </v-img>
+        <v-img
+          class="mx-auto"
+          v-if="productData.thumbnailFullPath"
+          width="80"
+          height="80"
+          :src="productData.thumbnailFullPath"
+        >
+        </v-img>
         <h3 class="text-h4 text-center">{{ productData.name }}</h3>
       </div>
       <div class="d-flex flex-column"><slot></slot></div>

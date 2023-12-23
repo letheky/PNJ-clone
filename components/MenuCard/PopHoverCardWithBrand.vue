@@ -10,7 +10,7 @@
           :key="index"
           max-width="70"
           cover
-          alt="PNJ - Thương hiệu đồng hồ"
+          alt="HAJ - Thương hiệu đồng hồ"
           lazy-src="/images/products/watch.svg"
           src="/images/products/watch.svg"
         ></v-img>

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="productInPage.pending">
+  <div v-if="pending">
     <v-progress-linear
       class="my-5"
       color="light-blue-darken-3"
@@ -13,11 +13,14 @@
     </h2>
   </div>
   <div class="d-flex flex-column justify-center align-center" v-else>
-    <v-breadcrumbs :items="['Trang chủ', 'Nhẫn']"></v-breadcrumbs>
+    <v-breadcrumbs :items="breadCrumbItems"></v-breadcrumbs>
     <v-container fluid>
-      <v-row class="d-flex justify-center align-center">
+      <v-row
+        v-if="productInPage.result.results.length > 0"
+        class="d-flex justify-center align-center"
+      >
         <v-col
-          v-for="(product, index) in productInPage.data.results"
+          v-for="(product, index) in productInPage.result.results"
           :key="product.name + index"
           sm="3"
           xs="6"
@@ -27,12 +30,19 @@
           <ProductSimpleCardItem :singleProduct="product" />
         </v-col>
       </v-row>
+      <v-row v-else>
+        <v-col>
+          <h3 class="text-center text-error text-h5">
+            Hiện chưa có sản phẩm nào cho danh mục này
+          </h3>
+        </v-col>
+      </v-row>
     </v-container>
     <v-pagination
-      class="mt-5"
       v-model="page"
+      class="mt-5"
       :size="mdAndUp ? 'default' : 'x-small'"
-      :length="Math.ceil(productInPage.data.total / 10)"
+      :length="Math.ceil(productInPage.result.total / 48)"
       :total-visible="mdAndUp ? 10 : smAndUp ? 7 : 5"
     ></v-pagination>
   </div>
@@ -42,37 +52,69 @@
 import { ProductSimpleCardItem } from "#components";
 import { API_POST_PRODUCTS } from "~/server/api/constant";
 import { useDisplay } from "vuetify";
+import { useProductCat } from "~/stores/productCat";
+const productCats = useProductCat();
 
-const route = useRoute()
-const productInPage = ref(null);
+const route = useRoute();
 const page = ref(1);
+// const productInPage = ref(null);
 const { postBody } = useProducts();
 const { mdAndUp, smAndUp } = useDisplay();
-
-// const route = useRoute();
-// const name = route.fullPath.substring(route.fullPath.lastIndexOf("/") + 1);
 
 /**
  * *Init value on first load
  */
-productInPage.value = await useFetch(() => API_POST_PRODUCTS, {
-  ...postBody(page.value - 1),
-  transform: (data) => data.result,
-});
+const { data: productInPage, pending } = await useAsyncData(
+  "products",
+  () =>
+    $fetch(API_POST_PRODUCTS, {
+      ...postBody(
+        page.value - 1,
+        48,
+        productCats.productGroup.id,
+        productCats.productSubGroup.id,
+        productCats.productType.id
+      ),
+    }),
+  {
+    watch: [page],
+  }
+);
+const breadCrumbItems = [
+  "Trang chủ",
+  productCats.productGroup.name,
+  productCats.productSubGroup.name,
+  productCats.productType.name,
+];
+// productInPage.value = await useFetch(() => API_POST_PRODUCTS, {
+//   ...postBody(
+//     page - 1,
+//     productCats.productGroup,
+//     productCats.productSubGroup,
+//     productCats.productType
+//   ),
+//   transform: (data) => data.result,
+// });
 
 /**
  * *watch when change page
  */
-watch(page, async () => {
-  productInPage.value = await useFetch(() => API_POST_PRODUCTS, {
-    ...postBody(page.value - 1),
-    transform: (data) => data.result,
-  });
-});
+// watch(page, async () => {
+//   productInPage.value = await useFetch(() => API_POST_PRODUCTS, {
+//     ...postBody(page.value - 1),
+//     transform: (data) => data.result,
+//   });
+// });
 
 useSeoMeta({
-  title: route.path.slice(1)
-})
+  title: `HAJ - ${
+    productCats.productGroup.name +
+    " " +
+    productCats.productSubGroup.name +
+    " " +
+    productCats.productType.name
+  }`,
+});
 </script>
 
 <style lang="scss" scoped></style>

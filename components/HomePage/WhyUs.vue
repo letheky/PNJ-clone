@@ -2,7 +2,7 @@
   <div class="why-chose-pnj">
     <v-sheet height="150" class="text-center text-white bg-light-blue-darken-4">
       <h1 class="pt-10 text-h3 text-md-h2 text-xl-h1">
-        TẠI SAO NÊN CHỌN PNJ ?
+        TẠI SAO NÊN CHỌN HAJ ?
       </h1>
     </v-sheet>
     <div class="d-flex justify-center align-center mt-n12 bg-transparent mb-10">

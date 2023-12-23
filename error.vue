@@ -6,7 +6,7 @@ useHead({
   titleTemplate: (titleChunk) => {
     return titleChunk
       ? `${titleChunk} - 404-Page Not Found`
-      : "PNJ - Website thương mại điện tử PNJ hoàn toàn mới";
+      : "HAJ - Website thương mại điện tử HAJ hoàn toàn mới";
   },
 });
 </script>

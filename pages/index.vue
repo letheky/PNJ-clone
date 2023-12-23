@@ -22,7 +22,7 @@
       listTitle="Sản phẩm mới"
     />
     <ProductListWithCollection
-    v-if="thirdProductList"
+      v-if="thirdProductList"
       :productList="thirdProductList"
       listTitle="Bộ sưu tập mới"
     />
@@ -33,28 +33,9 @@
 </template>
 
 <script setup>
-import { useDisplay } from "vuetify";
-
-import {
-  ActiveBrand,
-  Carousel,
-  ImageSlider,
-  ProductListCard,
-  ProductListWithCollection,
-  ProductsList,
-  SearchTrend,
-  StoreDetail,
-  WhyUs,
-  ProductCardItemNew,
-  ProductSimpleCardItem,
-} from "#components";
-
 import { NUXT_APP_ACCESSORIES_LIST } from "~/data/headermenu";
 
 import { API_POST_PRODUCTS } from "~/server/api/constant";
-
-const runTimeConfig = useRuntimeConfig();
-const { lgAndDown } = useDisplay();
 
 /**
  * Fetching data
@@ -62,17 +43,17 @@ const { lgAndDown } = useDisplay();
 const { postBody } = useProducts();
 
 const { data: firstProductList } = await useFetch(() => API_POST_PRODUCTS, {
-  ...postBody(1),
+  ...postBody(1, 10),
   transform: (data) => data.result.results,
 });
 
 const { data: secondProductList } = await useFetch(() => API_POST_PRODUCTS, {
-  ...postBody(2),
+  ...postBody(2, 10),
   transform: (data) => data.result.results,
 });
 
 const { data: thirdProductList } = await useFetch(() => API_POST_PRODUCTS, {
-  ...postBody(3),
+  ...postBody(3, 10),
   transform: (data) => data.result.results,
 });
 
@@ -82,7 +63,7 @@ const { data: thirdProductList } = await useFetch(() => API_POST_PRODUCTS, {
 const carouselItems = [
   {
     src: "https://cdn.pnj.io/images/promo/193/16-blackfridayonline.jpg",
-    title: "PNJ big sale cho Black Friday",
+    title: "HAJ big sale cho Black Friday",
   },
   {
     src: "https://cdn.pnj.io/images/promo/192/T11_-_CT_BLACK_FRIDAY-1972x640CTA.jpg",
@@ -98,7 +79,7 @@ const carouselItems = [
   },
   {
     src: "https://cdn.pnj.io/images/promo/173/egift-t7-1972x640CTA__1_.jpg",
-    title: "Phiếu quà tặng PNJ E-Gift",
+    title: "Phiếu quà tặng HAJ E-Gift",
   },
 ];
 
@@ -120,11 +101,11 @@ const imageSliderItems = [
 const activeBrandItems = [
   {
     src: "https://cdn.pnj.io/images/promo/166/style-t5-1200x1200.png",
-    title: "Style by PNJ",
+    title: "Style by HAJ",
   },
   {
     src: "https://cdn.pnj.io/images/promo/148/block-brands-disney.png",
-    title: "Disney|PNJ",
+    title: "Disney|HAJ",
   },
   {
     src: "https://cdn.pnj.io/images/promo/191/sanrio-t11-1200x1200.jpg",

@@ -7,8 +7,9 @@
       >
         <div class="d-flex justify-center align-center">
           <NuxtImg
+            v-if="singleProduct.thumbnailFullPath"
             fit="cover"
-            :src="singleProduct.thumbnail"
+            :src="singleProduct.thumbnailFullPath"
             :alt="singleProduct.name"
             :title="singleProduct.name"
             preload

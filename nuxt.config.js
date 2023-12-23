@@ -6,7 +6,7 @@ import vuetify from "vite-plugin-vuetify";
 export default defineNuxtConfig({
   app: {
     head: {
-      title: "PNJ - Công ty vàng bạc đá quý Phú Nhuận | Vàng, Bạc, Đá Quý",
+      title: "HAJ - Công ty vàng bạc đá quý Phú Nhuận | Vàng, Bạc, Đá Quý",
       link: [{
           rel: "canonical",
           href: "https://haj-fe.vercel.app"
@@ -25,11 +25,11 @@ export default defineNuxtConfig({
       meta: [{
           hid: "description",
           name: "description",
-          content: "Khám phá thế giới tinh tế của PNJ, Công ty vàng bạc đá quý Phú Nhuận, mang đến bộ sưu tập đồ trang sức vàng, bạc và đá quý tuyệt vời. Khám phá sự tinh tế và sang trọng tại đỉnh cao nghệ thuật.",
+          content: "Khám phá thế giới tinh tế của HAJ, Công ty vàng bạc đá quý Phú Nhuận, mang đến bộ sưu tập đồ trang sức vàng, bạc và đá quý tuyệt vời. Khám phá sự tinh tế và sang trọng tại đỉnh cao nghệ thuật.",
         },
         {
           property: "og:title",
-          content: "Khuyến Mãi, Ưu Đãi HOT Nhất Tại PNJ ☎️1800545457 (Miễn Phí)",
+          content: "Khuyến Mãi, Ưu Đãi HOT Nhất Tại HAJ ☎️1800545457 (Miễn Phí)",
         },
         {
           property: "og:type",
@@ -41,16 +41,16 @@ export default defineNuxtConfig({
         },
         {
           property: "og:description",
-          content: "Tổng Hợp Ưu Đãi, Khuyến Mãi Hot Nhất Tại PNJ ✔️Mua Online Nhanh Chóng, Tiện Lợi ✔️Miễn Phí Giao Hàng ❤️Gọi Ngay ☎️1800545457 (Miễn Phí)",
+          content: "Tổng Hợp Ưu Đãi, Khuyến Mãi Hot Nhất Tại HAJ ✔️Mua Online Nhanh Chóng, Tiện Lợi ✔️Miễn Phí Giao Hàng ❤️Gọi Ngay ☎️1800545457 (Miễn Phí)",
         },
         {
           hid: "og:image",
           property: "og:image",
-          content: "/logo.png",
+          content: "/newLogo.png",
         },
         {
           property: "og:sitename",
-          content: "PNJ",
+          content: "HAJ",
         },
         {
           name: "robots",
@@ -64,7 +64,7 @@ export default defineNuxtConfig({
             {
               "@context": "http://schema.org",
               "@type": "Organization",
-              "name": "PNJ",
+              "name": "HAJ",
               "url": "https://haj-fe.vercel.app",
             }
           `,
