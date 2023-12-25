@@ -8,13 +8,12 @@
         <div class="d-flex justify-center align-center">
           <NuxtImg
             v-if="singleProduct.thumbnailFullPath"
-            fit="cover"
             :src="singleProduct.thumbnailFullPath"
             :alt="singleProduct.name"
             :title="singleProduct.name"
-            preload
             preset="product"
-            sizes="xs:175px sm:225px xl:300px"
+            width="150"
+            height="150"
           />
         </div>
         <div class="px-2 px-sm-3 text-center">

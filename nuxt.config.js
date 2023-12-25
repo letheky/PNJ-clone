@@ -171,7 +171,7 @@ export default defineNuxtConfig({
         modifiers: {
           format: "webp",
           fit: "cover",
-          quality: "auto:best",
+          quality: "80",
         },
       },
       banner: {
