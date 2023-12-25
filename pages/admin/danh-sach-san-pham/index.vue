@@ -43,6 +43,24 @@
             >Tạo sản phẩm</v-btn
           >
         </div>
+        <div class="ml-3 mr-5">
+          <v-text-field
+            style="max-width: 300px"
+            v-model="searchText"
+            label="Tìm kiếm sản phẩm "
+            append-inner-icon="mdi-magnify"
+            @keydown.enter="searchProductList"
+            @click:append-inner="searchProductList"
+            variant="solo"
+            density="compact"
+          >
+          </v-text-field>
+        </div>
+        <div class="ml-3 mr-5 text-body-1 d-flex" v-if="productList.result">
+          <p>Tổng:</p>
+          <p class="font-weight-bold mx-1">{{ filteredData.length }}</p>
+          <p>Kết quả</p>
+        </div>
         <div class="pa-3 pt-1">
           <v-skeleton-loader
             v-if="!productList.result"
@@ -52,7 +70,7 @@
             v-else
             class="product-list"
             :headers="headers"
-            :items="productList.result.results"
+            :items="filteredData"
             :items-per-page="pageNum"
             :loading="isLoading"
             fixed-header
@@ -66,6 +84,31 @@
                 <td v-for="column in columns" :key="column.key">
                   <p class="text-center">{{ column.title.toUpperCase() }}</p>
                 </td>
+              </tr>
+              <tr class="fixed-row-filter">
+                <th
+                  v-for="column in columns"
+                  :key="column.key"
+                  style="padding: 0 4px"
+                >
+                  <AdminComponentsFilterAutoComplete
+                    v-if="filters.hasOwnProperty(column.key)"
+                    @setFilter="setFilter"
+                    styleBorder="border-bottom"
+                    :keyFilter="column.key"
+                    :selectedInit="filters[column.key]"
+                    :listItem="
+                      column.key === 'price'
+                        ? [
+                            'Dưới 1 triệu',
+                            'Từ 1 triệu đến 5 triệu',
+                            'Từ 5 triệu dến 10 triệu',
+                            'Trên 10 triệu',
+                          ]
+                        : groupColumnValueList(column.key)
+                    "
+                  />
+                </th>
               </tr>
             </template>
             <template v-slot:item="{ item }">
@@ -113,7 +156,10 @@
             <template #bottom></template>
           </v-data-table>
         </div>
-        <div class="d-flex justify-space-between align-start pa-3">
+        <div
+          v-if="productList.result"
+          class="d-flex justify-space-between align-start pa-3"
+        >
           <v-select
             v-model="pageNum"
             label="Số sản phẩm"
@@ -168,6 +214,7 @@ const pageNum = ref(25);
 const isLoading = ref(false);
 
 const productGroup = ref([]);
+const searchText = ref("");
 const selectedProductGroup = ref(1);
 productGroup.value = getProductGroup();
 
@@ -212,6 +259,55 @@ const headers = [
   },
   { title: "Action", key: "action", sortable: false, width: "50" },
 ];
+
+//Table filter
+const filters = ref({
+  name: [],
+  code: [],
+  price: [],
+});
+
+const filteredData = computed(() => {
+  return productList.value.result.results.filter((d) => {
+    return Object.keys(filters.value).every((f) => {
+      return (
+        filters.value[f].length < 1 ||
+        (f === "price"
+          ? filters.value[f].reduce((value, el) => {
+              if (d.price < 1000000 && el === "Dưới 1 triệu") {
+                value = true;
+              } else if (
+                d.price >= 1000000 &&
+                d.price < 5000000 &&
+                el === "Từ 1 triệu đến 5 triệu"
+              ) {
+                value = true;
+              } else if (
+                d.price >= 5000000 &&
+                d.price < 10000000 &&
+                el === "Từ 5 triệu dến 10 triệu"
+              ) {
+                value = true;
+              } else if (d.price > 10000000 && el === "Trên 10 triệu") {
+                value = true;
+              }
+              return value;
+            }, false)
+          : filters.value[f].includes(d[f]))
+      );
+    });
+  });
+});
+const setFilter = (objectFilterChange) => {
+  filters.value = {
+    ...filters.value,
+    [objectFilterChange.name]: objectFilterChange.filter,
+  };
+};
+
+const groupColumnValueList = (val) => {
+  return productList.value.result.results.map((d) => d[val]);
+};
 // initial data
 onMounted(async () => {
   productGroup.value = await getProductGroup();
@@ -253,6 +349,7 @@ const reload = async () => {
     productGroupId: selectedProductGroup.value,
     subGroupId: selectedProductSubGroup.value,
     productTypeId: selectedProductType.value,
+    textSearch: searchText.value,
   }).then((res) => {
     productList.value = res;
     isLoading.value = false;
@@ -270,6 +367,10 @@ watch(
   ],
   () => reload()
 );
+
+const searchProductList = () => {
+  reload();
+};
 
 //actions with promise
 const confirmDeleteProd = ref(null);

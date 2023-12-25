@@ -68,7 +68,7 @@
           ></v-text-field>
         </v-row>
         <v-row>
-          <v-radio-group
+          <!-- <v-radio-group
             v-model="selectedImageType"
             density="compact"
             class="pa-1"
@@ -85,7 +85,7 @@
               value="external"
               density="compact"
             ></v-radio>
-          </v-radio-group>
+          </v-radio-group> -->
           <v-file-input
             v-model="thumbnail"
             :loading="isUploading"

@@ -50,3 +50,10 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
+
+.fixed-row-filter {
+    position: sticky;
+    top: 48px;
+    z-index: 1;
+    background-color: #ffffff;
+}
