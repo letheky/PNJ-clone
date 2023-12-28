@@ -14,8 +14,8 @@
                 <v-img
                   class="mx-auto"
                   max-width="150"
-                  lazy-src="/images/logos/newLogo.png"
-                  src="/images/logos/newLogo.png"
+                  lazy-src="/images/logos/HAJLogo.png"
+                  src="/images/logos/HAJLogo.png"
                 ></v-img>
               </div>
               <AdminComponentsAuthLoginForm />

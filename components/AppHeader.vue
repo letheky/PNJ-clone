@@ -4,13 +4,11 @@
       <v-row align="center">
         <NuxtLink class="mx-auto" to="/">
           <v-img
-            max-width="100"
-            width="150"
-            height="60"
+            width="120"
             cover
             alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-            lazy-src="/images/logos/newLogo.png"
-            src="/images/logos/newLogo.png"
+            lazy-src="/images/logos/HAJLogo.png"
+            src="/images/logos/HAJLogo.png"
           ></v-img>
         </NuxtLink>
       </v-row>
@@ -124,13 +122,11 @@
       <v-row align="center" class="d-flex justify-space-between pt-2 px-1">
         <NuxtLink to="/">
           <v-img
-            max-width="65"
             width="65"
-            height="30"
             cover
             alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-            lazy-src="/images/logos/newLogo.png"
-            src="/images/logos/newLogo.png"
+            lazy-src="/images/logos/HAJLogo.png"
+            src="/images/logos/HAJLogo.png"
           ></v-img>
         </NuxtLink>
 

@@ -3,13 +3,12 @@
     <v-container>
       <v-divider class="pb-10"></v-divider>
       <v-img
-        max-width="200"
-        height="80"
+        width="150"
         class="responsive-desktop-tablet-image mb-2"
         cover
         alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-        lazy-src="/images/logos/newLogo.png"
-        src="/images/logos/newLogo.png"
+        lazy-src="/images/logos/HAJLogo.png"
+        src="/images/logos/HAJLogo.png"
       >
       </v-img>
       <v-row class="content">

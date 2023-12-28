@@ -13,9 +13,10 @@
         <NuxtLink to="/">
           <v-img
             alt="HAJ - Admin"
-            max-width="100"
-            lazy-src="/images/logos/newLogo.png"
-            src="/images/logos/newLogo.png"
+            width="120"
+            cover
+            lazy-src="/images/logos/HAJLogo.png"
+            src="/images/logos/HAJLogo.png"
           ></v-img>
         </NuxtLink>
       </div>

@@ -6,7 +6,7 @@ import vuetify from "vite-plugin-vuetify";
 export default defineNuxtConfig({
   app: {
     head: {
-      title: "HAJ - Công ty vàng bạc đá quý Phú Nhuận | Vàng, Bạc, Đá Quý",
+      title: "HAJ",
       link: [{
           rel: "canonical",
           href: "https://haj-fe.vercel.app"
@@ -46,7 +46,7 @@ export default defineNuxtConfig({
         {
           hid: "og:image",
           property: "og:image",
-          content: "/newLogo.png",
+          content: "/HAJLogo.png",
         },
         {
           property: "og:sitename",
