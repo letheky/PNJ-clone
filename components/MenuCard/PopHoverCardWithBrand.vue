@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card width="70vw">
+    <v-card width="80vw">
       <v-card-title class="pt-5 mx-5">
         <h6 class="text-h6">Thương hiệu</h6>
       </v-card-title>
@@ -10,7 +10,7 @@
           :key="index"
           max-width="70"
           cover
-          alt="PNJ - Thương hiệu đồng hồ"
+          alt="HAJ - Thương hiệu đồng hồ"
           lazy-src="/images/products/watch.svg"
           src="/images/products/watch.svg"
         ></v-img>

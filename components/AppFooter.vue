@@ -3,21 +3,19 @@
     <v-container>
       <v-divider class="pb-10"></v-divider>
       <v-img
-        v-if="!responsiveStore.isLaptop && !responsiveStore.isMobile"
-        max-width="200"
-        height="80"
-        class="mb-2"
+        width="150"
+        class="responsive-desktop-tablet-image mb-2"
         cover
-        alt="PNJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
-        lazy-src="/images/logos/logo.png"
-        src="/images/logos/logo.png"
+        alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+        lazy-src="/images/logos/HAJLogo.png"
+        src="/images/logos/HAJLogo.png"
       >
       </v-img>
       <v-row class="content">
         <v-col cols="12" md="4">
           <div class="text-subtitle-2">
             <p class="text-h6">
-              © 2017 Công Ty Cổ Phần Vàng Bạc Đá Quý Phú Nhuận
+              © 2023 Công Ty Cổ Phần Vàng Bạc Đá Quý 
             </p>
             <p class="py-2">
               170E Phan Đăng Lưu, P.3, Q.Phú Nhuận, TP.Hồ Chí Minh<br />ĐT:
@@ -51,8 +49,8 @@
           </div>
         </v-col>
         <v-col cols="12" md="2">
-          <div v-if="!responsiveStore.isLaptop && !responsiveStore.isMobile">
-            <p class="text-h6 mb-2"><span>Về PNJ</span></p>
+          <div class="responsive-about-pnj-desktop">
+            <p class="text-h6 mb-2"><span>Về HAJ</span></p>
             <ul class="text-subtitle-1">
               <li v-for="(page, index) in aboutPNJ" :key="index">
                 <NuxtLink :to="page.path" style="color: black">{{
@@ -61,36 +59,35 @@
               </li>
             </ul>
           </div>
-          <div v-else>
+          <div class="responsive-about-pnj-mobile-tablet">
             <v-divider class="mb-6"></v-divider>
             <div
               class="d-flex align-center justify-space-between collapse-able"
               @click="showAboutPNJ = !showAboutPNJ"
             >
-              <p class="text-h6 mb-2"><span>Về PNJ</span></p>
+              <p class="text-h6 mb-2"><span>Về HAJ</span></p>
               <Icon
                 :name="
                   showAboutPNJ
-                    ? 'bi:chevron-compact-down'
-                    : 'bi:chevron-compact-up'
+                    ? 'bi:chevron-compact-up'
+                    : 'bi:chevron-compact-down'
                 "
                 size="24"
               />
             </div>
-            <ul class="text-subtitle-1" v-if="showAboutPNJ">
-              <li v-for="(page, index) in aboutPNJ" :key="index">
-                <NuxtLink :to="page.path" style="color: black">{{
-                  page.title
-                }}</NuxtLink>
-              </li>
-            </ul>
+            <TransitionToggleFade>
+              <ul class="text-subtitle-1" v-show="showAboutPNJ">
+                <li v-for="(page, index) in aboutPNJ" :key="page.title + index">
+                  <NuxtLink :to="page.path" style="color: black">{{
+                    page.title
+                  }}</NuxtLink>
+                </li>
+              </ul>
+            </TransitionToggleFade>
           </div>
         </v-col>
         <v-col cols="12" md="3">
-          <div
-            class="mb-3"
-            v-if="!responsiveStore.isLaptop && !responsiveStore.isMobile"
-          >
+          <div class="responsive-about-pnj-desktop mb-3">
             <p class="text-h6 mb-2"><span>Dịch vụ khách hàng</span></p>
             <ul class="text-subtitle-1">
               <li v-for="(page, index) in customerService" :key="index">
@@ -100,7 +97,7 @@
               </li>
             </ul>
           </div>
-          <div v-else>
+          <div class="responsive-about-pnj-mobile-tablet">
             <div
               class="d-flex align-center justify-space-between collapse-able"
               @click="showCustomerService = !showCustomerService"
@@ -109,19 +106,24 @@
               <Icon
                 :name="
                   showCustomerService
-                    ? 'bi:chevron-compact-down'
-                    : 'bi:chevron-compact-up'
+                    ? 'bi:chevron-compact-up'
+                    : 'bi:chevron-compact-down'
                 "
                 size="24"
               />
             </div>
-            <ul class="text-subtitle-1" v-if="showCustomerService">
-              <li v-for="(page, index) in customerService" :key="index">
-                <NuxtLink :to="page.path" style="color: black">{{
-                  page.title
-                }}</NuxtLink>
-              </li>
-            </ul>
+            <TransitionToggleFade>
+              <ul class="text-subtitle-1" v-show="showCustomerService">
+                <li
+                  v-for="(page, index) in customerService"
+                  :key="page.title + index"
+                >
+                  <NuxtLink :to="page.path" style="color: black">{{
+                    page.title
+                  }}</NuxtLink>
+                </li>
+              </ul>
+            </TransitionToggleFade>
             <v-divider class="mt-5"></v-divider>
           </div>
         </v-col>
@@ -130,66 +132,33 @@
             <NuxtLink to="/" style="color: black">
               <p class="text-h6 mb-2"><span>KẾT NỐI VỚI CHÚNG TÔI</span></p>
             </NuxtLink>
-            <div class="d-flex align-center justify-start">
+            <NuxtLink target="_blank" :to="contactInfo.result[0].url">
               <v-img
-                v-for="(social, index) in socialMedia"
-                :key="index"
                 max-width="35"
+                width="35"
                 height="35"
-                class="mr-2"
                 cover
-                :alt="social.alt"
-                :lazy-src="social.src"
-                :src="social.src"
+                alt="HAJ - Công ty cổ phần vàng bạc đá quý Phú Nhuận"
+                src="/images/logos/facebook.svg"
               ></v-img>
-            </div>
+            </NuxtLink>
           </div>
           <div>
-            <p class="text-h6 mt-5"><span>QUAN TÂM ZALO OA PNJ</span></p>
+            <p class="text-h6 mt-5"><span>QUAN TÂM ZALO HAJ</span></p>
             <p class="text-subtitle-1 my-1">
               Nhận các thông tin khuyến mại hấp dẫn
             </p>
-            <a href="https://zalo.me/trangsucpnjofficial" target="_blank">
+            <NuxtLink target="_blank" :to="contactInfo.result[1].url">
               <v-img
                 max-width="81"
                 height="24"
                 cover
-                alt="PNJ - Quan tâm Zalo"
+                alt="HAJ - Quan tâm Zalo"
                 lazy-src="/images/logos/zalo.png"
                 src="/images/logos/zalo.png"
               ></v-img>
-            </a>
+            </NuxtLink>
           </div>
-        </v-col>
-      </v-row>
-      <v-row class="content">
-        <v-col offset-md="6" cols="12" md="3">
-          <p class="text-h6 my-2"><span>PHƯƠNG THỨC THANH TOÁN</span></p>
-          <div class="d-flex align-center justify-start">
-            <v-img
-              v-for="(payment, index) in paymentList"
-              :key="index"
-              max-width="38"
-              height="22"
-              class="mr-2"
-              cover
-              :alt="payment.alt"
-              :lazy-src="payment.src"
-              :src="payment.src"
-            ></v-img>
-          </div>
-        </v-col>
-        <v-col cols="12" md="3">
-          <p class="text-h6 my-2"><span>CHỨNG NHẬN</span></p>
-          <a href="http://online.gov.vn/Home/WebDetails/989" target="_blank">
-            <v-img
-              max-width="115"
-              cover
-              alt="PNJ - Chứng nhận Bộ công thương"
-              lazy-src="/images/logos/license.png"
-              src="/images/logos/license.png"
-            ></v-img>
-          </a>
         </v-col>
       </v-row>
     </v-container>
@@ -197,12 +166,16 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useWindowResolution } from "~/stores/responsive";
 
+
+const { getContactInfo } = useContact();
+const { data: contactInfo } = await getContactInfo();
+/**
+ * *subchild of footer category
+ */
 const aboutPNJ = ref([
   {
-    title: "Câu chuyện PNJ",
+    title: "Câu chuyện HAJ",
     path: "/about",
   },
   {
@@ -272,82 +245,17 @@ const customerService = ref([
     path: "/about",
   },
 ]);
-const paymentList = ref([
-  {
-    alt: "PNJ - Visa Payment",
-    src: "/images/logos/visa.svg",
-  },
-  {
-    alt: "PNJ - Visa Payment",
-    src: "/images/logos/visa.svg",
-  },
-  {
-    alt: "PNJ - Visa Payment",
-    src: "/images/logos/visa.svg",
-  },
-  {
-    alt: "PNJ - Business License",
-    src: "/images/logos/visa.svg",
-  },
-  {
-    alt: "PNJ - Business License",
-    src: "/images/logos/visa.svg",
-  },
-  {
-    alt: "PNJ - Business License",
-    src: "/images/logos/visa.svg",
-  },
-]);
-const socialMedia = ref([
-  {
-    alt: "PNJ - Facebook",
-    src: "/images/logos/facebook.svg",
-  },
-  {
-    alt: "PNJ - Instagram",
-    src: "/images/logos/facebook.svg",
-  },
-  {
-    alt: "PNJ - Youtube",
-    src: "/images/logos/facebook.svg",
-  },
-  {
-    alt: "PNJ - Gmail/Email",
-    src: "/images/logos/facebook.svg",
-  },
-]);
 
+/**
+ * * define showAboutPNJ and showCustomerService to toggle it
+ */
 const showAboutPNJ = ref(false);
 const showCustomerService = ref(false);
-const responsiveStore = useWindowResolution();
-
-let windowWidth = ref(process.client ? window.innerWidth : "");
-
-onMounted(() => {
-  window.addEventListener("resize", function () {
-    windowWidth.value = window.innerWidth;
-  });
-  console.log(windowWidth.value);
-});
-
-watch(
-  () => windowWidth.value,
-  () => {
-    if (windowWidth.value > 960) {
-      responsiveStore.isLaptop = false;
-      responsiveStore.isMobile = false;
-    } else if (windowWidth.value > 600) {
-      responsiveStore.isLaptop = true;
-      responsiveStore.isMobile = false;
-    } else {
-      responsiveStore.isMobile = true;
-    }
-  }
-);
 </script>
 
 <style lang="scss" scoped>
 @import "~/assets/scss/variables";
+
 .app-footer {
   font-family: $third-font-family;
   .content {
@@ -372,6 +280,28 @@ watch(
     ul {
       line-height: 1.7em;
     }
+  }
+}
+@media only screen and (max-width: 767px) {
+  .app-footer {
+    padding-bottom: 50px;
+    .responsive-desktop-tablet-image,
+    .responsive-about-pnj-desktop {
+      display: none;
+    }
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .app-footer {
+    padding-bottom: 50px;
+    .responsive-about-pnj-desktop {
+      display: none;
+    }
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .responsive-about-pnj-mobile-tablet {
+    display: none;
   }
 }
 </style>
